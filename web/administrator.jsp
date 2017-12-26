@@ -21,6 +21,8 @@
 <div align="center"><b style="color:#000000; font-size:30px">For Administrator</b></div>
 <hr size="2" noshade="noshade">
 
+<div align="center" style="font-size:20px"><a href="home.jsp">Back to home</a></div>
+
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">
         <legend>
@@ -94,7 +96,7 @@
                 </tr>
                 <tr>
                     <td align="right">Release Date</td>
-                    <td align="center"><input type="text" name="release_date"></td>
+                    <td align="center"><input type="text" name="release_date"/></td>
                 </tr>
                 <tr>
                     <td align="right">Filming Location</td>

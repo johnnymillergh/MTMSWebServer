@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Sign Up">
                     </td>
                 </tr>
             </table>
@@ -63,12 +63,8 @@
                     <td align="center"><input type="text" name="password"></td>
                 </tr>
                 <tr>
-                    <td align="right">Username</td>
-                    <td align="center"><input type="text" name="username"></td>
-                </tr>
-                <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Log In">
                     </td>
                 </tr>
             </table>

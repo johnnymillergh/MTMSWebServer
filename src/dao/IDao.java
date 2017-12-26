@@ -2,9 +2,9 @@ package dao;
 
 public interface IDao<EntityType> {
 
-    public void save(EntityType entity);
+    public int save(EntityType entity);
 
-    public void update(EntityType entity);
+    public int update(EntityType entity);
 
     public EntityType queryById(EntityType entity);
 

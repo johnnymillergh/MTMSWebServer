@@ -9,7 +9,7 @@ import java.sql.*;
 public class UserDao implements IDao<UserEntity> {
 
     @Override
-    public void save(UserEntity entity) {
+    public int save(UserEntity entity) {
         Connection connection = MySQLUtils.getConnection();
         Statement statement = null;
         String sql = "INSERT INTO user (email, password, username) VALUES (?, ?, ?)";
@@ -22,6 +22,7 @@ public class UserDao implements IDao<UserEntity> {
             boolean status = preparedStatement.execute();
             System.out.println("save: " + !status);
             connection.commit();
+            return 1;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -38,10 +39,11 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
+        return -1;
     }
 
     @Override
-    public void update(UserEntity entity) {
+    public int update(UserEntity entity) {
         Connection connection = MySQLUtils.getConnection();
         Statement statement = null;
         String sql = "UPDATE user SET email=?, password=?, username=? WHERE id=?";
@@ -55,6 +57,7 @@ public class UserDao implements IDao<UserEntity> {
             boolean status = preparedStatement.execute();
             System.out.println("update: " + !status);
             connection.commit();
+            return 1;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -71,6 +74,7 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
+        return -1;
     }
 
     public void updateByEmail(UserEntity entity) {
@@ -109,7 +113,7 @@ public class UserDao implements IDao<UserEntity> {
         String sql = "SELECT * FROM user WHERE id='" + entity.getId() + "'";
 //        String sql = "SELECT * FROM user WHERE id=?";
         try {
-            Statement statement=connection.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
             UserEntity userEntity = new UserEntity();
@@ -143,7 +147,7 @@ public class UserDao implements IDao<UserEntity> {
         String sql = "SELECT * FROM user WHERE email='" + entity.getEmail() + "'";
 //        String sql = "SELECT * FROM user WHERE email=?";
         try {
-            Statement statement=connection.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
             UserEntity userEntity = new UserEntity();

@@ -8,6 +8,7 @@
     </welcome-file-list>
 
     <!-- Servlet configuration -->
+    <!-- Administrator -->
     <servlet>
         <servlet-name>User</servlet-name>
         <servlet-class>servlet.administrator.User</servlet-class>
@@ -17,4 +18,31 @@
         <url-pattern>/servlet.administrator.User</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Movie</servlet-name>
+        <servlet-class>servlet.administrator.Movie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Movie</servlet-name>
+        <url-pattern>/servlet.administrator.Movie</url-pattern>
+    </servlet-mapping>
+
+    <!-- Administrator -->
+    <servlet>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>servlet.customer.SignUp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/servlet.customer.SignUp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogIn</servlet-name>
+        <servlet-class>servlet.customer.LogIn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogIn</servlet-name>
+        <url-pattern>/servlet.customer.LogIn</url-pattern>
+    </servlet-mapping>
 </web-app>

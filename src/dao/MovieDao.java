@@ -11,12 +11,12 @@ import java.sql.Statement;
 
 public class MovieDao implements IDao<MovieEntity> {
     @Override
-    public void save(MovieEntity entity) {
+    public int save(MovieEntity entity) {
         Connection connection = MySQLUtils.getConnectionNoConnectionPool();
         Statement statement = null;
         String sql = "INSERT INTO movie (title, duration, genre, director, stars, " +
-                "country, language, filmingLocation, runtime, aspectRatio, description, poster) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "country, language, release_date, filming_location, runtime, aspect_ratio, description, poster) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -27,14 +27,16 @@ public class MovieDao implements IDao<MovieEntity> {
             preparedStatement.setString(5, entity.getStars());
             preparedStatement.setString(6, entity.getCountry());
             preparedStatement.setString(7, entity.getLanguage());
-            preparedStatement.setString(8, entity.getFilmingLocation());
-            preparedStatement.setString(9, entity.getRuntime());
-            preparedStatement.setString(10, entity.getAspectRatio());
-            preparedStatement.setString(11, entity.getDescription());
-            preparedStatement.setBinaryStream(12, new ByteArrayInputStream(entity.getPoster()));
+            preparedStatement.setString(8, entity.getReleaseDate());
+            preparedStatement.setString(9, entity.getFilmingLocation());
+            preparedStatement.setString(10, entity.getRuntime());
+            preparedStatement.setString(11, entity.getAspectRatio());
+            preparedStatement.setString(12, entity.getDescription());
+            preparedStatement.setBinaryStream(13, new ByteArrayInputStream(entity.getPoster()));
             boolean status = preparedStatement.execute();
             System.out.println("save: " + !status);
             connection.commit();
+            return 1;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -51,11 +53,12 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
+        return -1;
     }
 
     @Override
-    public void update(MovieEntity entity) {
-
+    public int update(MovieEntity entity) {
+        return -1;
     }
 
     @Override

@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@SuppressWarnings("Duplicates")
 @WebServlet(name = "User")
 public class User extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String radio = request.getParameter("userOperation");
+        System.out.println("userOperation: " + radio);
         switch (radio) {
             case "add":
                 try {
@@ -80,7 +82,7 @@ public class User extends HttpServlet {
     private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('User updateed.');window.location.href='/'</script>");
+        out.println("<script>alert('User updateed.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -88,7 +90,7 @@ public class User extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('User deleted.');window.location.href='/'</script>");
+        out.println("<script>alert('User deleted.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -96,7 +98,7 @@ public class User extends HttpServlet {
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('User query.');window.location.href='/'</script>");
+        out.println("<script>alert('User query.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
