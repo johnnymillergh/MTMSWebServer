@@ -8,6 +8,6 @@ public interface IDao<EntityType> {
 
     public EntityType queryById(EntityType entity);
 
-    public void delete(EntityType entity);
+    public int delete(EntityType entity);
 
 }

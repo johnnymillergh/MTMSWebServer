@@ -59,8 +59,6 @@ public class User extends HttpServlet {
     private void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserEntity user = new UserEntity();
         UserDao userDao = new UserDao();
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
 
         // Get Parameter
         String email = request.getParameter("emailText");
@@ -80,26 +78,75 @@ public class User extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        UserEntity user = new UserEntity();
+        UserDao userDao = new UserDao();
+
+        // Get Parameter
+        String email = request.getParameter("emailText");
+        String username = request.getParameter("usernameText");
+        String password = request.getParameter("passwordText");
+
+        // Set Entity and save
+        user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(password);
+        userDao.update(user);
+
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('User updateed.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('User updated.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Go to administrator.jsp
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('User deleted.');window.location.href='/administrator.jsp'</script>");
-        out.flush();
-        out.close();
+        UserEntity user = new UserEntity();
+        UserDao userDao = new UserDao();
+
+        // Get Parameter
+        String email = request.getParameter("emailText");
+
+        // Delete by email
+        user.setEmail(email);
+        int status = userDao.delete(user);
+        if (status == 1) {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('User deleted.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('User deleted: failed.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
     }
 
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Go to administrator.jsp
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('User query.');window.location.href='/administrator.jsp'</script>");
-        out.flush();
-        out.close();
+        UserEntity user = new UserEntity();
+        UserDao userDao = new UserDao();
+
+        // Get Parameter
+        String email = request.getParameter("emailText");
+
+        // Delete by email
+        user.setEmail(email);
+        user = userDao.queryByEmail(user);
+
+        if (user != null) {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('User query." + user.getEmail() + ":" + user.getPassword() +
+                    "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('User query: NOT FOUND.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
     }
 }

@@ -67,7 +67,7 @@ public class MovieDao implements IDao<MovieEntity> {
     }
 
     @Override
-    public void delete(MovieEntity entity) {
-
+    public int delete(MovieEntity entity) {
+        return -1;
     }
 }
