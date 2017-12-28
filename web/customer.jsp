@@ -105,15 +105,27 @@
         <legend>
             <h2>4. Order Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.customer.LogIn" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.customer.OrderManagement" method="post">
             <table align="center">
+                <tr>
+                    <td align="right">User ID</td>
+                    <td align="center"><input type="text" name="userId"></td>
+                </tr>
                 <tr>
                     <td align="right">Email</td>
                     <td align="center"><input type="text" name="email"></td>
                 </tr>
                 <tr>
-                    <td align="right">Password</td>
-                    <td align="center"><input type="text" name="password"></td>
+                    <td align="right">Current datetime</td>
+                    <td align="center"><input type="text" name="orderDatetime"></td>
+                </tr>
+                <tr>
+                    <td align="right">Movie Schedule ID</td>
+                    <td align="center"><input type="text" name="movieScheduleId"></td>
+                </tr>
+                <tr>
+                    <td align="right">Ticket amount</td>
+                    <td align="center"><input type="text" name="movieScheduleId"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -128,6 +140,9 @@
         </form>
     </fieldset>
 </div>
+<br>
+
+<%@include file="footer.jsp" %>
 
 </body>
 </html>

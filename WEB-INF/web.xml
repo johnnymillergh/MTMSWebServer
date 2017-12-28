@@ -10,29 +10,29 @@
     <!-- ===============Servlet configuration=============== -->
     <!-- ===============Administrator=============== -->
     <servlet>
-        <servlet-name>User</servlet-name>
+        <servlet-name>UserManagement</servlet-name>
         <servlet-class>servlet.administrator.UserManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>User</servlet-name>
+        <servlet-name>UserManagement</servlet-name>
         <url-pattern>/servlet.administrator.UserManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Movie</servlet-name>
+        <servlet-name>MovieManagement</servlet-name>
         <servlet-class>servlet.administrator.MovieManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Movie</servlet-name>
+        <servlet-name>MovieManagement</servlet-name>
         <url-pattern>/servlet.administrator.MovieManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>MovieSchedule</servlet-name>
+        <servlet-name>MovieScheduleManagement</servlet-name>
         <servlet-class>servlet.administrator.MovieScheduleManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieSchedule</servlet-name>
+        <servlet-name>MovieScheduleManagement</servlet-name>
         <url-pattern>/servlet.administrator.MovieScheduleManagement</url-pattern>
     </servlet-mapping>
 
@@ -62,5 +62,14 @@
     <servlet-mapping>
         <servlet-name>GetMovie</servlet-name>
         <url-pattern>/servlet.customer.GetMovie</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrderManagement</servlet-name>
+        <servlet-class>servlet.customer.OrderManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderManagement</servlet-name>
+        <url-pattern>/servlet.customer.OrderManagement</url-pattern>
     </servlet-mapping>
 </web-app>
