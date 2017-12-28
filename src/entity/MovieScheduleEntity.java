@@ -5,14 +5,14 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class MovieScheduleEntity {
-    int id;
-    int movieId;
-    int auditoriumId;
-    int auditoriumTheaterId;
-    float price;
-    Timestamp showtime;
-    Date dateOfShow;
-    Time timeOfShow;
+    private int id;
+    private int movieId;
+    private int auditoriumId;
+    private int auditoriumTheaterId;
+    private float price;
+    private Timestamp showtime;
+    private Date dateOfShow;
+    private Time timeOfShow;
 
     public int getId() {
         return id;
