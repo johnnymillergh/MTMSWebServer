@@ -83,10 +83,14 @@
         <form action="${pageContext.request.contextPath}/servlet.customer.GetMovie" method="post">
             <table align="center">
                 <tr>
-                    <td align="right">Get all the movies</td>
+                    <td align="left"><input type="radio" name="movieOperation" value="getAll" checked="checked" align=""/>Get all the movies w/o poster picture</td>
                 </tr>
                 <tr>
-                    <td colspan="1" align="center">
+                    <td align="left"><input type="radio" name="movieOperation" value="getPoster" checked="checked" align=""/>Get the poster picture of movie</td>
+                    <td align="center"><input type="text" name="title"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
                         <input type="submit" value="Submit">
                     </td>
                 </tr>

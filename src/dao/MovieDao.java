@@ -1,5 +1,6 @@
 package dao;
 
+import util.ImageUtils;
 import util.MySQLUtils;
 import entity.MovieEntity;
 
@@ -187,13 +188,50 @@ public class MovieDao implements IDao<MovieEntity> {
                 movieEntity.setRuntime(resultSet.getString("runtime"));// 11
                 movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));// 12
                 movieEntity.setDescription(resultSet.getString("description"));// 13
-                //movieEntity.setPoster(resultSet.getBytes("poster"));//14
+                //movieEntity.setPosterStr(resultSet.getString("title"));//14: use title to set the poster name.
                 movies.add(movieEntity);
             }
             resultSet.close();
             connection.commit();
             System.out.println("getAll: ");
             return movies;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public MovieEntity getPoster(MovieEntity entity) {
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "SELECT id, title, poster FROM movie WHERE title='" + entity.getTitle() + "'";
+//        String sql = "SELECT * FROM movie WHERE title=?";
+        try {
+            Statement statement = connection.createStatement();
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setString(1, entity.getTitle());
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            MovieEntity movieEntity = new MovieEntity();
+            movieEntity.setId(resultSet.getInt("id"));// 1
+            movieEntity.setTitle(resultSet.getString("title"));// 2
+            movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
+            resultSet.close();
+            connection.commit();
+            System.out.println("queryByTitle: " + movieEntity.getLanguage());
+            return movieEntity;
         } catch (Exception e) {
             try {
                 connection.rollback();

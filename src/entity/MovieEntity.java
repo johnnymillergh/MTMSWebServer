@@ -1,20 +1,21 @@
 package entity;
 
 public class MovieEntity {
-    int id;
-    String title;
-    String duration;
-    String genre;
-    String director;
-    String stars;
-    String country;
-    String language;
-    String releaseDate;
-    String filmingLocation;
-    String runtime;
-    String aspectRatio;
-    String description;
-    byte[] poster;
+    private int id;
+    private String title;
+    private String duration;
+    private String genre;
+    private String director;
+    private String stars;
+    private String country;
+    private String language;
+    private String releaseDate;
+    private String filmingLocation;
+    private String runtime;
+    private String aspectRatio;
+    private String description;
+    private byte[] poster;
+    private String posterStr;
 
     public int getId() {
         return id;
@@ -126,5 +127,13 @@ public class MovieEntity {
 
     public void setPoster(byte[] poster) {
         this.poster = poster;
+    }
+
+    public String getPosterStr() {
+        return posterStr;
+    }
+
+    public void setPosterStr(String posterStr) {
+        this.posterStr = posterStr;
     }
 }
