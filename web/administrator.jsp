@@ -13,7 +13,7 @@
 <script type="text/javascript" src="NoGray1.2.2/components/timepicker.js"></script>
 <html>
 <head>
-    <title>Web Server: MTMS</title>
+    <title>MTMS: Administrator</title>
 </head>
 <body>
 
@@ -182,27 +182,27 @@
         <legend>
             <h2>4. Rating Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.MovieSchedule" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.UserReview" method="post">
             <table align="center">
                 <tr>
+                    <td align="right">User Email</td>
+                    <td align="center"><input type="text" name="userEmail"></td>
+                </tr>
+                <tr>
                     <td align="right">Movie Title</td>
-                    <td align="center"></td>
+                    <td align="center"><input type="text" name="movieTitle"></td>
                 </tr>
                 <tr>
-                    <td align="right">Theater ID</td>
-                    <td align="center"></td>
+                    <td align="right">Score</td>
+                    <td align="center"><input type="text" name="score"></td>
                 </tr>
                 <tr>
-                    <td align="right">Auditorium ID</td>
-                    <td align="center"></td>
+                    <td align="right">Text</td>
+                    <td align="center"><input type="text" name="text"></td>
                 </tr>
                 <tr>
-                    <td align="right">Date of show</td>
-                    <td align="center"></td>
-                </tr>
-                <tr>
-                    <td align="right">Time of show</td>
-                    <td align="center"></td>
+                    <td align="right">Datetime</td>
+                    <td align="center"><input type="text" name="datetime" value="2017-12-22 22:05:00"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

@@ -137,7 +137,6 @@ public class Movie extends HttpServlet {
         MovieDao movieDao = new MovieDao();
 
         // Get parameter
-        String title = request.getParameter("title");
         Part part = request.getPart("poster");
         //获取文件名
         String contentDisposition = part.getHeader("Content-Disposition");
@@ -159,11 +158,24 @@ public class Movie extends HttpServlet {
         }
 
         // Set entity
-        movieEntity.setTitle(title);
+        movieEntity.setTitle(request.getParameter("title"));
+        movieEntity.setDuration(request.getParameter("duration"));
+        movieEntity.setGenre(request.getParameter("genre"));
+        movieEntity.setDirector(request.getParameter("director"));
+        movieEntity.setStars(request.getParameter("stars"));
+        movieEntity.setCountry(request.getParameter("country"));
+        movieEntity.setLanguage(request.getParameter("language"));
+        movieEntity.setReleaseDate(request.getParameter("release_date"));
+        movieEntity.setFilmingLocation(request.getParameter("filming_location"));
+        movieEntity.setRuntime(request.getParameter("runtime"));
+        movieEntity.setAspectRatio(request.getParameter("aspect_ratio"));
+        movieEntity.setDescription(request.getParameter("description"));
         movieEntity.setPoster(bytes);
 
         // Update
         movieDao.update(movieEntity);
+        file.delete();
+
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
         out.println("<script>alert('Movie updated.');window.location.href='/administrator.jsp'</script>");
@@ -180,10 +192,22 @@ public class Movie extends HttpServlet {
     }
 
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Go to administrator.jsp
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('Movie query.');window.location.href='/'</script>");
-        out.flush();
-        out.close();
+        MovieDao movieDao = new MovieDao();
+        MovieEntity movieEntity = new MovieEntity();
+        String title = request.getParameter("title");
+        if (title.compareTo("") != 0) {
+            movieEntity.setTitle(title);
+            movieEntity = movieDao.queryByTitle(movieEntity);
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Movie query: " + movieEntity.getLanguage() + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('Movie query.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
     }
 }

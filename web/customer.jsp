@@ -71,5 +71,35 @@
         </form>
     </fieldset>
 </div>
+
+<div align="center">
+    <fieldset style="width:fit-content; height:fit-content;">
+        <legend>
+            <h2>3. Order Management</h2>
+        </legend>
+        <form action="${pageContext.request.contextPath}/servlet.customer.LogIn" method="post">
+            <table align="center">
+                <tr>
+                    <td align="right">Email</td>
+                    <td align="center"><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <td align="right">Password</td>
+                    <td align="center"><input type="text" name="password"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
+                        <input type="radio" name="orderOperation" value="pay"/>Pay
+                        <input type="radio" name="orderOperation" value="use"/>Use
+                        <input type="radio" name="orderOperation" value="query"/>Query
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>
+
 </body>
 </html>

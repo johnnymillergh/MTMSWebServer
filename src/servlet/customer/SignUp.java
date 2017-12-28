@@ -18,10 +18,16 @@ public class SignUp extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         UserDao dao = new UserDao();
         UserEntity entityInput = new UserEntity();
-        entityInput.setEmail(request.getParameter("email"));
-        entityInput.setPassword(request.getParameter("password"));
-        entityInput.setUsername(request.getParameter("username"));
-        int status = dao.save(entityInput);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String username = request.getParameter("username");
+        int status = -1;
+        if (email.compareTo("") != 0 && password.compareTo("") != 0 && username.compareTo("") != 0) {
+            entityInput.setEmail(email);
+            entityInput.setPassword(password);
+            entityInput.setUsername(username);
+            status = dao.save(entityInput);
+        }
         if (status == 1) {
             PrintWriter out = response.getWriter();
             out.println("{\"signUpStatus\":\"succeed\"}");
