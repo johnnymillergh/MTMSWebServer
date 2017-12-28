@@ -7,8 +7,8 @@
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- Servlet configuration -->
-    <!-- Administrator -->
+    <!-- ===============Servlet configuration=============== -->
+    <!-- ===============Administrator=============== -->
     <servlet>
         <servlet-name>User</servlet-name>
         <servlet-class>servlet.administrator.UserManagement</servlet-class>
@@ -36,7 +36,7 @@
         <url-pattern>/servlet.administrator.MovieScheduleManagement</url-pattern>
     </servlet-mapping>
 
-    <!-- Customer -->
+    <!-- ===============Customer=============== -->
     <servlet>
         <servlet-name>SignUp</servlet-name>
         <servlet-class>servlet.customer.SignUp</servlet-class>
@@ -53,5 +53,14 @@
     <servlet-mapping>
         <servlet-name>LogIn</servlet-name>
         <url-pattern>/servlet.customer.LogIn</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetMovie</servlet-name>
+        <servlet-class>servlet.customer.GetMovie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetMovie</servlet-name>
+        <url-pattern>/servlet.customer.GetMovie</url-pattern>
     </servlet-mapping>
 </web-app>

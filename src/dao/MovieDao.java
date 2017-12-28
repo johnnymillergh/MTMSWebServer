@@ -5,6 +5,8 @@ import entity.MovieEntity;
 
 import java.io.ByteArrayInputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDao implements IDao<MovieEntity> {
     @Override
@@ -122,24 +124,76 @@ public class MovieDao implements IDao<MovieEntity> {
             ResultSet resultSet = statement.executeQuery(sql);
             resultSet.next();
             MovieEntity movieEntity = new MovieEntity();
-            movieEntity.setId(resultSet.getInt("id"));
-            movieEntity.setTitle(resultSet.getString("title"));
-            movieEntity.setDuration(resultSet.getString("duration"));
-            movieEntity.setGenre(resultSet.getString("genre"));
-            movieEntity.setDirector(resultSet.getString("director"));
-            movieEntity.setStars(resultSet.getString("stars"));
-            movieEntity.setCountry(resultSet.getString("country"));
-            movieEntity.setLanguage(resultSet.getString("language"));
-            movieEntity.setReleaseDate(resultSet.getString("release_date"));
-            movieEntity.setFilmingLocation(resultSet.getString("filming_location"));
-            movieEntity.setRuntime(resultSet.getString("runtime"));
-            movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));
-            movieEntity.setDescription(resultSet.getString("description"));
-            movieEntity.setPoster(resultSet.getBytes("poster"));
+            movieEntity.setId(resultSet.getInt("id"));// 1
+            movieEntity.setTitle(resultSet.getString("title"));// 2
+            movieEntity.setDuration(resultSet.getString("duration"));// 3
+            movieEntity.setGenre(resultSet.getString("genre"));// 4
+            movieEntity.setDirector(resultSet.getString("director"));// 5
+            movieEntity.setStars(resultSet.getString("stars"));// 6
+            movieEntity.setCountry(resultSet.getString("country"));// 7
+            movieEntity.setLanguage(resultSet.getString("language"));// 8
+            movieEntity.setReleaseDate(resultSet.getString("release_date"));// 9
+            movieEntity.setFilmingLocation(resultSet.getString("filming_location"));// 10
+            movieEntity.setRuntime(resultSet.getString("runtime"));// 11
+            movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));// 12
+            movieEntity.setDescription(resultSet.getString("description"));// 13
+            movieEntity.setPoster(resultSet.getBytes("poster"));// 14
             resultSet.close();
             connection.commit();
-            System.out.println("queryByTitle: "+movieEntity.getLanguage());
+            System.out.println("queryByTitle: " + movieEntity.getLanguage());
             return movieEntity;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<MovieEntity> getAll() {
+        List<MovieEntity> movies = new ArrayList<>();
+        MovieEntity movieEntity;
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "SELECT * FROM movie";
+//        String sql = "SELECT * FROM movie";
+        try {
+            Statement statement = connection.createStatement();
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setString(1, entity.getTitle());
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                movieEntity = new MovieEntity();
+                movieEntity.setId(resultSet.getInt("id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setDuration(resultSet.getString("duration"));// 3
+                movieEntity.setGenre(resultSet.getString("genre"));// 4
+                movieEntity.setDirector(resultSet.getString("director"));// 5
+                movieEntity.setStars(resultSet.getString("stars"));// 6
+                movieEntity.setCountry(resultSet.getString("country"));// 7
+                movieEntity.setLanguage(resultSet.getString("language"));// 8
+                movieEntity.setReleaseDate(resultSet.getString("release_date"));// 9
+                movieEntity.setFilmingLocation(resultSet.getString("filming_location"));// 10
+                movieEntity.setRuntime(resultSet.getString("runtime"));// 11
+                movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));// 12
+                movieEntity.setDescription(resultSet.getString("description"));// 13
+                //movieEntity.setPoster(resultSet.getBytes("poster"));//14
+                movies.add(movieEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAll: ");
+            return movies;
         } catch (Exception e) {
             try {
                 connection.rollback();

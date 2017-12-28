@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>MTMS: Customer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 
@@ -82,19 +83,10 @@
         <form action="${pageContext.request.contextPath}/servlet.customer.GetMovie" method="post">
             <table align="center">
                 <tr>
-                    <td align="right">Email</td>
-                    <td align="center"><input type="text" name="email"></td>
+                    <td align="right">Get all the movies</td>
                 </tr>
                 <tr>
-                    <td align="right">Password</td>
-                    <td align="center"><input type="text" name="password"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
-                        <input type="radio" name="orderOperation" value="pay"/>Pay
-                        <input type="radio" name="orderOperation" value="use"/>Use
-                        <input type="radio" name="orderOperation" value="query"/>Query
+                    <td colspan="1" align="center">
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
