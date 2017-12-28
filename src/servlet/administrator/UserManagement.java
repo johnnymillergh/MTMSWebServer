@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @SuppressWarnings("Duplicates")
-@WebServlet(name = "User")
-public class User extends HttpServlet {
+@WebServlet(name = "UserManagement")
+public class UserManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
@@ -72,7 +72,7 @@ public class User extends HttpServlet {
         userDao.save(user);
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('User added.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('UserManagement added.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -94,7 +94,7 @@ public class User extends HttpServlet {
 
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('User updated.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('UserManagement updated.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -112,13 +112,13 @@ public class User extends HttpServlet {
         if (status == 1) {
             // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('User deleted.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('UserManagement deleted.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
             // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('User deleted: failed.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('UserManagement deleted: failed.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         }
@@ -138,13 +138,13 @@ public class User extends HttpServlet {
         if (user != null) {
             // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('User query." + user.getEmail() + ":" + user.getPassword() +
+            out.println("<script>alert('UserManagement query." + user.getEmail() + ":" + user.getPassword() +
                     "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('User query: NOT FOUND.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('UserManagement query: NOT FOUND.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         }

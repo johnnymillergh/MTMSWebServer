@@ -28,7 +28,7 @@
         <legend>
             <h2>1. User Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.User" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.UserManagement" method="post">
             <table align="center">
                 <tr>
                     <td align="right">Email</td>
@@ -63,7 +63,7 @@
         <legend>
             <h2>2. Movie Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.Movie" method="post"
+        <form action="${pageContext.request.contextPath}/servlet.administrator.MovieManagement" method="post"
               enctype="multipart/form-data">
             <table align="center">
                 <tr>
@@ -124,6 +124,7 @@
                         <input type="radio" name="movieOperation" value="update"/>Update
                         <input type="radio" name="movieOperation" value="delete"/>Delete
                         <input type="radio" name="movieOperation" value="query"/>Query
+                        <input type="radio" name="movieOperation" value="getAll"/>Get all
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -167,6 +168,7 @@
                         <input type="radio" name="movieScheduleOperation" value="update"/>Update
                         <input type="radio" name="movieScheduleOperation" value="delete"/>Delete
                         <input type="radio" name="movieScheduleOperation" value="query"/>Query
+                        <input type="radio" name="movieScheduleOperation" value="getAll"/>Get all
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -210,6 +212,7 @@
                         <input type="radio" name="ratingOperation" value="update"/>Update
                         <input type="radio" name="ratingOperation" value="delete"/>Delete
                         <input type="radio" name="ratingOperation" value="query"/>Query
+                        <input type="radio" name="ratingOperation" value="getAll"/>Get all
                         <input type="submit" value="Submit">
                     </td>
                 </tr>

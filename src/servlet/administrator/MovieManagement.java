@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @SuppressWarnings("Duplicates")
-@WebServlet(name = "Movie")
+@WebServlet(name = "MovieManagement")
 @MultipartConfig
-public class Movie extends HttpServlet {
+public class MovieManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
@@ -85,7 +85,7 @@ public class Movie extends HttpServlet {
         Part part = request.getPart("poster");
         //获取文件名
         String contentDisposition = part.getHeader("Content-Disposition");
-        System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="User.sql"
+        System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
         String savePath = "D:/MTMS/upload/pic";
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
@@ -127,7 +127,7 @@ public class Movie extends HttpServlet {
 
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('Movie added.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('MovieManagement added.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -140,7 +140,7 @@ public class Movie extends HttpServlet {
         Part part = request.getPart("poster");
         //获取文件名
         String contentDisposition = part.getHeader("Content-Disposition");
-        System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="User.sql"
+        System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
         String savePath = "D:/MTMS/upload/pic";
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
@@ -178,7 +178,7 @@ public class Movie extends HttpServlet {
 
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('Movie updated.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('MovieManagement updated.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -186,7 +186,7 @@ public class Movie extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('Movie deleted.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('MovieManagement deleted.');window.location.href='/administrator.jsp'</script>");
         out.flush();
         out.close();
     }
@@ -199,13 +199,13 @@ public class Movie extends HttpServlet {
             movieEntity.setTitle(title);
             movieEntity = movieDao.queryByTitle(movieEntity);
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('Movie query: " + movieEntity.getLanguage() + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('MovieManagement query: " + movieEntity.getLanguage() + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
             // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('Movie query.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('MovieManagement query.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         }

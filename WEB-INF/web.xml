@@ -11,23 +11,32 @@
     <!-- Administrator -->
     <servlet>
         <servlet-name>User</servlet-name>
-        <servlet-class>servlet.administrator.User</servlet-class>
+        <servlet-class>servlet.administrator.UserManagement</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>User</servlet-name>
-        <url-pattern>/servlet.administrator.User</url-pattern>
+        <url-pattern>/servlet.administrator.UserManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>Movie</servlet-name>
-        <servlet-class>servlet.administrator.Movie</servlet-class>
+        <servlet-class>servlet.administrator.MovieManagement</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Movie</servlet-name>
-        <url-pattern>/servlet.administrator.Movie</url-pattern>
+        <url-pattern>/servlet.administrator.MovieManagement</url-pattern>
     </servlet-mapping>
 
-    <!-- Administrator -->
+    <servlet>
+        <servlet-name>MovieSchedule</servlet-name>
+        <servlet-class>servlet.administrator.MovieScheduleManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MovieSchedule</servlet-name>
+        <url-pattern>/servlet.administrator.MovieScheduleManagement</url-pattern>
+    </servlet-mapping>
+
+    <!-- Customer -->
     <servlet>
         <servlet-name>SignUp</servlet-name>
         <servlet-class>servlet.customer.SignUp</servlet-class>
