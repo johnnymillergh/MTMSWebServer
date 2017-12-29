@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 public class MovieDao implements IDao<MovieEntity> {
     @Override
     public int save(MovieEntity entity) {
@@ -218,6 +219,41 @@ public class MovieDao implements IDao<MovieEntity> {
             movieEntity.setId(resultSet.getInt("id"));// 1
             movieEntity.setTitle(resultSet.getString("title"));// 2
             movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
+            resultSet.close();
+            connection.commit();
+            System.out.println("queryByTitle(id): " + movieEntity.getId());
+            return movieEntity;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public MovieEntity getPosterBytes(MovieEntity entity) {
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "SELECT id, title, poster FROM movie WHERE title=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            MovieEntity movieEntity = new MovieEntity();
+            movieEntity.setId(resultSet.getInt("id"));// 1
+            movieEntity.setTitle(resultSet.getString("title"));// 2
+            movieEntity.setPoster(resultSet.getBytes("poster"));// 14
             resultSet.close();
             connection.commit();
             System.out.println("queryByTitle(id): " + movieEntity.getId());

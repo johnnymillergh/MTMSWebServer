@@ -1,11 +1,18 @@
 package servlet.administrator;
 
+import dao.MovieScheduleDao;
+import entity.MovieScheduleEntity;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "MovieScheduleManagement")
@@ -54,8 +61,37 @@ public class MovieScheduleManagement extends HttpServlet {
     }
 
 
-    private void add(HttpServletRequest request, HttpServletResponse response) {
+    private void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        MovieScheduleEntity entity = new MovieScheduleEntity();
+        MovieScheduleDao dao = new MovieScheduleDao();
 
+        String movieId = request.getParameter("movieId");
+        String theaterId = request.getParameter("theaterId");
+        String auditoriumId = request.getParameter("auditoriumId");
+        String price = request.getParameter("price");
+        String dateOfShow = request.getParameter("dateOfShow");
+        String timeOfShow = request.getParameter("timeOfShow");
+
+        entity.setMovieId(Integer.parseInt(movieId));
+        entity.setAuditoriumTheaterId(Integer.parseInt(theaterId));
+        entity.setAuditoriumId(Integer.parseInt(auditoriumId));
+        entity.setPrice(Float.parseFloat(price));
+        entity.setDateOfShow(Date.valueOf(dateOfShow));
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+        entity.setTimeOfShow(new Time(format.parse("03:25:00").getTime()));
+
+        int status = dao.save(entity);
+        if (status == 1) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('MovieScheduleManagement: added.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('MovieScheduleManagement: add failed.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) {

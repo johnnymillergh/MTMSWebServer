@@ -12,7 +12,7 @@
 
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <html>
@@ -20,6 +20,11 @@
     <title>Movie List</title>
 </head>
 <body>
+
+<div align="center"><b style="color:#000000; font-size:30px">Movie List</b></div>
+<div align="center" style="font-size:20px"><a href="administrator.jsp">Back</a></div>
+<hr size="2" noshade="noshade">
+
 <table border="1">
     <tr>
         <td>id</td>
@@ -35,6 +40,7 @@
         <td>runtime</td>
         <td>aspectRatio</td>
         <td>description</td>
+        <td>poster</td>
         <%--<td>poster</td>--%>
     </tr>
     <%
@@ -42,19 +48,33 @@
         List<MovieEntity> movies = dao.getAll();
         for (MovieEntity entity : movies) {%>
     <tr>
-        <td><%=entity.getId() %></td>
-        <td><%=entity.getTitle() %></td>
-        <td><%=entity.getDuration() %>></td>
-        <td><%=entity.getGenre() %></td>
-        <td><%=entity.getDirector() %></td>
-        <td><%=entity.getStars() %></td>
-        <td><%=entity.getCountry() %></td>
-        <td><%=entity.getLanguage() %></td>
-        <td><%=entity.getReleaseDate() %></td>
-        <td><%=entity.getFilmingLocation() %></td>
-        <td><%=entity.getRuntime() %></td>
-        <td><%=entity.getAspectRatio() %></td>
-        <td><%=entity.getDescription() %></td>
+        <td><%=entity.getId() %>
+        </td>
+        <td><%=entity.getTitle() %>
+        </td>
+        <td><%=entity.getDuration() %>
+        </td>
+        <td><%=entity.getGenre() %>
+        </td>
+        <td><%=entity.getDirector() %>
+        </td>
+        <td><%=entity.getStars() %>
+        </td>
+        <td><%=entity.getCountry() %>
+        </td>
+        <td><%=entity.getLanguage() %>
+        </td>
+        <td><%=entity.getReleaseDate() %>
+        </td>
+        <td><%=entity.getFilmingLocation() %>
+        </td>
+        <td><%=entity.getRuntime() %>
+        </td>
+        <td><%=entity.getAspectRatio() %>
+        </td>
+        <td><%=entity.getDescription() %>
+        </td>
+        <td><img src="showPoster.jsp?title=<%=entity.getTitle()%>" style="height: 200px;width: auto"></td>
     </tr>
     <%
         }

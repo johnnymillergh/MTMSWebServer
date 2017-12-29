@@ -7,6 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="NoGray1.2.2/ng_all.js"></script>
+<script type="text/javascript" src="NoGray1.2.2/ng_ui.js"></script>
+<script type="text/javascript" src="NoGray1.2.2/components/timepicker.js"></script>
 <html>
 <head>
     <title>MTMS: Customer</title>
@@ -84,10 +88,14 @@
         <form action="${pageContext.request.contextPath}/servlet.customer.GetMovie" method="post">
             <table align="center">
                 <tr>
-                    <td align="left"><input type="radio" name="movieOperation" value="getAll" checked="checked" align=""/>Get all the movies w/o poster picture</td>
+                    <td align="left"><input type="radio" name="movieOperation" value="getAll" checked="checked"
+                                            align=""/>Get all the movies w/o poster picture
+                    </td>
                 </tr>
                 <tr>
-                    <td align="left"><input type="radio" name="movieOperation" value="getPoster" checked="checked" align=""/>Get the poster picture of movie</td>
+                    <td align="left"><input type="radio" name="movieOperation" value="getPoster" checked="checked"
+                                            align=""/>Get the poster picture of movie
+                    </td>
                     <td align="center"><input type="text" name="title"></td>
                 </tr>
                 <tr>
@@ -129,6 +137,14 @@
                     <td align="center"><input type="text" name="movieScheduleId"></td>
                 </tr>
                 <tr>
+                    <td align="right">Date</td>
+                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Time</td>
+                    <td align="center"><input type="text" id="timePicker" value="10:25 am" name="timeOfShow"/></td>
+                </tr>
+                <tr>
                     <td colspan="2" align="center">
                         <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
                         <input type="radio" name="orderOperation" value="pay"/>Pay
@@ -142,6 +158,16 @@
     </fieldset>
 </div>
 <br>
+
+<script type="text/javascript">
+    ng.ready(function () {
+        var tp = new ng.TimePicker({
+            input: 'timePicker',  // the input field id
+            format: 'H:i:s',
+            use24: true
+        });
+    });
+</script>
 
 <%@include file="footer.jsp" %>
 

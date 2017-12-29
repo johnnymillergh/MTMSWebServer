@@ -212,11 +212,15 @@
                     <td align="center"><input type="text" name="text"></td>
                 </tr>
                 <tr>
-                    <td align="right">Datetime</td>
-                    <td align="center"><input type="text" name="datetime" value="2017-12-22 22:05:00"></td>
+                    <td align="right">Date</td>
+                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td align="right">Time</td>
+                    <td align="center"><input type="text" id="timePicker2" value="10:25 am" name="timeOfShow"/></td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center">
                         <input type="radio" name="ratingOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="ratingOperation" value="update"/>Update
                         <input type="radio" name="ratingOperation" value="delete"/>Delete
@@ -235,9 +239,13 @@
     ng.ready(function () {
         var tp = new ng.TimePicker({
             input: 'timePicker',  // the input field id
-            start: '0:00 am',           // what's the first available hour
-            end: '11:55 pm',            // what's the last avaliable hour
-            top_hour: 12                // what's the top hour (in the clock face, 0 = midnight)
+            format: 'H:i:s',
+            use24: true
+        });
+        var tp2 = new ng.TimePicker({
+            input: 'timePicker2',  // the input field id
+            format: 'H:i:s',
+            use24: true
         });
     });
 </script>
