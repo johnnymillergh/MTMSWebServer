@@ -13,12 +13,10 @@ public class MovieDao implements IDao<MovieEntity> {
     @Override
     public int save(MovieEntity entity) {
         Connection connection = MySQLUtils.getConnectionNoConnectionPool();
-        Statement statement = null;
         String sql = "INSERT INTO movie (title, duration, genre, director, stars, " +
                 "country, language, release_date, filming_location, runtime, aspect_ratio, description, poster) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
             preparedStatement.setString(2, entity.getDuration());
@@ -76,7 +74,6 @@ public class MovieDao implements IDao<MovieEntity> {
         String sql = "UPDATE movie SET duration=?, genre=? ,director=?, stars=?, country=?, language=?, " +
                 "release_date=?, filming_location=?, runtime=?, aspect_ratio=?, description=?, poster=? WHERE title=?";
         try {
-//            Statement stmt = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getDuration());
             preparedStatement.setString(2, entity.getGenre());
@@ -116,13 +113,11 @@ public class MovieDao implements IDao<MovieEntity> {
 
     public MovieEntity queryByTitle(MovieEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        String sql = "SELECT * FROM movie WHERE title='" + entity.getTitle() + "'";
-//        String sql = "SELECT * FROM movie WHERE title=?";
+        String sql = "SELECT * FROM movie WHERE title=?";
         try {
-            Statement statement = connection.createStatement();
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, entity.getTitle());
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             MovieEntity movieEntity = new MovieEntity();
             movieEntity.setId(resultSet.getInt("id"));// 1
@@ -167,11 +162,8 @@ public class MovieDao implements IDao<MovieEntity> {
         MovieEntity movieEntity;
         Connection connection = MySQLUtils.getConnection();
         String sql = "SELECT * FROM movie";
-//        String sql = "SELECT * FROM movie";
         try {
             Statement statement = connection.createStatement();
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, entity.getTitle());
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 movieEntity = new MovieEntity();
@@ -216,13 +208,11 @@ public class MovieDao implements IDao<MovieEntity> {
 
     public MovieEntity getPoster(MovieEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        String sql = "SELECT id, title, poster FROM movie WHERE title='" + entity.getTitle() + "'";
-//        String sql = "SELECT * FROM movie WHERE title=?";
+        String sql = "SELECT id, title, poster FROM movie WHERE title=?";
         try {
-            Statement statement = connection.createStatement();
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, entity.getTitle());
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             MovieEntity movieEntity = new MovieEntity();
             movieEntity.setId(resultSet.getInt("id"));// 1
@@ -230,7 +220,7 @@ public class MovieDao implements IDao<MovieEntity> {
             movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
             resultSet.close();
             connection.commit();
-            System.out.println("queryByTitle: " + movieEntity.getLanguage());
+            System.out.println("queryByTitle(id): " + movieEntity.getId());
             return movieEntity;
         } catch (Exception e) {
             try {
