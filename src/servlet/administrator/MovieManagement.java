@@ -73,14 +73,14 @@ public class MovieManagement extends HttpServlet {
         String stars = request.getParameter("stars");
         String country = request.getParameter("country");
         String language = request.getParameter("language");
-        String release_date = request.getParameter("release_date");
-        String filming_location = request.getParameter("filming_location");
+        String releaseDate = request.getParameter("releaseDate");
+        String filmingLocation = request.getParameter("filmingLocation");
         String runtime = request.getParameter("runtime");
-        String aspect_ratio = request.getParameter("aspect_ratio");
+        String aspectRatio = request.getParameter("aspectRatio");
         String description = request.getParameter("description");
         System.out.println(title + "\n" + duration + "\n" + genre + "\n" + director + "\n" + stars + "\n" + country +
-                "\n" + language + "\n" + release_date + "\n" + filming_location + "\n" + runtime + "\n" +
-                aspect_ratio + "\n" + description);
+                "\n" + language + "\n" + releaseDate + "\n" + filmingLocation + "\n" + runtime + "\n" +
+                aspectRatio + "\n" + description);
         //特殊参数用part取
         Part part = request.getPart("poster");
         //获取文件名
@@ -114,10 +114,10 @@ public class MovieManagement extends HttpServlet {
         movieEntity.setStars(stars);
         movieEntity.setCountry(country);
         movieEntity.setLanguage(language);
-        movieEntity.setReleaseDate(release_date);
-        movieEntity.setFilmingLocation(filming_location);
+        movieEntity.setReleaseDate(releaseDate);
+        movieEntity.setFilmingLocation(filmingLocation);
         movieEntity.setRuntime(runtime);
-        movieEntity.setAspectRatio(aspect_ratio);
+        movieEntity.setAspectRatio(aspectRatio);
         movieEntity.setDescription(description);
         movieEntity.setPoster(bytes);
         movieDao.save(movieEntity);
@@ -165,10 +165,10 @@ public class MovieManagement extends HttpServlet {
         movieEntity.setStars(request.getParameter("stars"));
         movieEntity.setCountry(request.getParameter("country"));
         movieEntity.setLanguage(request.getParameter("language"));
-        movieEntity.setReleaseDate(request.getParameter("release_date"));
-        movieEntity.setFilmingLocation(request.getParameter("filming_location"));
+        movieEntity.setReleaseDate(request.getParameter("releaseDate"));
+        movieEntity.setFilmingLocation(request.getParameter("filmingLocation"));
         movieEntity.setRuntime(request.getParameter("runtime"));
-        movieEntity.setAspectRatio(request.getParameter("aspect_ratio"));
+        movieEntity.setAspectRatio(request.getParameter("aspectRatio"));
         movieEntity.setDescription(request.getParameter("description"));
         movieEntity.setPoster(bytes);
 

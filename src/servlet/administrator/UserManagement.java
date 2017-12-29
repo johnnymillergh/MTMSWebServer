@@ -61,20 +61,29 @@ public class UserManagement extends HttpServlet {
         UserDao userDao = new UserDao();
 
         // Get Parameter
-        String email = request.getParameter("emailText");
-        String username = request.getParameter("usernameText");
-        String password = request.getParameter("passwordText");
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        if (email.compareTo("") != 0 && username.compareTo("") != 0 && password.compareTo("") != 0) {
+            // Set Entity and save
+            user.setEmail(email);
+            user.setUsername(username);
+            user.setPassword(password);
+            userDao.save(user);
 
-        // Set Entity and save
-        user.setEmail(email);
-        user.setUsername(username);
-        user.setPassword(password);
-        userDao.save(user);
-        // Go to administrator.jsp
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('UserManagement added.');window.location.href='/administrator.jsp'</script>");
-        out.flush();
-        out.close();
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('UserManagement: added.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('UserManagement: Parameter error.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
+
+
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -82,9 +91,9 @@ public class UserManagement extends HttpServlet {
         UserDao userDao = new UserDao();
 
         // Get Parameter
-        String email = request.getParameter("emailText");
-        String username = request.getParameter("usernameText");
-        String password = request.getParameter("passwordText");
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
         // Set Entity and save
         user.setEmail(email);
@@ -104,7 +113,7 @@ public class UserManagement extends HttpServlet {
         UserDao userDao = new UserDao();
 
         // Get Parameter
-        String email = request.getParameter("emailText");
+        String email = request.getParameter("email");
 
         // Delete by email
         user.setEmail(email);
@@ -129,7 +138,7 @@ public class UserManagement extends HttpServlet {
         UserDao userDao = new UserDao();
 
         // Get Parameter
-        String email = request.getParameter("emailText");
+        String email = request.getParameter("email");
 
         // Delete by email
         user.setEmail(email);

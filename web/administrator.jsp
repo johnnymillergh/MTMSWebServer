@@ -33,15 +33,15 @@
             <table align="center">
                 <tr>
                     <td align="right">Email</td>
-                    <td align="center"><input type="text" name="emailText"></td>
+                    <td align="center"><input type="text" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Username</td>
-                    <td align="center"><input type="text" name="usernameText"></td>
+                    <td align="center"><input type="text" name="username"></td>
                 </tr>
                 <tr>
                     <td align="right">Password</td>
-                    <td align="center"><input type="text" name="passwordText"></td>
+                    <td align="center"><input type="text" name="password"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -97,11 +97,11 @@
                 </tr>
                 <tr>
                     <td align="right">Release Date</td>
-                    <td align="center"><input type="text" name="release_date"/></td>
+                    <td align="center"><input type="text" name="releaseDate"/></td>
                 </tr>
                 <tr>
                     <td align="right">Filming Location</td>
-                    <td align="center"><input type="text" name="filming_location"></td>
+                    <td align="center"><input type="text" name="filmingLocation"></td>
                 </tr>
                 <tr>
                     <td align="right">Runtime</td>
@@ -109,7 +109,7 @@
                 </tr>
                 <tr>
                     <td align="right">Aspect Ratio</td>
-                    <td align="center"><input type="text" name="aspect_ratio"></td>
+                    <td align="center"><input type="text" name="aspectRatio"></td>
                 </tr>
                 <tr>
                     <td align="right">Description</td>
