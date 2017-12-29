@@ -141,11 +141,15 @@
         <legend>
             <h2>3. Movie Schedule Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.MovieSchedule" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.MovieScheduleManagement" method="post">
             <table align="center">
                 <tr>
-                    <td align="right">Movie Title</td>
+                    <td align="right">Movie Title (Optional)</td>
                     <td align="center"><input type="text" name="movieTitle"></td>
+                </tr>
+                <tr>
+                    <td align="right">Movie ID</td>
+                    <td align="center"><input type="text" name="movieId"></td>
                 </tr>
                 <tr>
                     <td align="right">Theater ID</td>
@@ -154,6 +158,10 @@
                 <tr>
                     <td align="right">Auditorium ID</td>
                     <td align="center"><input type="text" name="auditoriumId"></td>
+                </tr>
+                <tr>
+                    <td align="right">Price</td>
+                    <td align="center"><input type="text" name="price"></td>
                 </tr>
                 <tr>
                     <td align="right">Date of show</td>
@@ -235,35 +243,6 @@
 </script>
 
 <%@include file="footer.jsp" %>
-<%--<fieldset>--%>
-<%--<legend>--%>
-<%--Upload single file--%>
-<%--</legend>--%>
-<%--<!-- 文件上传时必须要设置表单的enctype="multipart/form-data"-->--%>
-<%--<form action="${pageContext.request.contextPath}/servlet.UploadPictureServlet"--%>
-<%--15 method="post" enctype="multipart/form-data">--%>
-<%--Choose file:--%>
-<%--<input type="file" name="file">--%>
-<%--<br>--%>
-<%--<input type="submit" value="Upload">--%>
-<%--</form>--%>
-<%--</fieldset>--%>
-<%--<fieldset>--%>
-<%--<legend>--%>
-<%--Upload 2 files--%>
-<%--</legend>--%>
-<%--<!-- 文件上传时必须要设置表单的enctype="multipart/form-data"-->--%>
-<%--<form action="${pageContext.request.contextPath}/servlet.UploadPictureServlet"--%>
-<%--29 method="post" enctype="multipart/form-data">--%>
-<%--Choose file:--%>
-<%--<input type="file" name="file1">--%>
-<%--<br>--%>
-<%--Choose file:--%>
-<%--<input type="file" name="file2">--%>
-<%--<br>--%>
-<%--<input type="submit" value="Upload">--%>
-<%--</form>--%>
-<%--</fieldset>--%>
-<%--<hr/>--%>
+
 </body>
 </html>

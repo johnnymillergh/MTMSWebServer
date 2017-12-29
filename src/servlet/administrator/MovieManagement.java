@@ -54,9 +54,17 @@ public class MovieManagement extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            case "getAll":
+                try {
+                    getAll(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
         }
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -208,6 +216,14 @@ public class MovieManagement extends HttpServlet {
             out.println("<script>alert('MovieManagement query.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
+        }
+    }
+
+    private void getAll(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.sendRedirect("/movieList.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
