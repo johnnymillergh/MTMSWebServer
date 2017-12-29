@@ -11,10 +11,8 @@ public class UserDao implements IDao<UserEntity> {
     @Override
     public int save(UserEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        Statement statement = null;
         String sql = "INSERT INTO user (email, password, username) VALUES (?, ?, ?)";
         try {
-            statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getEmail());
             preparedStatement.setString(2, entity.getPassword());
@@ -55,11 +53,11 @@ public class UserDao implements IDao<UserEntity> {
     @Override
     public UserEntity queryById(UserEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        String sql = "SELECT * FROM user WHERE id='" + entity.getId() + "'";
-//        String sql = "SELECT * FROM user WHERE id=?";
+        String sql = "SELECT * FROM user WHERE id=?";
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             UserEntity userEntity = new UserEntity();
             userEntity.setId(resultSet.getInt("id"));
@@ -91,7 +89,6 @@ public class UserDao implements IDao<UserEntity> {
         Connection connection = MySQLUtils.getConnection();
         String sql = "UPDATE user SET password=?, username=? WHERE email=?";
         try {
-            Statement stmt = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getEmail());
             preparedStatement.setString(2, entity.getUsername());
@@ -121,11 +118,11 @@ public class UserDao implements IDao<UserEntity> {
 
     public UserEntity queryByEmail(UserEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        String sql = "SELECT * FROM user WHERE email='" + entity.getEmail() + "'";
-//        String sql = "SELECT * FROM user WHERE email=?";
+        String sql = "SELECT * FROM user WHERE email=?";
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getEmail());
+            ResultSet resultSet = preparedStatement.executeQuery(sql);
             resultSet.next();
             UserEntity userEntity = new UserEntity();
             userEntity.setId(resultSet.getInt("id"));
@@ -157,11 +154,11 @@ public class UserDao implements IDao<UserEntity> {
 
     private int deleteByEmail(UserEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        String sql = "DELETE FROM user WHERE email='" + entity.getEmail() + "'";
-//        String sql = "SELECT * FROM user WHERE id=?";
+        String sql = "DELETE FROM user WHERE id=?";
         try {
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getEmail());
+            preparedStatement.execute();
             connection.commit();
             return 1;
         } catch (Exception e) {
