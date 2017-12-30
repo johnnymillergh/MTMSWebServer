@@ -7,6 +7,9 @@
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
     <listener>
+        <listener-class>util.MySQLUtils</listener-class>
+    </listener>
+    <listener>
         <listener-class>util.MobileTerminalUtils</listener-class>
     </listener>
 

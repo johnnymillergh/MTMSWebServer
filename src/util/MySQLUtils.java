@@ -2,13 +2,25 @@ package util;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
 import java.sql.*;
 
-public class MySQLUtils {
+public class MySQLUtils implements ServletContextListener {
 
-//     C3P0.
-    private static final DataSource ds = new ComboPooledDataSource("MySQLConnection");
+    //     C3P0.
+    private static DataSource ds;
+
+    @Override
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
+        ds = new ComboPooledDataSource("MySQLConnection");
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+    }
+
     public static Connection getConnection() {
         try {
             Connection connection = ds.getConnection();
@@ -25,7 +37,6 @@ public class MySQLUtils {
     private static final String USER = "root";
     private static final String PASSWORD = "123456";
     private static Connection connection;
-
 
 
     public static Connection getConnectionNoConnectionPool() {
