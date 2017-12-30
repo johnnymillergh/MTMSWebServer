@@ -2,6 +2,7 @@ package servlet.customer;
 
 import dao.UserDao;
 import entity.UserEntity;
+import util.MobileTerminalUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,26 +17,33 @@ public class LogIn extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+        response.setContentType("text/json");
+
         UserDao dao = new UserDao();
         UserEntity entityInput = new UserEntity();
         entityInput.setEmail(request.getParameter("email"));
         entityInput.setPassword(request.getParameter("password"));
-        UserEntity entity1 = dao.queryByEmail(entityInput);
-        if (entity1 != null) {
-            if (entity1.getPassword().compareTo(entityInput.getPassword()) == 0) {
+        UserEntity entityFromQuery = dao.queryByEmail(entityInput);
+
+        System.out.println("Remote client is trying to log in: [" + request.getRemoteAddr() + ":" + request.getRemotePort() + "]");
+
+        if (entityFromQuery != null) {
+            if (entityFromQuery.getPassword().compareTo(entityInput.getPassword()) == 0) {
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"succeed\"}");
+                out.println("{\"loginStatus\":\"succeed\",\"serverPushPort\":\"" +
+                        MobileTerminalUtils.serverSocket.getLocalPort() + "\"}");
                 out.flush();
                 out.close();
+                MobileTerminalUtils.userEmail2Ip.put(entityFromQuery.getEmail(), request.getRemoteAddr());
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"failed\"}");
+                out.println("{\"loginStatus\":\"succeed\",\"serverPushPort\":\"\"}");
                 out.flush();
                 out.close();
             }
         } else {
             PrintWriter out = response.getWriter();
-            out.println("{\"loginStatus\":\"failed\"}");
+            out.println("{\"loginStatus\":\"succeed\",\"serverPushPort\":\"\"}");
             out.flush();
             out.close();
         }
