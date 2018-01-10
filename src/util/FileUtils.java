@@ -3,6 +3,7 @@ package util;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.File;
+import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 public class FileUtils implements ServletContextListener {
@@ -20,7 +21,7 @@ public class FileUtils implements ServletContextListener {
 
     private static boolean initDirectory() {
         if (!pictureDirectory.exists()) {
-            return pictureDirectory.mkdir();
+            return pictureDirectory.mkdirs();
         }
         return false;
     }
@@ -38,7 +39,8 @@ public class FileUtils implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         initUserHomePath();
-        initDirectory();
+        boolean status = initDirectory();
+        System.out.println("Initialize work directory: " + status + ": " + pictureDirectory.getPath());
     }
 
     @Override

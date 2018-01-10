@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "MovieManagement")
@@ -94,16 +95,17 @@ public class MovieManagement extends HttpServlet {
         //获取文件名
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
-        String savePath = "D:/MTMS/upload/pic";
+        //
+        String savePath = FileUtils.convertBackslash2Slash(FileUtils.pictureDirectory.getPath());
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
-        System.out.println("savePath: " + request.getServletPath() + "/" + filename);
         filename = FileUtils.getRealName(filename);
+        System.out.println("savePath: " + savePath + "/" + filename);
         part.write(savePath + "/" + filename);
         // Read uploaded file.
         File file = new File(savePath + "/" + filename);
         Long fileLength = file.length();
-        System.out.println("fileLength: " + fileLength);
+        System.out.println("fileLength: " + fileLength + " bytes");
         byte[] bytes = new byte[fileLength.intValue()];
         try {
             FileInputStream in = new FileInputStream(file);
