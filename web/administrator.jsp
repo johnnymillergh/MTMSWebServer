@@ -235,6 +235,57 @@
 </div>
 <br>
 
+<div align="center">
+    <fieldset style="width:fit-content; height:fit-content;">
+        <legend>
+            <h2>5. Order Management</h2>
+        </legend>
+        <form action="${pageContext.request.contextPath}/servlet.administrator.OrderManagement" method="post">
+            <table align="center">
+                <tr>
+                    <td align="right">User ID</td>
+                    <td align="center"><input type="text" name="userId"></td>
+                </tr>
+                <tr>
+                    <td align="right">Email</td>
+                    <td align="center"><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <td align="right">Current datetime</td>
+                    <td align="center"><input type="text" name="orderDatetime"></td>
+                </tr>
+                <tr>
+                    <td align="right">Movie Schedule ID</td>
+                    <td align="center"><input type="text" name="movieScheduleId"></td>
+                </tr>
+                <tr>
+                    <td align="right">Ticket amount</td>
+                    <td align="center"><input type="text" name="movieScheduleId"></td>
+                </tr>
+                <tr>
+                    <td align="right">Date</td>
+                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Time</td>
+                    <td align="center"><input type="text" id="timePicker3" value="10:25 am" name="timeOfShow"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
+                        <input type="radio" name="orderOperation" value="pay"/>Pay
+                        <input type="radio" name="orderOperation" value="use"/>Use
+                        <input type="radio" name="orderOperation" value="delete"/>Delete
+                        <input type="radio" name="orderOperation" value="getAll"/>Get all
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>
+<br>
+
 <script type="text/javascript">
     ng.ready(function () {
         var tp = new ng.TimePicker({
@@ -244,6 +295,11 @@
         });
         var tp2 = new ng.TimePicker({
             input: 'timePicker2',  // the input field id
+            format: 'H:i:s',
+            use24: true
+        });
+        var tp3 = new ng.TimePicker({
+            input: 'timePicker3',  // the input field id
             format: 'H:i:s',
             use24: true
         });

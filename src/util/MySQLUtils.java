@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class MySQLUtils implements ServletContextListener {
 
-    //     C3P0.
+    // C3P0
     private static DataSource ds;
 
     @Override
@@ -50,13 +50,4 @@ public class MySQLUtils implements ServletContextListener {
         return connection;
     }
 
-//    public static void mainTest(String[] args) throws Exception {
-//        Connection connection = MySQLUtils.getConnection();
-//        Statement stmt = connection.createStatement();
-//        ResultSet rs = stmt.executeQuery("select * from parent");
-//        while (rs.next()) {
-//            System.out.println(rs.getString("id"));
-//        }
-//        connection.close();
-//    }
 }
