@@ -12,6 +12,9 @@
     <listener>
         <listener-class>util.MobileTerminalUtils</listener-class>
     </listener>
+    <listener>
+        <listener-class>util.FileUtils</listener-class>
+    </listener>
 
     <!-- ===============Servlet configuration=============== -->
     <!-- ===============Administrator=============== -->

@@ -24,7 +24,7 @@ public class MobileTerminalUtils implements ServletContextListener {
             try {
                 serverSocket = new ServerSocket(0); // System will allocate an available port to serverSocket.
                 hasServerSocketStarted = true;
-                System.out.println("Starting server socket: [localhost:" + serverSocket.getLocalPort() + "]");
+                System.out.println("Start server socket(Push Service): [localhost:" + serverSocket.getLocalPort() + "]");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -46,11 +46,11 @@ public class MobileTerminalUtils implements ServletContextListener {
                         String ip = clientSocket.getInetAddress().toString();
                         ip = ip.substring(1, ip.length());
                         ip2ClientSocket.put(ip, clientSocket);
-                        System.out.println("Save client socket: [" + ip + ":" + clientSocket.getPort() + "]");
+                        System.out.println("Save client socket (Push Service): [" + ip + ":" + clientSocket.getPort() + "]");
                         OutputStreamWriter out = new OutputStreamWriter(clientSocket.getOutputStream());
-                        out.write("{\"from\":\"Server\",\"msg\":\"Hello: " + Math.random() * 100 + "\"}");
+                        out.write("{\"from\":\"Server\",\"msg\":\"Hello1 " + Math.random() * 100 + "\"}"+"\n");
                         out.flush();
-                        out.close();
+                        System.out.println("clientSocket.isClosed(): " + clientSocket.isClosed());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -88,7 +88,7 @@ public class MobileTerminalUtils implements ServletContextListener {
         if (clientSocket != null) {
             try {
                 out = new OutputStreamWriter(clientSocket.getOutputStream());
-                out.write("{\"from\":\"Server\",\"msg\":\"Hello: " + Math.random() * 100 + "\"}");
+                out.write("{\"from\":\"Server\",\"message\":\"Hello-" + (int) Math.random() * 100 + "\"}");
                 out.flush();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -119,9 +119,9 @@ public class MobileTerminalUtils implements ServletContextListener {
     }
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("192.168.1.102", 55498);
+        Socket socket = new Socket("192.168.1.103", 49380);
         OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
-        out.write("{\"from\":\"Server\",\"msg\":\"Hello: " + Math.random() * 100 + "\"}");
+        out.write("{\"from\":\"Server\",\"msg\":\"Hello: 2" + Math.random() * 100 + "\"}");
         out.flush();
         out.close();
     }
