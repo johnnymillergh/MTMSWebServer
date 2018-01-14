@@ -96,7 +96,7 @@ public class MovieManagement extends HttpServlet {
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
         //
-        String savePath = FileUtils.convertBackslash2Slash(FileUtils.pictureDirectory.getPath());
+        String savePath = FileUtils.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
         filename = FileUtils.getRealName(filename);
@@ -148,10 +148,10 @@ public class MovieManagement extends HttpServlet {
 
         // Get parameter
         Part part = request.getPart("poster");
-        //获取文件名
+        // Get file name
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
-        String savePath = "D:/MTMS/upload/pic";
+        String savePath = FileUtils.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
         part.write(savePath + "/" + filename);

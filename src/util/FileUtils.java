@@ -36,6 +36,10 @@ public class FileUtils implements ServletContextListener {
         return path.substring(index + 1);
     }
 
+    public static String getPictureSavingPath() {
+        return FileUtils.convertBackslash2Slash(FileUtils.pictureDirectory.getPath());
+    }
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         initUserHomePath();
