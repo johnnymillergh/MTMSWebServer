@@ -1,5 +1,7 @@
 package servlet.administrator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.MovieScheduleDao;
 import entity.MovieScheduleEntity;
 
@@ -13,6 +15,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "MovieScheduleManagement")
@@ -54,6 +57,13 @@ public class MovieScheduleManagement extends HttpServlet {
             case "getAll":
                 try {
                     getAll(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "getJson":
+                try {
+                    getJson(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -112,5 +122,26 @@ public class MovieScheduleManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+
+    private void getJson(HttpServletRequest request, HttpServletResponse response) {
+        MovieScheduleDao dao = new MovieScheduleDao();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        List<MovieScheduleEntity> entities = dao.getAll();
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            String json = gson.toJson(entities);
+            out.println(json);
+            out.flush();
+            System.out.println("getAllMovieScheduleDao (JSON object)");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
     }
 }

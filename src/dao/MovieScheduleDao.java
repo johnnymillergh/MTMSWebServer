@@ -4,9 +4,9 @@ import entity.MovieScheduleEntity;
 import util.MySQLUtils;
 
 import java.io.ByteArrayInputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("Duplicates")
 public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
@@ -61,5 +61,48 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
     @Override
     public int delete(MovieScheduleEntity entity) {
         return 0;
+    }
+
+    public List<MovieScheduleEntity> getAll() {
+        List<MovieScheduleEntity> movieScheduleEntities = new ArrayList<>();
+        MovieScheduleEntity entity;
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "SELECT * FROM movie_schedule";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                entity = new MovieScheduleEntity();
+                entity.setId(resultSet.getInt("id"));
+                entity.setMovieId(resultSet.getInt("movie_id"));
+                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));
+                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));
+                entity.setPrice(resultSet.getFloat("price"));
+                entity.setShowtime(resultSet.getTimestamp("showtime"));
+                entity.setDateOfShow(resultSet.getDate("date_of_show"));
+                entity.setTimeOfShow(resultSet.getTime("time_of_show"));
+                movieScheduleEntities.add(entity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAll(): " + getClass());
+            return movieScheduleEntities;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }
