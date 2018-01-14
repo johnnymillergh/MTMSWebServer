@@ -51,15 +51,20 @@ public class MovieScheduleManagement extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            case "getAll":
+                try {
+                    getAll(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
         }
     }
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MovieScheduleEntity entity = new MovieScheduleEntity();
@@ -104,5 +109,8 @@ public class MovieScheduleManagement extends HttpServlet {
 
     private void query(HttpServletRequest request, HttpServletResponse response) {
 
+    }
+
+    private void getAll(HttpServletRequest request, HttpServletResponse response) {
     }
 }

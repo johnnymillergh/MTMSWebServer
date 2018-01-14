@@ -179,6 +179,7 @@
                         <input type="radio" name="movieScheduleOperation" value="delete"/>Delete
                         <input type="radio" name="movieScheduleOperation" value="query"/>Query
                         <input type="radio" name="movieScheduleOperation" value="getAll"/>Get all
+                        <input type="radio" name="movieScheduleOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -227,6 +228,7 @@
                         <input type="radio" name="ratingOperation" value="delete"/>Delete
                         <input type="radio" name="ratingOperation" value="query"/>Query
                         <input type="radio" name="ratingOperation" value="getAll"/>Get all
+                        <input type="radio" name="ratingOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -278,6 +280,7 @@
                         <input type="radio" name="orderOperation" value="use"/>Use
                         <input type="radio" name="orderOperation" value="delete"/>Delete
                         <input type="radio" name="orderOperation" value="getAll"/>Get all
+                        <input type="radio" name="orderOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
