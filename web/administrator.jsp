@@ -49,6 +49,7 @@
                         <input type="radio" name="userOperation" value="update"/>Update
                         <input type="radio" name="userOperation" value="delete"/>Delete
                         <input type="radio" name="userOperation" value="query"/>Query
+                        <input type="radio" name="userOperation" value="queryOnline"/>Query online user
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -278,6 +279,32 @@
                         <input type="radio" name="orderOperation" value="delete"/>Delete
                         <input type="radio" name="orderOperation" value="getAll"/>Get all
                         <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>
+<br>
+
+<div align="center">
+    <fieldset style="width:fit-content; height:fit-content;">
+        <legend>
+            <h2>6. Push Message</h2>
+        </legend>
+        <form action="${pageContext.request.contextPath}/servlet.administrator.PushMessage" method="post">
+            <table align="center">
+                <tr>
+                    <td align="right">Email</td>
+                    <td align="center"><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <td align="right">Message</td>
+                    <td align="center"><input type="text" name="message"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Push">
                     </td>
                 </tr>
             </table>

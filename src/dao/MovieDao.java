@@ -245,18 +245,20 @@ public class MovieDao implements IDao<MovieEntity> {
     public MovieEntity getPosterBytes(MovieEntity entity) {
         Connection connection = MySQLUtils.getConnection();
         String sql = "SELECT id, title, poster FROM movie WHERE title=?";
+        System.out.println("getPosterBytes1: " + entity.getTitle());
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
             MovieEntity movieEntity = new MovieEntity();
-            movieEntity.setId(resultSet.getInt("id"));// 1
-            movieEntity.setTitle(resultSet.getString("title"));// 2
-            movieEntity.setPoster(resultSet.getBytes("poster"));// 14
-            resultSet.close();
-            connection.commit();
-            System.out.println("queryByTitle(id): " + movieEntity.getId());
+            if (resultSet.first()) {
+                movieEntity.setId(resultSet.getInt("id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setPoster(resultSet.getBytes("poster"));// 14
+                resultSet.close();
+                connection.commit();
+                System.out.println("getPosterBytes2: " + movieEntity.getId() + ", " + movieEntity.getTitle());
+            }
             return movieEntity;
         } catch (Exception e) {
             try {

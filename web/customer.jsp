@@ -114,7 +114,7 @@
         <legend>
             <h2>4. Order Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.customer.OrderManagement" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.customer.Order" method="post">
             <table align="center">
                 <tr>
                     <td align="right">User ID</td>

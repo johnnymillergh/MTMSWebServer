@@ -45,6 +45,15 @@
         <url-pattern>/servlet.administrator.MovieScheduleManagement</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>OrderManagementSU</servlet-name>
+        <servlet-class>servlet.administrator.OrderManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderManagementSU</servlet-name>
+        <url-pattern>/servlet.administrator.OrderManagement</url-pattern>
+    </servlet-mapping>
+
     <!-- ===============Customer=============== -->
     <servlet>
         <servlet-name>SignUp</servlet-name>
@@ -75,10 +84,10 @@
 
     <servlet>
         <servlet-name>OrderManagement</servlet-name>
-        <servlet-class>servlet.customer.OrderManagement</servlet-class>
+        <servlet-class>servlet.customer.Order</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>OrderManagement</servlet-name>
-        <url-pattern>/servlet.customer.OrderManagement</url-pattern>
+        <url-pattern>/servlet.customer.Order</url-pattern>
     </servlet-mapping>
 </web-app>
