@@ -122,7 +122,11 @@ public class MovieScheduleManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) {
-
+        try {
+            response.sendRedirect("/movieScheduleList.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) {
