@@ -100,6 +100,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
         return 0;
     }
 
+    @Override
     public List<MovieScheduleEntity> getAll() {
         List<MovieScheduleEntity> movieScheduleEntities = new ArrayList<>();
         MovieScheduleEntity entity;

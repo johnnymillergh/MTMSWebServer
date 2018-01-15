@@ -159,6 +159,7 @@ public class MovieDao implements IDao<MovieEntity> {
         return null;
     }
 
+    @Override
     public List<MovieEntity> getAll() {
         List<MovieEntity> movies = new ArrayList<>();
         MovieEntity movieEntity;

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 public interface IDao<EntityType> {
 
     public int save(EntityType entity);
@@ -10,4 +12,5 @@ public interface IDao<EntityType> {
 
     public int delete(EntityType entity);
 
+    public List<EntityType> getAll();
 }

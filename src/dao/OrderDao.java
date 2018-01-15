@@ -2,6 +2,8 @@ package dao;
 
 import entity.OrderEntity;
 
+import java.util.List;
+
 public class OrderDao implements IDao<OrderEntity> {
     @Override
     public int save(OrderEntity entity) {
@@ -21,5 +23,10 @@ public class OrderDao implements IDao<OrderEntity> {
     @Override
     public int delete(OrderEntity entity) {
         return 0;
+    }
+
+    @Override
+    public List<OrderEntity> getAll() {
+        return null;
     }
 }

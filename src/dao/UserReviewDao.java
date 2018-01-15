@@ -125,6 +125,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
         return null;
     }
 
+    @Override
     public List<UserReviewEntity> getAll() {
         List<UserReviewEntity> userReviewList = new ArrayList<>();
         UserReviewEntity userReview;
