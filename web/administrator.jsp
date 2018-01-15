@@ -166,12 +166,12 @@
                     <td align="center"><input type="text" name="price"></td>
                 </tr>
                 <tr>
-                    <td align="right">Date of show</td>
+                    <td align="right">Date of Show</td>
                     <td align="center"><input type="text" id="dateOfShow" name="dateOfShow"/></td>
                 </tr>
                 <tr>
-                    <td align="right">Time of show</td>
-                    <td align="center"><input type="text" id="timePicker" value="10:25 am" name="timeOfShow"/></td>
+                    <td align="right">Time of Show</td>
+                    <td align="center"><input type="text" id="timePicker" value="10:25:00" name="timeOfShow"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -194,17 +194,17 @@
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">
         <legend>
-            <h2>4. Rating Management</h2>
+            <h2>4. User Review Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.UserReview" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.UserReviewManagement" method="post">
             <table align="center">
                 <tr>
                     <td align="right">User Email</td>
-                    <td align="center"><input type="text" name="userEmail"></td>
+                    <td align="center"><input type="text" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Title</td>
-                    <td align="center"><input type="text" name="movieTitle"></td>
+                    <td align="center"><input type="text" name="title"></td>
                 </tr>
                 <tr>
                     <td align="right">Score</td>
@@ -212,24 +212,24 @@
                 </tr>
                 <tr>
                     <td align="right">Text</td>
-                    <td align="center"><input type="text" name="text"></td>
+                    <td align="center"><textarea name="text" clos="100" rows="10" warp="virtual"></textarea></td>
                 </tr>
                 <tr>
-                    <td align="right">Date</td>
-                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
+                    <td align="right">Date of Review</td>
+                    <td align="center"><input type="text" name="date" onfocus="WdatePicker()"/></td>
                 </tr>
                 <tr>
-                    <td align="right">Time</td>
-                    <td align="center"><input type="text" id="timePicker2" value="10:25 am" name="timeOfShow"/></td>
+                    <td align="right">Time of Review</td>
+                    <td align="center"><input type="text" id="timePicker2" value="10:25:00" name="time"/></td>
                 </tr>
                 <tr>
                     <td colspan="4" align="center">
-                        <input type="radio" name="ratingOperation" value="add" checked="checked"/>Add
-                        <input type="radio" name="ratingOperation" value="update"/>Update
-                        <input type="radio" name="ratingOperation" value="delete"/>Delete
-                        <input type="radio" name="ratingOperation" value="query"/>Query
-                        <input type="radio" name="ratingOperation" value="getAll"/>Get all
-                        <input type="radio" name="ratingOperation" value="getJson"/>Get Json
+                        <input type="radio" name="userReviewOperation" value="add" checked="checked"/>Add
+                        <input type="radio" name="userReviewOperation" value="update"/>Update
+                        <input type="radio" name="userReviewOperation" value="delete"/>Delete
+                        <input type="radio" name="userReviewOperation" value="query"/>Query
+                        <input type="radio" name="userReviewOperation" value="getAll"/>Get all
+                        <input type="radio" name="userReviewOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -255,24 +255,20 @@
                     <td align="center"><input type="text" name="email"></td>
                 </tr>
                 <tr>
-                    <td align="right">Current datetime</td>
-                    <td align="center"><input type="text" name="orderDatetime"></td>
-                </tr>
-                <tr>
                     <td align="right">Movie Schedule ID</td>
                     <td align="center"><input type="text" name="movieScheduleId"></td>
                 </tr>
                 <tr>
-                    <td align="right">Ticket amount</td>
+                    <td align="right">Ticket Amount</td>
                     <td align="center"><input type="text" name="movieScheduleId"></td>
                 </tr>
                 <tr>
-                    <td align="right">Date</td>
-                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
+                    <td align="right">Date of Order</td>
+                    <td align="center"><input type="text" name="date" onfocus="WdatePicker()"/></td>
                 </tr>
                 <tr>
-                    <td align="right">Time</td>
-                    <td align="center"><input type="text" id="timePicker3" value="10:25 am" name="timeOfShow"/></td>
+                    <td align="right">Time of Order</td>
+                    <td align="center"><input type="text" id="timePicker3" value="10:25:00" name="time"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

@@ -119,26 +119,27 @@ public class MovieDao implements IDao<MovieEntity> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            MovieEntity movieEntity = new MovieEntity();
-            movieEntity.setId(resultSet.getInt("id"));// 1
-            movieEntity.setTitle(resultSet.getString("title"));// 2
-            movieEntity.setDuration(resultSet.getString("duration"));// 3
-            movieEntity.setGenre(resultSet.getString("genre"));// 4
-            movieEntity.setDirector(resultSet.getString("director"));// 5
-            movieEntity.setStars(resultSet.getString("stars"));// 6
-            movieEntity.setCountry(resultSet.getString("country"));// 7
-            movieEntity.setLanguage(resultSet.getString("language"));// 8
-            movieEntity.setReleaseDate(resultSet.getString("release_date"));// 9
-            movieEntity.setFilmingLocation(resultSet.getString("filming_location"));// 10
-            movieEntity.setRuntime(resultSet.getString("runtime"));// 11
-            movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));// 12
-            movieEntity.setDescription(resultSet.getString("description"));// 13
-            movieEntity.setPoster(resultSet.getBytes("poster"));// 14
-            resultSet.close();
-            connection.commit();
-            System.out.println("queryByTitle: " + getClass() + ", " + movieEntity.getLanguage());
-            return movieEntity;
+            if (resultSet.first()) {
+                MovieEntity movieEntity = new MovieEntity();
+                movieEntity.setId(resultSet.getInt("id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setDuration(resultSet.getString("duration"));// 3
+                movieEntity.setGenre(resultSet.getString("genre"));// 4
+                movieEntity.setDirector(resultSet.getString("director"));// 5
+                movieEntity.setStars(resultSet.getString("stars"));// 6
+                movieEntity.setCountry(resultSet.getString("country"));// 7
+                movieEntity.setLanguage(resultSet.getString("language"));// 8
+                movieEntity.setReleaseDate(resultSet.getString("release_date"));// 9
+                movieEntity.setFilmingLocation(resultSet.getString("filming_location"));// 10
+                movieEntity.setRuntime(resultSet.getString("runtime"));// 11
+                movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));// 12
+                movieEntity.setDescription(resultSet.getString("description"));// 13
+                movieEntity.setPoster(resultSet.getBytes("poster"));// 14
+                resultSet.close();
+                connection.commit();
+                System.out.println("queryByTitle: " + getClass() + ", " + movieEntity.getTitle());
+                return movieEntity;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -214,15 +215,16 @@ public class MovieDao implements IDao<MovieEntity> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            MovieEntity movieEntity = new MovieEntity();
-            movieEntity.setId(resultSet.getInt("id"));// 1
-            movieEntity.setTitle(resultSet.getString("title"));// 2
-            movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
-            resultSet.close();
-            connection.commit();
-            System.out.println("getPoster(title): " + getClass() + movieEntity.getTitle());
-            return movieEntity;
+            if (resultSet.first()) {
+                MovieEntity movieEntity = new MovieEntity();
+                movieEntity.setId(resultSet.getInt("id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
+                resultSet.close();
+                connection.commit();
+                System.out.println("getPoster(title): " + getClass() + movieEntity.getTitle());
+                return movieEntity;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -257,8 +259,8 @@ public class MovieDao implements IDao<MovieEntity> {
                 resultSet.close();
                 connection.commit();
                 System.out.println("getPosterBytes: " + getClass() + " id: " + movieEntity.getId() + ", title: " + movieEntity.getTitle());
+                return movieEntity;
             }
-            return movieEntity;
         } catch (Exception e) {
             try {
                 connection.rollback();

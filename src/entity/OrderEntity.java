@@ -75,4 +75,9 @@ public class OrderEntity {
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "OrderEntity: " + id + ", " + userId + ", " + orderDatetime + ", " + movieScheduleId;
+    }
 }

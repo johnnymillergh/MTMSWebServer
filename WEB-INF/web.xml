@@ -54,6 +54,15 @@
         <url-pattern>/servlet.administrator.OrderManagement</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserReviewManagement</servlet-name>
+        <servlet-class>servlet.administrator.UserReviewManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserReviewManagement</servlet-name>
+        <url-pattern>/servlet.administrator.UserReviewManagement</url-pattern>
+    </servlet-mapping>
+
     <!-- ===============Customer=============== -->
     <servlet>
         <servlet-name>SignUp</servlet-name>

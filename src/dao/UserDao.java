@@ -58,14 +58,15 @@ public class UserDao implements IDao<UserEntity> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            UserEntity userEntity = new UserEntity();
-            userEntity.setId(resultSet.getInt("id"));
-            userEntity.setEmail(resultSet.getString("email"));
-            userEntity.setPassword(resultSet.getString("password"));
-            userEntity.setUsername(resultSet.getString("username"));
-            resultSet.close();
-            return userEntity;
+            if (resultSet.first()) {
+                UserEntity userEntity = new UserEntity();
+                userEntity.setId(resultSet.getInt("id"));
+                userEntity.setEmail(resultSet.getString("email"));
+                userEntity.setPassword(resultSet.getString("password"));
+                userEntity.setUsername(resultSet.getString("username"));
+                resultSet.close();
+                return userEntity;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -123,15 +124,17 @@ public class UserDao implements IDao<UserEntity> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            UserEntity userEntity = new UserEntity();
-            userEntity.setId(resultSet.getInt("id"));
-            userEntity.setEmail(resultSet.getString("email"));
-            userEntity.setPassword(resultSet.getString("password"));
-            userEntity.setUsername(resultSet.getString("username"));
-            resultSet.close();
-            connection.commit();
-            return userEntity;
+            if (resultSet.first()) {
+                UserEntity userEntity = new UserEntity();
+                userEntity.setId(resultSet.getInt("id"));
+                userEntity.setEmail(resultSet.getString("email"));
+                userEntity.setPassword(resultSet.getString("password"));
+                userEntity.setUsername(resultSet.getString("username"));
+                resultSet.close();
+                connection.commit();
+                System.out.println("queryByEmail: " + getClass() + ", " + userEntity.getUsername());
+                return userEntity;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();

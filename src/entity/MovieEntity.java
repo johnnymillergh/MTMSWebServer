@@ -136,4 +136,9 @@ public class MovieEntity {
     public void setPosterStr(String posterStr) {
         this.posterStr = posterStr;
     }
+
+    @Override
+    public String toString() {
+        return "MovieEntity: " + id + ", " + title + ", " + duration + ", " + genre + ", " + genre;
+    }
 }

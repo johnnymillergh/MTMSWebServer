@@ -77,4 +77,9 @@ public class MovieScheduleEntity {
     public void setTimeOfShow(Time timeOfShow) {
         this.timeOfShow = timeOfShow;
     }
+
+    @Override
+    public String toString() {
+        return "MovieScheduleEntity: "+id + ", " + movieId + ", " + auditoriumId + ", " + auditoriumTheaterId;
+    }
 }
