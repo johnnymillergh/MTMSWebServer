@@ -22,7 +22,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
             preparedStatement.setString(4, entity.getText());
             preparedStatement.setTimestamp(5, entity.getDateTime());
             boolean status = preparedStatement.execute();
-            System.out.println("save: " + getClass() + !status);
+            System.out.println("save: " + getClass() + ", " + !status);
             connection.commit();
             return 1;
         } catch (Exception e) {

@@ -19,7 +19,7 @@ public class UserDao implements IDao<UserEntity> {
             preparedStatement.setString(2, entity.getPassword());
             preparedStatement.setString(3, entity.getUsername());
             boolean status = preparedStatement.execute();
-            System.out.println("UserDao save: " + !status);
+            System.out.println("save: " + getClass() + ", " + !status);
             connection.commit();
             return 1;
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class UserDao implements IDao<UserEntity> {
             preparedStatement.setString(2, entity.getUsername());
             preparedStatement.setString(3, entity.getEmail());
             boolean status = preparedStatement.execute();
-            System.out.println("UserDao updateByEmail: " + !status);
+            System.out.println("updateByEmail: " + getClass() + ", " + !status);
             connection.commit();
             return 1;
         } catch (Exception e) {
@@ -92,6 +92,7 @@ public class UserDao implements IDao<UserEntity> {
                 userEntity.setPassword(resultSet.getString("password"));
                 userEntity.setUsername(resultSet.getString("username"));
                 resultSet.close();
+                System.out.println("queryById: " + getClass() + ", " + userEntity.getUsername());
                 return userEntity;
             }
         } catch (Exception e) {
