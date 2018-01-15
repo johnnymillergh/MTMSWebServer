@@ -204,15 +204,19 @@
                 </tr>
                 <tr>
                     <td align="right">Movie Title</td>
-                    <td align="center"><input type="text" name="title"></td>
+                    <td align="center"><input type="text" name="movieTitle"></td>
                 </tr>
                 <tr>
                     <td align="right">Score</td>
                     <td align="center"><input type="text" name="score"></td>
                 </tr>
                 <tr>
+                    <td align="right">Title</td>
+                    <td align="center"><input type="text" name="userReviewTitle"></td>
+                </tr>
+                <tr>
                     <td align="right">Text</td>
-                    <td align="center"><textarea name="text" clos="100" rows="10" warp="virtual"></textarea></td>
+                    <td align="center"><textarea name="text" clos="100" rows="10"></textarea></td>
                 </tr>
                 <tr>
                     <td align="right">Date of Review</td>

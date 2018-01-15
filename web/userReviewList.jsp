@@ -48,7 +48,10 @@
             </td>
             <td><%=entity.getScore() %>
             </td>
-            <td><textarea cols="100" rows="7"><%=entity.getText() %></textarea>
+            <td>
+                <div><b style="color:#000000; font-size:20px"><%=entity.getTitle()%>
+                </b></div>
+                <textarea style="resize: none" cols="100" rows="6" readonly><%=entity.getText() %></textarea>
             </td>
             <td><%=entity.getDateTime() %>
             </td>

@@ -80,8 +80,9 @@ public class UserReviewManagement extends HttpServlet {
 
         // Get parameters
         String email = request.getParameter("email");
-        String title = request.getParameter("title");
+        String movieTitle = request.getParameter("movieTitle");
         int score = Integer.parseInt(request.getParameter("score"));
+        String userReviewTitle = request.getParameter("userReviewTitle");
         String text = request.getParameter("text");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
@@ -90,7 +91,7 @@ public class UserReviewManagement extends HttpServlet {
         // Query: if the user have rated this movie
         userEntity.setEmail(email);
         userEntity = userDao.queryByEmail(userEntity);
-        movieEntity.setTitle(title);
+        movieEntity.setTitle(movieTitle);
         movieEntity = movieDao.queryByTitle(movieEntity);
         if (userEntity != null && movieEntity != null) {
             userReviewEntity.setUserId(userEntity.getId());
@@ -101,6 +102,7 @@ public class UserReviewManagement extends HttpServlet {
                 userReviewEntity.setUserId(userEntity.getId());
                 userReviewEntity.setMovieId(movieEntity.getId());
                 userReviewEntity.setScore(score);
+                userReviewEntity.setTitle(userReviewTitle);
                 userReviewEntity.setText(text);
                 userReviewEntity.setDateTime(dateTime);
                 int status = userReviewDao.save(userReviewEntity);

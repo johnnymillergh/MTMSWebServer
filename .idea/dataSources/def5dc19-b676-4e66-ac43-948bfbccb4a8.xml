@@ -1374,6 +1374,7 @@ auditorium_id</ColNames>
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="321" parent="244" name="user_id">
@@ -1393,36 +1394,41 @@ auditorium_id</ColNames>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="324" parent="244" name="text">
+    <column id="324" parent="244" name="title">
       <Position>5</Position>
+      <DataType>varchar(100)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="325" parent="244" name="text">
+      <Position>6</Position>
       <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="325" parent="244" name="date_time">
-      <Position>6</Position>
+    <column id="326" parent="244" name="date_time">
+      <Position>7</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="326" parent="244" name="fk_rating_user1_idx">
+    <index id="327" parent="244" name="fk_rating_user1_idx">
       <ColNames>user_id</ColNames>
     </index>
-    <index id="327" parent="244" name="fk_rating_movie_detail1_idx">
+    <index id="328" parent="244" name="fk_rating_movie_detail1_idx">
       <ColNames>movie_id</ColNames>
     </index>
-    <key id="328" parent="244" name="PRIMARY">
+    <key id="329" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 user_id
 movie_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="329" parent="244" name="fk_rating_user1">
+    <foreign-key id="330" parent="244" name="fk_rating_user1">
       <ColNames>user_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="330" parent="244" name="fk_rating_movie1">
+    <foreign-key id="331" parent="244" name="fk_rating_movie1">
       <ColNames>movie_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>movie</RefTableName>

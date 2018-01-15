@@ -7,6 +7,7 @@ public class UserReviewEntity {
     private int userId;
     private int movieId;
     private int score;
+    private String title;
     private String text;
     private Timestamp dateTime;
 
@@ -40,6 +41,14 @@ public class UserReviewEntity {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getText() {

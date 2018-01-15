@@ -12,15 +12,16 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     @Override
     public int save(UserReviewEntity entity) {
         Connection connection = MySQLUtils.getConnectionNoConnectionPool();
-        String sql = "INSERT INTO user_review (user_id, movie_id, score, text, date_time) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user_review (user_id, movie_id, score, title, text, date_time) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getUserId());
             preparedStatement.setInt(2, entity.getMovieId());
             preparedStatement.setInt(3, entity.getScore());
-            preparedStatement.setString(4, entity.getText());
-            preparedStatement.setTimestamp(5, entity.getDateTime());
+            preparedStatement.setString(4, entity.getTitle());
+            preparedStatement.setString(5, entity.getText());
+            preparedStatement.setTimestamp(6, entity.getDateTime());
             boolean status = preparedStatement.execute();
             System.out.println("save: " + getClass() + ", " + !status);
             connection.commit();
@@ -51,12 +52,13 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
 
     private int updateByUserIdAndMovieId(UserReviewEntity entity) {
         Connection connection = MySQLUtils.getConnection();
-        String sql = "UPDATE user_review SET score=?, text=?, date_time=? WHERE user_id=?";
+        String sql = "UPDATE user_review SET score=?, title=?, text=?, date_time=? WHERE user_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getScore());
-            preparedStatement.setString(2, entity.getText());
-            preparedStatement.setTimestamp(3, entity.getDateTime());
+            preparedStatement.setString(2, entity.getTitle());
+            preparedStatement.setString(3, entity.getText());
+            preparedStatement.setTimestamp(4, entity.getDateTime());
             boolean status = preparedStatement.execute();
             System.out.println("updateByUserIdAndMovieId: " + getClass() + ", " + !status);
             connection.commit();
@@ -99,6 +101,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 entity1.setUserId(resultSet.getInt("user_id"));
                 entity1.setMovieId(resultSet.getInt("movie_id"));
                 entity1.setScore(resultSet.getInt("score"));
+                entity1.setTitle(resultSet.getString("title"));
                 entity1.setText(resultSet.getString("text"));
                 entity1.setDateTime(resultSet.getTimestamp("date_time"));
                 resultSet.close();
@@ -140,6 +143,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setUserId(resultSet.getInt("user_id"));
                 userReview.setMovieId(resultSet.getInt("movie_id"));
                 userReview.setScore(resultSet.getInt("score"));
+                userReview.setTitle(resultSet.getString("title"));
                 userReview.setText(resultSet.getString("text"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
                 userReviewList.add(userReview);
