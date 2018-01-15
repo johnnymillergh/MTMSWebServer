@@ -143,5 +143,10 @@ public class UserReviewManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            response.sendRedirect("/userReviewList.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

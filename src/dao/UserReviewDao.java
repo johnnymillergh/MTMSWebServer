@@ -3,10 +3,9 @@ package dao;
 import entity.UserReviewEntity;
 import util.MySQLUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("Duplicates")
 public class UserReviewDao implements IDao<UserReviewEntity> {
@@ -47,7 +46,38 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
 
     @Override
     public int update(UserReviewEntity entity) {
-        return 0;
+        return updateByUserIdAndMovieId(entity);
+    }
+
+    private int updateByUserIdAndMovieId(UserReviewEntity entity) {
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "UPDATE user_review SET score=?, text=?, date_time=? WHERE user_id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getScore());
+            preparedStatement.setString(2, entity.getText());
+            preparedStatement.setTimestamp(3, entity.getDateTime());
+            boolean status = preparedStatement.execute();
+            System.out.println("updateByUserIdAndMovieId: " + getClass() + ", " + !status);
+            connection.commit();
+            return 1;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -92,6 +122,51 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 }
             }
         }
+        return null;
+    }
+
+    public List<UserReviewEntity> getAll() {
+        List<UserReviewEntity> userReviewList = new ArrayList<>();
+        UserReviewEntity userReview;
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "SELECT * FROM user_review";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                userReview = new UserReviewEntity();
+                userReview.setId(resultSet.getInt("id"));
+                userReview.setUserId(resultSet.getInt("user_id"));
+                userReview.setMovieId(resultSet.getInt("movie_id"));
+                userReview.setScore(resultSet.getInt("score"));
+                userReview.setText(resultSet.getString("text"));
+                userReview.setDateTime(resultSet.getTimestamp("date_time"));
+                userReviewList.add(userReview);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAll: " + getClass());
+            return userReviewList;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<UserReviewEntity> getAllReviewsOfUser() {
         return null;
     }
 
