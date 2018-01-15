@@ -176,6 +176,7 @@
                     <td colspan="2" align="center">
                         <input type="radio" name="movieScheduleOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="movieScheduleOperation" value="update"/>Update
+                        <input type="text" name="id" size="12" placeholder="movieScheduleId"/>
                         <input type="radio" name="movieScheduleOperation" value="delete"/>Delete
                         <input type="radio" name="movieScheduleOperation" value="query"/>Query
                         <input type="radio" name="movieScheduleOperation" value="getAll"/>Get all
@@ -321,16 +322,19 @@
         var tp = new ng.TimePicker({
             input: 'timePicker',  // the input field id
             format: 'H:i:s',
+            server_format: 'H:i:s',
             use24: true
         });
         var tp2 = new ng.TimePicker({
             input: 'timePicker2',  // the input field id
             format: 'H:i:s',
+            server_format: 'H:i:s',
             use24: true
         });
         var tp3 = new ng.TimePicker({
             input: 'timePicker3',  // the input field id
             format: 'H:i:s',
+            server_format: 'H:i:s',
             use24: true
         });
     });

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -86,14 +87,17 @@ public class MovieScheduleManagement extends HttpServlet {
         String price = request.getParameter("price");
         String dateOfShow = request.getParameter("dateOfShow");
         String timeOfShow = request.getParameter("timeOfShow");
+        System.out.println("Add movie schedule: " + movieId + ", " + theaterId + ", " + auditoriumId + ", " + price +
+                ", " + dateOfShow + ", " + timeOfShow);
 
         entity.setMovieId(Integer.parseInt(movieId));
         entity.setAuditoriumTheaterId(Integer.parseInt(theaterId));
         entity.setAuditoriumId(Integer.parseInt(auditoriumId));
         entity.setPrice(Float.parseFloat(price));
+        entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
         entity.setDateOfShow(Date.valueOf(dateOfShow));
         SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-        entity.setTimeOfShow(new Time(format.parse("03:25:00").getTime()));
+        entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
 
         int status = dao.save(entity);
         if (status == 1) {
@@ -109,19 +113,53 @@ public class MovieScheduleManagement extends HttpServlet {
         }
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response) {
+    private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        MovieScheduleDao dao = new MovieScheduleDao();
+        MovieScheduleEntity entity = new MovieScheduleEntity();
+
+        String id = request.getParameter("id");
+        String movieId = request.getParameter("movieId");
+        String theaterId = request.getParameter("theaterId");
+        String auditoriumId = request.getParameter("auditoriumId");
+        String price = request.getParameter("price");
+        String dateOfShow = request.getParameter("dateOfShow");
+        String timeOfShow = request.getParameter("timeOfShow");
+        System.out.println("Update movie schedule: " + movieId + ", " + theaterId + ", " + auditoriumId + ", " + price +
+                ", " + dateOfShow + ", " + timeOfShow);
+
+        entity.setId(Integer.parseInt(id));
+        entity.setMovieId(Integer.parseInt(movieId));
+        entity.setAuditoriumTheaterId(Integer.parseInt(theaterId));
+        entity.setAuditoriumId(Integer.parseInt(auditoriumId));
+        entity.setPrice(Float.parseFloat(price));
+        entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
+        entity.setDateOfShow(Date.valueOf(dateOfShow));
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+        entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
+
+        int status = dao.update(entity);
+        if (status == 1) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('MovieScheduleManagement: updated.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('MovieScheduleManagement: update failed.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
+    private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     }
 
-    private void query(HttpServletRequest request, HttpServletResponse response) {
-
-    }
-
-    private void getAll(HttpServletRequest request, HttpServletResponse response) {
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             response.sendRedirect("/movieScheduleList.jsp");
         } catch (IOException e) {
@@ -129,7 +167,7 @@ public class MovieScheduleManagement extends HttpServlet {
         }
     }
 
-    private void getJson(HttpServletRequest request, HttpServletResponse response) {
+    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MovieScheduleDao dao = new MovieScheduleDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         List<MovieScheduleEntity> entities = dao.getAll();
