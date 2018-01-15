@@ -60,7 +60,6 @@
         </form>
     </fieldset>
 </div>
-
 <br>
 
 <div align="center">
@@ -137,7 +136,6 @@
         </form>
     </fieldset>
 </div>
-
 <br>
 
 <div align="center">
@@ -191,7 +189,6 @@
         </form>
     </fieldset>
 </div>
-
 <br>
 
 <div align="center">
