@@ -1,5 +1,7 @@
 package servlet.administrator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.MovieDao;
 import dao.UserDao;
 import dao.UserReviewDao;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.List;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "UserReviewManagement")
@@ -56,6 +59,13 @@ public class UserReviewManagement extends HttpServlet {
             case "getAll":
                 try {
                     getAll(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "getJson":
+                try {
+                    getJson(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -149,6 +159,26 @@ public class UserReviewManagement extends HttpServlet {
             response.sendRedirect("/userReviewList.jsp");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        UserReviewDao dao = new UserReviewDao();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        List<UserReviewEntity> entities = dao.getAll();
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            String json = gson.toJson(entities);
+            out.println(json);
+            out.flush();
+            System.out.println("getAllMovieScheduleDao (JSON object)");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
+            }
         }
     }
 }
