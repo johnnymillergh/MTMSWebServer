@@ -33,7 +33,7 @@ public class MovieDao implements IDao<MovieEntity> {
             preparedStatement.setString(12, entity.getDescription());
             preparedStatement.setBinaryStream(13, new ByteArrayInputStream(entity.getPoster()));
             boolean status = preparedStatement.execute();
-            System.out.println("save: " + getClass() + !status);
+            System.out.println("save: " + getClass() + ", " + !status);
             connection.commit();
             return 1;
         } catch (Exception e) {
@@ -223,7 +223,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
                 resultSet.close();
                 connection.commit();
-                System.out.println("getPoster(title): " + getClass() +", "+ movieEntity.getTitle());
+                System.out.println("getPoster(title): " + getClass() + ", " + movieEntity.getTitle());
                 return movieEntity;
             }
         } catch (Exception e) {
@@ -259,7 +259,8 @@ public class MovieDao implements IDao<MovieEntity> {
                 movieEntity.setPoster(resultSet.getBytes("poster"));// 14
                 resultSet.close();
                 connection.commit();
-                System.out.println("getPosterBytes: " + getClass() + ",id: " + movieEntity.getId() + ", title: " + movieEntity.getTitle());
+                System.out.println("getPosterBytes: " + getClass() + ", id: " + movieEntity.getId() + ", title: " +
+                        movieEntity.getTitle());
                 return movieEntity;
             }
         } catch (Exception e) {

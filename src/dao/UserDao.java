@@ -169,7 +169,8 @@ public class UserDao implements IDao<UserEntity> {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getEmail());
-            preparedStatement.execute();
+            boolean status = preparedStatement.execute();
+            System.out.println("deleteByEmail: " + getClass() + ", id: " + entity.getId());
             connection.commit();
             return 1;
         } catch (Exception e) {
