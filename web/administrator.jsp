@@ -7,10 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+
 <script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_all.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_ui.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/components/timepicker.js"></script>
+<script type="text/javascript" src="NoGray1.2.2/components/calendar.js"></script>
+
 <html>
 <head>
     <title>MTMS: Administrator</title>
@@ -166,7 +169,7 @@
                 </tr>
                 <tr>
                     <td align="right">Date of show</td>
-                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
+                    <td align="center"><input type="text" id="dateOfShow" name="dateOfShow"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of show</td>
@@ -319,6 +322,7 @@
 
 <script type="text/javascript">
     ng.ready(function () {
+        // Init time picker
         var tp = new ng.TimePicker({
             input: 'timePicker',  // the input field id
             format: 'H:i:s',
@@ -336,6 +340,12 @@
             format: 'H:i:s',
             server_format: 'H:i:s',
             use24: true
+        });
+
+        // Init date picket
+        var my_cal = new ng.Calendar({
+            input:'dateOfShow',
+            date_format:'Y-n-j'
         });
     });
 </script>
