@@ -32,7 +32,7 @@
             <td>user_id</td>
             <td>movie_id</td>
             <td>score</td>
-            <td>text</td>
+            <td>title and text</td>
             <td>date_time</td>
         </tr>
         <%

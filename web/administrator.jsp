@@ -33,7 +33,7 @@
             <h2>1. User Management</h2>
         </legend>
         <form action="${pageContext.request.contextPath}/servlet.administrator.UserManagement" method="post">
-            <table align="center">
+            <table>
                 <tr>
                     <td align="right">Email</td>
                     <td align="center"><input type="text" name="email"></td>
@@ -47,12 +47,12 @@
                     <td align="center"><input type="text" name="password"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="2">
                         <input type="radio" name="userOperation" value="add" checked="checked" align=""/>Add
                         <input type="radio" name="userOperation" value="update"/>Update
                         <input type="radio" name="userOperation" value="delete"/>Delete
                         <input type="radio" name="userOperation" value="query"/>Query
-                        <input type="radio" name="userOperation" value="queryOnline"/>Query online user
+                        <input type="radio" name="userOperation" value="queryOnline"/>Query Online User
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -200,31 +200,33 @@
             <table align="center">
                 <tr>
                     <td align="right">User Email</td>
-                    <td align="center"><input type="text" name="email"></td>
+                    <td align="left"><input type="text" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Title</td>
-                    <td align="center"><input type="text" name="movieTitle"></td>
+                    <td align="left"><input type="text" name="movieTitle"></td>
                 </tr>
                 <tr>
                     <td align="right">Score</td>
-                    <td align="center"><input type="text" name="score"></td>
+                    <td align="left"><input type="text" name="score"></td>
                 </tr>
                 <tr>
                     <td align="right">Title</td>
-                    <td align="center"><input type="text" name="userReviewTitle"></td>
+                    <td align="left"><input type="text" name="userReviewTitle"></td>
                 </tr>
                 <tr>
                     <td align="right">Text</td>
-                    <td align="center"><textarea name="text" clos="100" rows="10"></textarea></td>
+                    <td align="left">
+                        <textarea name="text" style="resize: none; width: 450px; height: 100px"></textarea>
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Date of Review</td>
-                    <td align="center"><input type="text" name="date" onfocus="WdatePicker()"/></td>
+                    <td align="left"><input type="text" name="date" onfocus="WdatePicker()"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Review</td>
-                    <td align="center"><input type="text" id="timePicker2" value="10:25:00" name="time"/></td>
+                    <td align="left"><input type="text" id="timePicker2" value="10:25:00" name="time"/></td>
                 </tr>
                 <tr>
                     <td colspan="4" align="center">
@@ -341,8 +343,8 @@
 
         // Init date picket
         var my_cal = new ng.Calendar({
-            input:'dateOfShow',
-            date_format:'Y-n-j'
+            input: 'dateOfShow',
+            date_format: 'Y-n-j'
         });
     });
 </script>
