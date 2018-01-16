@@ -92,11 +92,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>OrderManagement</servlet-name>
+        <servlet-name>GetUserReview</servlet-name>
+        <servlet-class>servlet.customer.GetUserReview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserReview</servlet-name>
+        <url-pattern>/servlet.customer.GetUserReview</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Order</servlet-name>
         <servlet-class>servlet.customer.Order</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>OrderManagement</servlet-name>
+        <servlet-name>Order</servlet-name>
         <url-pattern>/servlet.customer.Order</url-pattern>
     </servlet-mapping>
 </web-app>

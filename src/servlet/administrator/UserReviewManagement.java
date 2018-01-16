@@ -163,22 +163,65 @@ public class UserReviewManagement extends HttpServlet {
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UserReviewDao dao = new UserReviewDao();
+        UserReviewDao userReviewDao = new UserReviewDao();
+        UserReviewEntity userReviewEntity = new UserReviewEntity();
+
+        UserDao userDao = new UserDao();
+        UserEntity userEntity = new UserEntity();
+
+        MovieDao movieDao = new MovieDao();
+        MovieEntity movieEntity = new MovieEntity();
+
+        // Get parameter
+        String email = request.getParameter("email");
+        String movieTitle = request.getParameter("movieTitle");
+
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-        List<UserReviewEntity> entities = dao.getAll();
+        List<UserReviewEntity> userReviewEntityList;
         PrintWriter out = null;
-        try {
+
+        if (email.compareTo("") == 0 && movieTitle.compareTo("") == 0) {
+            userReviewEntityList = userReviewDao.getAll();
             out = response.getWriter();
-            String json = gson.toJson(entities);
+            String json = gson.toJson(userReviewEntityList);
             out.println(json);
             out.flush();
-            System.out.println("getAllMovieScheduleDao (JSON object)");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (out != null) {
+            System.out.println("getJson: " + getClass());
+            out.close();
+        } else if (email.compareTo("") == 0 && movieTitle.compareTo("") != 0) {
+            movieEntity.setTitle(movieTitle);
+            movieEntity = movieDao.queryByTitle(movieEntity);
+            if (movieEntity != null) {
+                userReviewEntity.setMovieId(movieEntity.getId());
+                userReviewEntityList = userReviewDao.getAllReviewsOfMovie(userReviewEntity);
+
+                out = response.getWriter();
+                String json = gson.toJson(userReviewEntityList);
+                out.println(json);
+                out.flush();
+                System.out.println("getJson: " + getClass());
                 out.close();
             }
+        } else if (email.compareTo("") != 0 && movieTitle.compareTo("") == 0) {
+            userEntity.setEmail(email);
+            userEntity = userDao.queryByEmail(userEntity);
+            if (userEntity != null) {
+                userReviewEntity.setUserId(userEntity.getId());
+                userReviewEntityList = userReviewDao.getAllReviewsOfUser(userReviewEntity);
+
+                out = response.getWriter();
+                String json = gson.toJson(userReviewEntityList);
+                out.println(json);
+                out.flush();
+                System.out.println("getJson: " + getClass());
+                out.close();
+            }
+        } else {
+            out = response.getWriter();
+            out.println("Parameters ERROR!");
+            out.flush();
+            out.close();
         }
+
     }
 }

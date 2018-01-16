@@ -177,7 +177,7 @@ public class MovieScheduleManagement extends HttpServlet {
             String json = gson.toJson(entities);
             out.println(json);
             out.flush();
-            System.out.println("getAllMovieScheduleDao (JSON object)");
+            System.out.println("getJson: " + getClass());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -23,10 +23,18 @@ public class GetMovie extends HttpServlet {
         String movieOperation = request.getParameter("movieOperation");
         switch (movieOperation) {
             case "getAll":
-                getAllMoviesWithoutPoster(response);
+                try {
+                    getAllMoviesWithoutPoster(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case "getPoster":
-                getPosterOfMovie(request, response);
+                try {
+                    getPosterOfMovie(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
         }
@@ -37,27 +45,20 @@ public class GetMovie extends HttpServlet {
         doPost(request, response);
     }
 
-    private void getAllMoviesWithoutPoster(HttpServletResponse response) {
+    private void getAllMoviesWithoutPoster(HttpServletResponse response) throws Exception {
         MovieDao movieDao = new MovieDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         List<MovieEntity> movies = movieDao.getAll();
         PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            String json = gson.toJson(movies);
-            out.println(json);
-            out.flush();
-            System.out.println("getAllMoviesWithoutPoster");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-        }
+        out = response.getWriter();
+        String json = gson.toJson(movies);
+        out.println(json);
+        out.flush();
+        out.close();
+        System.out.println("getAllMoviesWithoutPoster: " + getClass());
     }
 
-    private void getPosterOfMovie(HttpServletRequest request, HttpServletResponse response) {
+    private void getPosterOfMovie(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MovieDao movieDao = new MovieDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         MovieEntity movieEntity = new MovieEntity();
@@ -67,17 +68,11 @@ public class GetMovie extends HttpServlet {
             movieEntity.setTitle(title);
             movieEntity = movieDao.getPoster(movieEntity);
             String json = gson.toJson(movieEntity);
-            try {
-                out = response.getWriter();
-                out.println(json);
-                out.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
-            }
+            out = response.getWriter();
+            out.println(json);
+            out.flush();
+            out.close();
+            System.out.println("getPosterOfMovie: " + getClass());
         }
     }
 }

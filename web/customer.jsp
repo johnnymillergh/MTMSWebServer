@@ -112,7 +112,33 @@
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">
         <legend>
-            <h2>4. Order Management</h2>
+            <h2>4. Get User Review</h2>
+        </legend>
+        <form action="${pageContext.request.contextPath}/servlet.customer.GetUserReview" method="post">
+            <table align="center">
+                <tr>
+                    <td align="right">Email</td>
+                    <td align="center"><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <td align="right">Movie Title</td>
+                    <td align="center"><input type="text" name="movieTitle"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>
+<br>
+
+<div align="center">
+    <fieldset style="width:fit-content; height:fit-content;">
+        <legend>
+            <h2>5. Order</h2>
         </legend>
         <form action="${pageContext.request.contextPath}/servlet.customer.Order" method="post">
             <table align="center">
