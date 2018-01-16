@@ -11,6 +11,7 @@
 <script type="text/javascript" src="NoGray1.2.2/ng_all.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_ui.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/components/timepicker.js"></script>
+
 <html>
 <head>
     <title>MTMS: Customer</title>
@@ -217,6 +218,13 @@
         var tp = new ng.TimePicker({
             input: 'timePicker',  // the input field id
             format: 'H:i:s',
+            server_format: 'H:i:s',
+            use24: true
+        });
+        var tp2 = new ng.TimePicker({
+            input: 'timePicker2',  // the input field id
+            format: 'H:i:s',
+            server_format: 'H:i:s',
             use24: true
         });
     });
