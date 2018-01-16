@@ -163,6 +163,8 @@ public class UserReviewManagement extends HttpServlet {
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/json");
+
         UserReviewDao userReviewDao = new UserReviewDao();
         UserReviewEntity userReviewEntity = new UserReviewEntity();
 

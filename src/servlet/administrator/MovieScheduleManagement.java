@@ -168,6 +168,8 @@ public class MovieScheduleManagement extends HttpServlet {
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/json");
+
         MovieScheduleDao dao = new MovieScheduleDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         List<MovieScheduleEntity> entities = dao.getAll();
