@@ -14,11 +14,13 @@ public class MySQLUtils implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        System.out.println("Initial C3P0: " + getClass());
         ds = new ComboPooledDataSource("MySQLConnection");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        System.out.println("Destroy C3P0: " + getClass());
     }
 
     public static Connection getConnection() {

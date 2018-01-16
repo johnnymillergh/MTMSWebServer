@@ -27,6 +27,7 @@ public class UserReviewManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+
         String radio = request.getParameter("userReviewOperation");
         System.out.println("userReviewOperation: " + radio);
         switch (radio) {
@@ -152,8 +153,7 @@ public class UserReviewManagement extends HttpServlet {
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/json");
 
         UserReviewDao userReviewDao = new UserReviewDao();
         UserReviewEntity userReviewEntity = new UserReviewEntity();

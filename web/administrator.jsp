@@ -252,7 +252,7 @@
                     <td align="left"><input type="text" id="timePicker2" value="10:25:00" name="time"/></td>
                 </tr>
                 <tr>
-                    <td colspan="4" align="center">
+                    <td colspan="2" align="center">
                         <input type="radio" name="userReviewOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="userReviewOperation" value="update"/>Update
                         <input type="radio" name="userReviewOperation" value="delete"/>Delete

@@ -48,7 +48,7 @@ public class MobileTerminalUtils implements ServletContextListener {
                         ip2ClientSocket.put(ip, clientSocket);
                         System.out.println("Save client socket (Push Service): [" + ip + ":" + clientSocket.getPort() + "]");
                         OutputStreamWriter out = new OutputStreamWriter(clientSocket.getOutputStream());
-                        out.write("{\"from\":\"Server\",\"msg\":\"Hello1 " + Math.random() * 100 + "\"}"+"\n");
+                        out.write("{\"from\":\"Server\",\"msg\":\"Hello1 " + Math.random() * 100 + "\"}" + "\n");
                         out.flush();
                         System.out.println("clientSocket.isClosed(): " + clientSocket.isClosed());
                     } catch (IOException e) {
@@ -108,12 +108,14 @@ public class MobileTerminalUtils implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        System.out.println("Initial Push Service: " + getClass());
         startServerSocket();
         listenServerPort();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        System.out.println("Destroy Push Service: " + getClass());
         stopServerSocket();
         stopClientSocket();
     }
