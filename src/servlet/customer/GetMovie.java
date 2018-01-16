@@ -62,7 +62,10 @@ public class GetMovie extends HttpServlet {
         MovieDao movieDao = new MovieDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         MovieEntity movieEntity = new MovieEntity();
+
+        // Get parameter
         String title = request.getParameter("title");
+
         PrintWriter out = null;
         if (title.compareTo("") != 0) {
             movieEntity.setTitle(title);

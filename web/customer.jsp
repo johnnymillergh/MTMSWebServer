@@ -112,20 +112,47 @@
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">
         <legend>
-            <h2>4. Get User Review</h2>
+            <h2>4. User Review Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.customer.GetUserReview" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.customer.UserReviewManagement" method="post">
             <table align="center">
                 <tr>
-                    <td align="right">Email</td>
-                    <td align="center"><input type="text" name="email"></td>
+                    <td align="right">User Email</td>
+                    <td align="left"><input type="text" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Title</td>
-                    <td align="center"><input type="text" name="movieTitle"></td>
+                    <td align="left"><input type="text" name="movieTitle"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td align="right">Score</td>
+                    <td align="left"><input type="text" name="score"></td>
+                </tr>
+                <tr>
+                    <td align="right">Title</td>
+                    <td align="left"><input type="text" name="userReviewTitle"></td>
+                </tr>
+                <tr>
+                    <td align="right">Text</td>
+                    <td align="left">
+                        <textarea name="text" style="resize: none; width: 450px; height: 100px"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">Date of Review</td>
+                    <td align="left"><input type="text" name="date" onfocus="WdatePicker()"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Time of Review</td>
+                    <td align="left"><input type="text" id="timePicker2" value="10:25:00" name="time"/></td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center">
+                        <input type="radio" name="userReviewOperation" value="add" checked="checked"/>Add
+                        <input type="radio" name="userReviewOperation" value="update"/>Update
+                        <input type="radio" name="userReviewOperation" value="delete"/>Delete
+                        <input type="radio" name="userReviewOperation" value="query"/>Query
+                        <input type="radio" name="userReviewOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>

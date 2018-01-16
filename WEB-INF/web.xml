@@ -93,11 +93,11 @@
 
     <servlet>
         <servlet-name>GetUserReview</servlet-name>
-        <servlet-class>servlet.customer.GetUserReview</servlet-class>
+        <servlet-class>servlet.customer.UserReviewManagement</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetUserReview</servlet-name>
-        <url-pattern>/servlet.customer.GetUserReview</url-pattern>
+        <url-pattern>/servlet.customer.UserReviewManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
