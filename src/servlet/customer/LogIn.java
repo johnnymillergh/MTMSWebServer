@@ -21,8 +21,20 @@ public class LogIn extends HttpServlet {
 
         UserDao dao = new UserDao();
         UserEntity entityInput = new UserEntity();
-        entityInput.setEmail(request.getParameter("email"));
-        entityInput.setPassword(request.getParameter("password"));
+
+        // Get parameters
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        if (email == null) {
+            email = "";
+        }
+        if (password == null) {
+            password = "";
+        }
+
+        entityInput.setEmail(email);
+        entityInput.setPassword(password);
         UserEntity entityFromQuery = dao.queryByEmail(entityInput);
 
         System.out.println("Remote client is trying to log in: [" + request.getRemoteAddr() + ":" + request.getRemotePort() + "]");
@@ -37,13 +49,13 @@ public class LogIn extends HttpServlet {
                 MobileTerminalUtils.userEmail2Ip.put(entityFromQuery.getEmail(), request.getRemoteAddr());
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"succeed\",\"serverPushPort\":\"\"}");
+                out.println("{\"loginStatus\":\"failed\"}");
                 out.flush();
                 out.close();
             }
         } else {
             PrintWriter out = response.getWriter();
-            out.println("{\"loginStatus\":\"succeed\",\"serverPushPort\":\"\"}");
+            out.println("{\"loginStatus\":\"failed\"}");
             out.flush();
             out.close();
         }
