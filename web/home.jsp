@@ -14,7 +14,7 @@
 <body>
 
 <div align="center"><b style="color:#000000; font-size:40px">Movie Ticket Management System</b></div>
-<div align="center"><b style="color:#000000; font-size:30px">Navigation</b></div>
+<div align="center"><b style="color:#115dff; font-size:30px">Navigation</b></div>
 <hr size="2" noshade="noshade">
 
 <div align="center">

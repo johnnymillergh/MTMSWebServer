@@ -22,7 +22,7 @@
 <body>
 
 <div align="center"><b style="color:#000000; font-size:40px">Movie Ticket Management System</b></div>
-<div align="center"><b style="color:#000000; font-size:30px">For Administrator</b></div>
+<div align="center"><b style="color:#c32916; font-size:30px">For Administrator</b></div>
 <hr size="2" noshade="noshade">
 
 <div align="center" style="font-size:20px"><a href="home.jsp">Back to home</a></div>
@@ -58,6 +58,29 @@
                 </tr>
             </table>
         </form>
+
+        <fieldset style="width:fit-content; height:fit-content;">
+            <legend>
+                <h3>Push Message</h3>
+            </legend>
+            <form action="${pageContext.request.contextPath}/servlet.administrator.PushMessage" method="post">
+                <table align="center">
+                    <tr>
+                        <td align="right">Email</td>
+                        <td align="center"><input type="text" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Message</td>
+                        <td align="center"><input type="text" name="message"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" value="Push">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
     </fieldset>
 </div>
 <br>
@@ -285,32 +308,6 @@
                         <input type="radio" name="orderOperation" value="getAll"/>Get all
                         <input type="radio" name="orderOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </fieldset>
-</div>
-<br>
-
-<div align="center">
-    <fieldset style="width:fit-content; height:fit-content;">
-        <legend>
-            <h2>6. Push Message</h2>
-        </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.PushMessage" method="post">
-            <table align="center">
-                <tr>
-                    <td align="right">Email</td>
-                    <td align="center"><input type="text" name="email"></td>
-                </tr>
-                <tr>
-                    <td align="right">Message</td>
-                    <td align="center"><input type="text" name="message"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="Push">
                     </td>
                 </tr>
             </table>
