@@ -1,6 +1,7 @@
 package util;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mchange.v2.c3p0.DataSources;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,22 +11,27 @@ import java.sql.*;
 public class MySQLUtils implements ServletContextListener {
 
     // C3P0
-    private static DataSource ds;
+    private static DataSource dataSource;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         System.out.println("Initial C3P0: " + getClass());
-        ds = new ComboPooledDataSource("MySQLConnection");
+        dataSource = new ComboPooledDataSource("MySQLConnection");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         System.out.println("Destroy C3P0: " + getClass());
+        try {
+            DataSources.destroy(dataSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Connection getConnection() {
         try {
-            Connection connection = ds.getConnection();
+            Connection connection = dataSource.getConnection();
             connection.setAutoCommit(false);
             return connection;
         } catch (SQLException e) {

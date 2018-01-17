@@ -8,10 +8,10 @@
           <element id="module-output" name="MTMSWebServer" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="c3p0-0.9.2" />
           <element id="library" level="project" name="mysql-connector-java-5.1.44-bin" />
-          <element id="library" level="project" name="mchange-commons-java-0.2.3.4" />
           <element id="library" level="project" name="gson-2.8.2" />
+          <element id="library" level="project" name="c3p0-0.9.5.2" />
+          <element id="library" level="project" name="mchange-commons-java-0.2.11" />
         </element>
       </element>
     </root>
