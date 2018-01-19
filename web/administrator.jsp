@@ -210,6 +210,46 @@
                 </tr>
             </table>
         </form>
+        <fieldset style="width:fit-content; height:fit-content;">
+            <legend>
+                <h3>Top Movie Management</h3>
+            </legend>
+            <form action="${pageContext.request.contextPath}/servlet.administrator.TopMovieManagement" method="post">
+                <table align="center">
+                    <tr>
+                        <td align="right">Movie Title 1</td>
+                        <td align="center"><input type="text" name="title1"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Movie Title 2</td>
+                        <td align="center"><input type="text" name="title2"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Movie Title 3</td>
+                        <td align="center"><input type="text" name="title3"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Movie Title 4</td>
+                        <td align="center"><input type="text" name="title4"></td>
+                    </tr>
+                    <tr>
+                        <td align="right">Movie Title 5</td>
+                        <td align="center"><input type="text" name="title5"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="radio" name="topMovieOperation" value="add" checked="checked"/>Add
+                            <input type="radio" name="topMovieOperation" value="update"/>Update
+                            <input type="radio" name="topMovieOperation" value="delete"/>Delete
+                            <input type="radio" name="topMovieOperation" value="query"/>Query
+                            <input type="radio" name="topMovieOperation" value="getAll"/>Get all
+                            <input type="radio" name="topMovieOperation" value="getJson"/>Get Json
+                            <input type="submit" value="Submit">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
     </fieldset>
 </div>
 <br>
