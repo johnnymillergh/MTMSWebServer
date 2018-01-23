@@ -1,7 +1,7 @@
 package dao;
 
 import util.ImageUtil;
-import util.MySQLUtils;
+import util.MySQLUtil;
 import entity.MovieEntity;
 
 import java.io.ByteArrayInputStream;
@@ -13,7 +13,7 @@ import java.util.List;
 public class MovieDao implements IDao<MovieEntity> {
     @Override
     public int save(MovieEntity entity) {
-        Connection connection = MySQLUtils.getConnectionNoConnectionPool();
+        Connection connection = MySQLUtil.getConnectionNoConnectionPool();
         String sql = "INSERT INTO movie (title, duration, genre, director, stars, " +
                 "country, language, release_date, filming_location, runtime, aspect_ratio, description, poster) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -71,7 +71,7 @@ public class MovieDao implements IDao<MovieEntity> {
     }
 
     private int updateByTitle(MovieEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "UPDATE movie SET duration=?, genre=? ,director=?, stars=?, country=?, language=?, " +
                 "release_date=?, filming_location=?, runtime=?, aspect_ratio=?, description=?, poster=? WHERE title=?";
         try {
@@ -113,7 +113,7 @@ public class MovieDao implements IDao<MovieEntity> {
     }
 
     public MovieEntity queryByTitle(MovieEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM movie WHERE title=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -163,7 +163,7 @@ public class MovieDao implements IDao<MovieEntity> {
     public List<MovieEntity> getAll() {
         List<MovieEntity> movies = new ArrayList<>();
         MovieEntity movieEntity;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM movie";
         try {
             Statement statement = connection.createStatement();
@@ -210,7 +210,7 @@ public class MovieDao implements IDao<MovieEntity> {
     }
 
     public MovieEntity getPoster(MovieEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, title, poster FROM movie WHERE title=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -246,7 +246,7 @@ public class MovieDao implements IDao<MovieEntity> {
     }
 
     public MovieEntity getPosterBytes(MovieEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, title, poster FROM movie WHERE title=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

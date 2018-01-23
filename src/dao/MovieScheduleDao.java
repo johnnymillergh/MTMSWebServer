@@ -1,9 +1,8 @@
 package dao;
 
 import entity.MovieScheduleEntity;
-import util.MySQLUtils;
+import util.MySQLUtil;
 
-import java.io.ByteArrayInputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
     @Override
     public int save(MovieScheduleEntity entity) {
-        Connection connection = MySQLUtils.getConnectionNoConnectionPool();
+        Connection connection = MySQLUtil.getConnectionNoConnectionPool();
         String sql = "INSERT INTO movie_schedule (movie_id, auditorium_theater_id, auditorium_id, " +
                 "price, showtime, date_of_show, time_of_show) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -54,7 +53,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
     }
 
     private int updateById(MovieScheduleEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "UPDATE movie_schedule SET movie_id=?, auditorium_theater_id=?, auditorium_id=?, price=?, " +
                 "showtime=?, date_of_show=?, time_of_show=? WHERE id=?";
         try {
@@ -92,7 +91,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
 
     @Override
     public MovieScheduleEntity queryById(MovieScheduleEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM movie_schedule WHERE id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -141,7 +140,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
     public List<MovieScheduleEntity> getAll() {
         List<MovieScheduleEntity> movieScheduleEntities = new ArrayList<>();
         MovieScheduleEntity entity;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM movie_schedule";
         try {
             Statement statement = connection.createStatement();

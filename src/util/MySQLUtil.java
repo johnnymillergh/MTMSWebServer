@@ -8,7 +8,7 @@ import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
 import java.sql.*;
 
-public class MySQLUtils implements ServletContextListener {
+public class MySQLUtil implements ServletContextListener {
 
     // C3P0
     private static DataSource dataSource;

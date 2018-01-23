@@ -1,6 +1,6 @@
 package dao;
 
-import util.MySQLUtils;
+import util.MySQLUtil;
 import entity.UserEntity;
 
 import java.sql.*;
@@ -11,7 +11,7 @@ public class UserDao implements IDao<UserEntity> {
 
     @Override
     public int save(UserEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "INSERT INTO user (email, password, username) VALUES (?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class UserDao implements IDao<UserEntity> {
     }
 
     private int updateByEmail(UserEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "UPDATE user SET password=?, username=? WHERE email=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -79,7 +79,7 @@ public class UserDao implements IDao<UserEntity> {
 
     @Override
     public UserEntity queryById(UserEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM user WHERE id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -126,7 +126,7 @@ public class UserDao implements IDao<UserEntity> {
 
 
     public UserEntity queryByEmail(UserEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM user WHERE email=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -166,7 +166,7 @@ public class UserDao implements IDao<UserEntity> {
 
 
     private int deleteByEmail(UserEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "DELETE FROM user WHERE id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

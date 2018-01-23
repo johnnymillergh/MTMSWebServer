@@ -1,7 +1,7 @@
 package dao;
 
 import entity.CustomerOrderEntity;
-import util.MySQLUtils;
+import util.MySQLUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
     @Override
     public int save(CustomerOrderEntity entity) {
-        Connection connection = MySQLUtils.getConnectionNoConnectionPool();
+        Connection connection = MySQLUtil.getConnectionNoConnectionPool();
         String sql = "INSERT INTO customer_order (user_id, order_datetime, movie_schedule_id, is_paid, is_used, ticket_amount, total_price) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -52,7 +52,7 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
     }
 
     public int updateByUserIdAndOrderDatetime(CustomerOrderEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "UPDATE customer_order SET user_id=?, order_datetime=?, movie_schedule_id=?, is_paid=?, is_used=?, ticket_amount=?, total_price=? " +
                 "WHERE user_id=? AND order_datetime=?";
         try {
@@ -99,7 +99,7 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
     }
 
     public CustomerOrderEntity queryByUserIdAndOrderDatetime(CustomerOrderEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM customer_order WHERE user_id=? AND order_datetime=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -149,7 +149,7 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
     public List<CustomerOrderEntity> getAll() {
         List<CustomerOrderEntity> orders = new ArrayList<>();
         CustomerOrderEntity order;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM customer_order";
         try {
             Statement statement = connection.createStatement();

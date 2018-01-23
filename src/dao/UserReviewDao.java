@@ -1,7 +1,7 @@
 package dao;
 
 import entity.UserReviewEntity;
-import util.MySQLUtils;
+import util.MySQLUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 public class UserReviewDao implements IDao<UserReviewEntity> {
     @Override
     public int save(UserReviewEntity entity) {
-        Connection connection = MySQLUtils.getConnectionNoConnectionPool();
+        Connection connection = MySQLUtil.getConnectionNoConnectionPool();
         String sql = "INSERT INTO user_review (user_id, movie_id, score, title, text, date_time) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
         try {
@@ -51,7 +51,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     }
 
     private int updateByUserIdAndMovieId(UserReviewEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "UPDATE user_review SET score=?, title=?, text=?, date_time=? WHERE user_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -88,7 +88,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     }
 
     public UserReviewEntity queryByUserIdAndMovieId(UserReviewEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM user_review WHERE user_id=? AND movie_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -132,7 +132,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     public List<UserReviewEntity> getAll() {
         List<UserReviewEntity> userReviewList = new ArrayList<>();
         UserReviewEntity userReview;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM user_review";
         try {
             Statement statement = connection.createStatement();
@@ -174,7 +174,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     public List<UserReviewEntity> getAllReviewsOfUser(UserReviewEntity entity) {
         List<UserReviewEntity> userReviewList = new ArrayList<>();
         UserReviewEntity userReview;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM user_review WHERE user_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -217,7 +217,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     public List<UserReviewEntity> getAllReviewsOfMovie(UserReviewEntity entity) {
         List<UserReviewEntity> userReviewList = new ArrayList<>();
         UserReviewEntity userReview;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM user_review WHERE movie_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

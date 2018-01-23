@@ -1,7 +1,7 @@
 package dao;
 
 import entity.TopMovieEntity;
-import util.MySQLUtils;
+import util.MySQLUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 public class TopMovieDao implements IDao<TopMovieEntity> {
     @Override
     public int save(TopMovieEntity entity) {
-        Connection connection = MySQLUtils.getConnectionNoConnectionPool();
+        Connection connection = MySQLUtil.getConnectionNoConnectionPool();
         String sql = "INSERT INTO top_movie (id, movie_id, movie_title) " +
                 "VALUES (?, ?, ?)";
         try {
@@ -47,7 +47,7 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
     }
 
     private int updateById(TopMovieEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "UPDATE top_movie SET movie_id=?, movie_title=? " +
                 "WHERE id=?";
         try {
@@ -89,7 +89,7 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
     }
 
     private int deleteById(TopMovieEntity entity) {
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "DELETE FROM top_movie WHERE id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
     public List<TopMovieEntity> getAll() {
         List<TopMovieEntity> topMivies = new ArrayList<>();
         TopMovieEntity topMovie;
-        Connection connection = MySQLUtils.getConnection();
+        Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM top_movie";
         try {
             Statement statement = connection.createStatement();
