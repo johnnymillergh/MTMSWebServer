@@ -92,6 +92,43 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
 
     @Override
     public MovieScheduleEntity queryById(MovieScheduleEntity entity) {
+        Connection connection = MySQLUtils.getConnection();
+        String sql = "SELECT * FROM movie_schedule WHERE id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.first()) {
+                MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
+                movieScheduleEntity.setId(resultSet.getInt("id"));// 1
+                movieScheduleEntity.setMovieId(resultSet.getInt("movie_id"));// 2
+                movieScheduleEntity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 3
+                movieScheduleEntity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 4
+                movieScheduleEntity.setPrice(resultSet.getFloat("price"));// 5
+                movieScheduleEntity.setShowtime(resultSet.getTimestamp("showtime"));// 6
+                movieScheduleEntity.setDateOfShow(resultSet.getDate("date_of_show"));// 7
+                movieScheduleEntity.setTimeOfShow(resultSet.getTime("time_of_show"));// 8
+                resultSet.close();
+                connection.commit();
+                System.out.println("queryById: " + getClass() + ", " + "Price: " + movieScheduleEntity.getPrice());
+                return movieScheduleEntity;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return null;
     }
 
