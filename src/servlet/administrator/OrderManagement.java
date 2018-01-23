@@ -270,7 +270,8 @@ public class OrderManagement extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void getAll(HttpServletRequest request, HttpServletResponse response) {
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/topMovieList.jsp");
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
