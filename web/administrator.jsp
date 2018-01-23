@@ -337,7 +337,7 @@
                 </tr>
                 <tr>
                     <td align="right">Time of Order</td>
-                    <td align="center"><input type="text" id="timePicker3" value="10:25:00" name="time"/></td>
+                    <td align="center"><input type="text" name="time"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

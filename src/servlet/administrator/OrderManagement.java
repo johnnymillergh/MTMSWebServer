@@ -93,45 +93,103 @@ public class OrderManagement extends HttpServlet {
             out.println("<script>alert('" + getClass() + " takeOrder: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
+            return;
+        }
+
+        userEntity.setEmail(email);
+        userEntity = userDao.queryByEmail(userEntity);
+        movieScheduleEntity.setId(movieScheduleId);
+        movieScheduleEntity = movieScheduleDao.queryById(movieScheduleEntity);
+        if (userEntity == null || movieScheduleEntity == null) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " takeOrder: User or movie schedule not found." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
+
+        CustomerOrderDao customerOrderDao = new CustomerOrderDao();
+        CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
+        customerOrderEntity.setUserId(userEntity.getId());
+        customerOrderEntity.setOrderDatetime(new Timestamp(System.currentTimeMillis()));
+        customerOrderEntity.setMovieScheduleId(movieScheduleEntity.getId());
+        customerOrderEntity.setIsPaid(false);
+        customerOrderEntity.setIsUsed(false);
+        customerOrderEntity.setTicketAmount(ticketAmount);
+        customerOrderEntity.setTotalPrice(ticketAmount * movieScheduleEntity.getPrice());
+        int status = customerOrderDao.save(customerOrderEntity);
+        if (status > 0) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " takeOrder: Success." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
         } else {
-            userEntity.setEmail(email);
-            userEntity = userDao.queryByEmail(userEntity);
-
-            movieScheduleEntity.setId(movieScheduleId);
-            movieScheduleEntity = movieScheduleDao.queryById(movieScheduleEntity);
-
-            if (userEntity == null || movieScheduleEntity == null) {
-                PrintWriter out = response.getWriter();
-                out.println("<script>alert('" + getClass() + " takeOrder: User or movie schedule not found." + "');window.location.href='/administrator.jsp'</script>");
-                out.flush();
-                out.close();
-            } else {
-                CustomerOrderDao customerOrderDao = new CustomerOrderDao();
-                CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
-                customerOrderEntity.setUserId(userEntity.getId());
-                customerOrderEntity.setOrderDatetime(new Timestamp(System.currentTimeMillis()));
-                customerOrderEntity.setMovieScheduleId(movieScheduleEntity.getId());
-                customerOrderEntity.setIsPaid(false);
-                customerOrderEntity.setIsUsed(false);
-                customerOrderEntity.setTicketAmount(ticketAmount);
-                customerOrderEntity.setTotalPrice(ticketAmount * movieScheduleEntity.getPrice());
-                int status = customerOrderDao.save(customerOrderEntity);
-                if (status > 0) {
-                    PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " takeOrder: Success." + "');window.location.href='/administrator.jsp'</script>");
-                    out.flush();
-                    out.close();
-                } else {
-                    PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " takeOrder: Failure." + "');window.location.href='/administrator.jsp'</script>");
-                    out.flush();
-                    out.close();
-                }
-            }
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " takeOrder: Failure." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
         }
     }
 
-    private void pay(HttpServletRequest request, HttpServletResponse response) {
+    private void pay(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Get parameters
+        String email = request.getParameter("email");
+        String date = request.getParameter("date");
+        String time = request.getParameter("time");
+
+        if (email.compareTo("") == 0 || date.compareTo("") == 0 || time.compareTo("") == 00) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " pay: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
+
+        UserDao userDao = new UserDao();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(email);
+        userEntity = userDao.queryByEmail(userEntity);
+        if (userEntity == null) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " pay: User not found." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
+
+        CustomerOrderDao customerOrderDao = new CustomerOrderDao();
+        CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
+        customerOrderEntity.setUserId(userEntity.getId());
+        customerOrderEntity.setOrderDatetime(Timestamp.valueOf(date + " " + time));
+        customerOrderEntity = customerOrderDao.queryByUserIdAndOrderDatetime(customerOrderEntity);
+        if (customerOrderEntity == null) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " pay: Order not found." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
+
+        if (customerOrderEntity.getIsPaid() == true) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " pay: Paid already." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
+
+        customerOrderEntity.setIsPaid(true);
+        int status = customerOrderDao.update(customerOrderEntity);
+        if (status > 0) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " pay: Success." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " pay: Failure." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        }
     }
 
     private void use(HttpServletRequest request, HttpServletResponse response) {
