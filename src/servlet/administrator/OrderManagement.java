@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
@@ -275,17 +276,47 @@ public class OrderManagement extends HttpServlet {
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setContentType("text/json");
-
         CustomerOrderDao dao = new CustomerOrderDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-        List<CustomerOrderEntity> orders = dao.getAll();
+        String email = request.getParameter("email");
+        System.out.println("getJson: " + getClass());
+        if (email.compareTo("") == 0) {
+            List<CustomerOrderEntity> orders = dao.getAll();
+            response.setContentType("text/json");
+            PrintWriter out = response.getWriter();
+            String json = gson.toJson(orders);
+            out.println(json);
+            out.flush();
+            out.close();
+            System.out.println("getJson: all the users: " + getClass());
+            return;
+        }
 
+        UserDao userDao = new UserDao();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(email);
+        userEntity = userDao.queryByEmail(userEntity);
+        if (userEntity == null) {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " getJson: User not found." + "');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
+
+        List<CustomerOrderEntity> orders = dao.getAll();
+        List<CustomerOrderEntity> ordersFiltered = new ArrayList<>();
+        for (CustomerOrderEntity order : orders) {
+            if (order.getUserId() == userEntity.getId()) {
+                ordersFiltered.add(order);
+            }
+        }
+        response.setContentType("text/json");
         PrintWriter out = response.getWriter();
-        String json = gson.toJson(orders);
+        String json = gson.toJson(ordersFiltered);
         out.println(json);
         out.flush();
         out.close();
-        System.out.println("getJson: " + getClass());
     }
 }

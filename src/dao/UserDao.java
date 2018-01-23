@@ -142,6 +142,8 @@ public class UserDao implements IDao<UserEntity> {
                 connection.commit();
                 System.out.println("queryByEmail: " + getClass() + ", " + userEntity.getUsername());
                 return userEntity;
+            } else {
+                return null;
             }
         } catch (Exception e) {
             try {
@@ -150,6 +152,7 @@ public class UserDao implements IDao<UserEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -159,7 +162,6 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
-        return null;
     }
 
 
@@ -170,7 +172,7 @@ public class UserDao implements IDao<UserEntity> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getEmail());
             int status = preparedStatement.executeUpdate();
-            System.out.println("deleteByEmail: " + getClass() + ", "+ status);
+            System.out.println("deleteByEmail: " + getClass() + ", " + status);
             connection.commit();
             return status;
         } catch (Exception e) {
