@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class MobileTerminalUtils implements ServletContextListener {
+public class MobileTerminalUtil implements ServletContextListener {
 
     public static ServerSocket serverSocket;
     public static boolean hasServerSocketStarted = false;

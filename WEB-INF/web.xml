@@ -10,7 +10,7 @@
         <listener-class>util.MySQLUtils</listener-class>
     </listener>
     <listener>
-        <listener-class>util.MobileTerminalUtils</listener-class>
+        <listener-class>util.MobileTerminalUtil</listener-class>
     </listener>
     <listener>
         <listener-class>util.FileUtil</listener-class>

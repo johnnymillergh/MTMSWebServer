@@ -2,7 +2,7 @@ package servlet.customer;
 
 import dao.UserDao;
 import entity.UserEntity;
-import util.MobileTerminalUtils;
+import util.MobileTerminalUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,10 +43,10 @@ public class LogIn extends HttpServlet {
             if (entityFromQuery.getPassword().compareTo(entityInput.getPassword()) == 0) {
                 PrintWriter out = response.getWriter();
                 out.println("{\"loginStatus\":\"success\",\"serverPushPort\":\"" +
-                        MobileTerminalUtils.serverSocket.getLocalPort() + "\"}");
+                        MobileTerminalUtil.serverSocket.getLocalPort() + "\"}");
                 out.flush();
                 out.close();
-                MobileTerminalUtils.userEmail2Ip.put(entityFromQuery.getEmail(), request.getRemoteAddr());
+                MobileTerminalUtil.userEmail2Ip.put(entityFromQuery.getEmail(), request.getRemoteAddr());
             } else {
                 PrintWriter out = response.getWriter();
                 out.println("{\"loginStatus\":\"failure\"}");
