@@ -5,6 +5,9 @@ public class UserEntity {
     private String email;
     private String password;
     private String username;
+    private byte[] avatar;
+    private String gender;
+    private String homeLocation;
 
     public int getId() {
         return id;
@@ -36,6 +39,30 @@ public class UserEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getHomeLocation() {
+        return homeLocation;
+    }
+
+    public void setHomeLocation(String homeLocation) {
+        this.homeLocation = homeLocation;
     }
 
     @Override
