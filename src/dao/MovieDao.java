@@ -197,6 +197,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -206,7 +207,6 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
-        return null;
     }
 
     public MovieEntity getPoster(MovieEntity entity) {

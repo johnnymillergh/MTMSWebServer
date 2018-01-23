@@ -159,6 +159,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -168,7 +169,6 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 }
             }
         }
-        return null;
     }
 
     public List<UserReviewEntity> getAllReviewsOfUser(UserReviewEntity entity) {
@@ -202,6 +202,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -211,7 +212,6 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 }
             }
         }
-        return null;
     }
 
     public List<UserReviewEntity> getAllReviewsOfMovie(UserReviewEntity entity) {
@@ -245,6 +245,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -254,7 +255,6 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 }
             }
         }
-        return null;
     }
 
     @Override

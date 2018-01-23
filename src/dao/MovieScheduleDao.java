@@ -132,6 +132,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -141,6 +142,5 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
                 }
             }
         }
-        return null;
     }
 }

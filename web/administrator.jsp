@@ -238,9 +238,9 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
-                            <input type="radio" name="topMovieOperation" value="add" checked="checked"/>Add
-                            <input type="radio" name="topMovieOperation" value="update"/>Update
-                            <input type="radio" name="topMovieOperation" value="delete"/>Delete
+                            <input type="radio" name="topMovieOperation" value="update" checked="checked"/>Update
+                            <input type="radio" name="topMovieOperation" value="add"/>Add
+                            <input type="radio" name="topMovieOperation" value="delete"/>Delete All
                             <input type="radio" name="topMovieOperation" value="query"/>Query
                             <input type="radio" name="topMovieOperation" value="getAll"/>Get all
                             <input type="radio" name="topMovieOperation" value="getJson"/>Get Json

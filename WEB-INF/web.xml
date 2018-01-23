@@ -117,4 +117,13 @@
         <servlet-name>Order</servlet-name>
         <url-pattern>/servlet.customer.Order</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetTopMovie</servlet-name>
+        <servlet-class>servlet.customer.GetTopMovie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetTopMovie</servlet-name>
+        <url-pattern>/servlet.customer.GetTopMovie</url-pattern>
+    </servlet-mapping>
 </web-app>
