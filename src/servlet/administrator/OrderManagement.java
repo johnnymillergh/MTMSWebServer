@@ -1,5 +1,7 @@
 package servlet.administrator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.MovieScheduleDao;
 import dao.CustomerOrderDao;
 import dao.UserDao;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.List;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "OrderManagement")
@@ -270,6 +273,18 @@ public class OrderManagement extends HttpServlet {
     private void getAll(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void getJson(HttpServletRequest request, HttpServletResponse response) {
+    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/json");
+
+        CustomerOrderDao dao = new CustomerOrderDao();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        List<CustomerOrderEntity> orders = dao.getAll();
+
+        PrintWriter out = response.getWriter();
+        String json = gson.toJson(orders);
+        out.println(json);
+        out.flush();
+        out.close();
+        System.out.println("getJson: " + getClass());
     }
 }
