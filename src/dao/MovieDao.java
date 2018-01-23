@@ -1,6 +1,6 @@
 package dao;
 
-import util.ImageUtils;
+import util.ImageUtil;
 import util.MySQLUtils;
 import entity.MovieEntity;
 
@@ -220,7 +220,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 MovieEntity movieEntity = new MovieEntity();
                 movieEntity.setId(resultSet.getInt("id"));// 1
                 movieEntity.setTitle(resultSet.getString("title"));// 2
-                movieEntity.setPosterStr(ImageUtils.encode(resultSet.getBytes("poster")));// 14
+                movieEntity.setPosterStr(ImageUtil.encode(resultSet.getBytes("poster")));// 14
                 resultSet.close();
                 connection.commit();
                 System.out.println("getPoster(title): " + getClass() + ", " + movieEntity.getTitle());

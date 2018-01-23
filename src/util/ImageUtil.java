@@ -6,7 +6,7 @@ import java.io.IOException;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-public class ImageUtils {
+public class ImageUtil {
 
     /**
      * 将byte数组以Base64方式编码为字符串
