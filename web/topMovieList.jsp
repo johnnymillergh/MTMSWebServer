@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ page import="dao.MovieDao,entity.MovieEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dao.TopMovieDao" %>
 <%@ page import="entity.TopMovieEntity" %>
