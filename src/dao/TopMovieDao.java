@@ -66,6 +66,7 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return -1;
         } finally {
             if (connection != null) {
                 try {
@@ -75,7 +76,6 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
                 }
             }
         }
-        return -1;
     }
 
     @Override
