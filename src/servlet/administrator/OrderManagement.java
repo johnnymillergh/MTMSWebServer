@@ -271,7 +271,7 @@ public class OrderManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("/topMovieList.jsp");
+        response.sendRedirect("/customerOrderList.jsp");
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
