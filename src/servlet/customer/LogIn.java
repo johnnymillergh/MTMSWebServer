@@ -42,20 +42,20 @@ public class LogIn extends HttpServlet {
         if (entityFromQuery != null) {
             if (entityFromQuery.getPassword().compareTo(entityInput.getPassword()) == 0) {
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"succeed\",\"serverPushPort\":\"" +
+                out.println("{\"loginStatus\":\"success\",\"serverPushPort\":\"" +
                         MobileTerminalUtils.serverSocket.getLocalPort() + "\"}");
                 out.flush();
                 out.close();
                 MobileTerminalUtils.userEmail2Ip.put(entityFromQuery.getEmail(), request.getRemoteAddr());
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"failed\"}");
+                out.println("{\"loginStatus\":\"failure\"}");
                 out.flush();
                 out.close();
             }
         } else {
             PrintWriter out = response.getWriter();
-            out.println("{\"loginStatus\":\"failed\"}");
+            out.println("{\"loginStatus\":\"failure\"}");
             out.flush();
             out.close();
         }

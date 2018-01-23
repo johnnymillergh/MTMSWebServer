@@ -17,6 +17,7 @@ public class SignUp extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/json");
+
         UserDao dao = new UserDao();
         UserEntity entityInput = new UserEntity();
         String email = request.getParameter("email");

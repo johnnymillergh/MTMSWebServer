@@ -63,6 +63,15 @@
         <url-pattern>/servlet.administrator.UserReviewManagement</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>TopMovieManagement</servlet-name>
+        <servlet-class>servlet.administrator.TopMovieManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopMovieManagement</servlet-name>
+        <url-pattern>/servlet.administrator.TopMovieManagement</url-pattern>
+    </servlet-mapping>
+
     <!-- ===============Customer=============== -->
     <servlet>
         <servlet-name>SignUp</servlet-name>
