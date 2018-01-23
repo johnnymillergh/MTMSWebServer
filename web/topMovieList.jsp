@@ -43,6 +43,7 @@
             <td><%=topMovieEntity.getMovieId() %>
             </td>
             <td><%=topMovieEntity.getMovieTitle() %>
+            </td>
         </tr>
         <%
             }
