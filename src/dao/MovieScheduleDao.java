@@ -25,10 +25,10 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
             preparedStatement.setTimestamp(5, entity.getShowtime());
             preparedStatement.setDate(6, entity.getDateOfShow());
             preparedStatement.setTime(7, entity.getTimeOfShow());
-            boolean status = preparedStatement.execute();
-            System.out.println("save: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -67,10 +67,10 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
             preparedStatement.setDate(6, entity.getDateOfShow());
             preparedStatement.setTime(7, entity.getTimeOfShow());
             preparedStatement.setInt(8, entity.getId());
-            boolean status = preparedStatement.execute();
-            System.out.println("updateById: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("updateById: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();

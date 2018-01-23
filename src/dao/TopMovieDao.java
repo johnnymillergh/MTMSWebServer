@@ -18,10 +18,10 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.setInt(2, entity.getMovieId());
             preparedStatement.setString(3, entity.getMovieTitle());
-            boolean status = preparedStatement.execute();
-            System.out.println("save: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -55,10 +55,10 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
             preparedStatement.setInt(1, entity.getMovieId());
             preparedStatement.setString(2, entity.getMovieTitle());
             preparedStatement.setInt(3, entity.getId());
-            boolean status = preparedStatement.execute();
+            int status = preparedStatement.executeUpdate();
             connection.commit();
-            System.out.println("updateById: " + getClass() + ", " + !status);
-            return 1;
+            System.out.println("updateById: " + getClass() + ", " + status);
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -94,10 +94,10 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getId());
-            boolean status = preparedStatement.execute();
-            System.out.println("deleteById: " + getClass() + ", id: " + entity.getId());
+            int status = preparedStatement.executeUpdate();
+            System.out.println("deleteById: " + getClass() + ", "+ status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();

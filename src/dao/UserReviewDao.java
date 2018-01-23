@@ -22,10 +22,10 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
             preparedStatement.setString(4, entity.getTitle());
             preparedStatement.setString(5, entity.getText());
             preparedStatement.setTimestamp(6, entity.getDateTime());
-            boolean status = preparedStatement.execute();
-            System.out.println("save: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -59,10 +59,10 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
             preparedStatement.setString(2, entity.getTitle());
             preparedStatement.setString(3, entity.getText());
             preparedStatement.setTimestamp(4, entity.getDateTime());
-            boolean status = preparedStatement.execute();
-            System.out.println("updateByUserIdAndMovieId: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("updateByUserIdAndMovieId: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();

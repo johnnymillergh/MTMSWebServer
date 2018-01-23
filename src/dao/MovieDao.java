@@ -32,10 +32,10 @@ public class MovieDao implements IDao<MovieEntity> {
             preparedStatement.setString(11, entity.getAspectRatio());
             preparedStatement.setString(12, entity.getDescription());
             preparedStatement.setBinaryStream(13, new ByteArrayInputStream(entity.getPoster()));
-            boolean status = preparedStatement.execute();
-            System.out.println("save: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -89,10 +89,10 @@ public class MovieDao implements IDao<MovieEntity> {
             preparedStatement.setString(11, entity.getDescription());
             preparedStatement.setBinaryStream(12, new ByteArrayInputStream(entity.getPoster()));
             preparedStatement.setString(13, entity.getTitle());
-            boolean status = preparedStatement.execute();
-            System.out.println("updateByTitle: " + getClass() + ", " + !status);
+            int status = preparedStatement.executeUpdate();
+            System.out.println("updateByTitle: " + getClass() + ", " + status);
             connection.commit();
-            return 1;
+            return status;
         } catch (Exception e) {
             try {
                 connection.rollback();
