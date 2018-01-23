@@ -20,6 +20,7 @@ public class GetMovie extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/json");
+
         String movieOperation = request.getParameter("movieOperation");
         switch (movieOperation) {
             case "getAll":
