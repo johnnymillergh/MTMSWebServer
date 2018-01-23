@@ -7,8 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-
-<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_all.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_ui.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/components/timepicker.js"></script>

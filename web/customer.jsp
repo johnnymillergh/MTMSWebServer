@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_all.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/ng_ui.js"></script>
 <script type="text/javascript" src="NoGray1.2.2/components/timepicker.js"></script>
@@ -151,7 +150,7 @@
                 </tr>
                 <tr>
                     <td align="right">Date</td>
-                    <td align="center"><input type="text" name="dateOfShow" onfocus="WdatePicker()"/></td>
+                    <td align="center"><input type="date" name="dateOfShow"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time</td>
@@ -204,7 +203,7 @@
                 </tr>
                 <tr>
                     <td align="right">Date of Review</td>
-                    <td align="left"><input type="text" name="date" onfocus="WdatePicker()"/></td>
+                    <td align="left"><input type="date" name="date"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Review</td>
