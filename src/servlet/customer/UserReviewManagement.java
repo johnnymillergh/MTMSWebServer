@@ -76,7 +76,7 @@ public class UserReviewManagement extends HttpServlet {
         doPost(request, response);
     }
 
-    private void add(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private void add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserReviewDao userReviewDao = new UserReviewDao();
         UserReviewEntity userReviewEntity = new UserReviewEntity();
 
@@ -143,16 +143,18 @@ public class UserReviewManagement extends HttpServlet {
         }
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Todo: update user review by user id and movie id.
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Todo: delete user review by user id and movie id.
     }
 
-    private void query(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
     }
 
-    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType("text/json");
 
         UserReviewDao userReviewDao = new UserReviewDao();
