@@ -175,6 +175,7 @@ public class OrderManagement extends HttpServlet {
             out.println("<script>alert('" + getClass() + " pay: Paid already." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
+            return;
         }
 
         customerOrderEntity.setIsPaid(true);
