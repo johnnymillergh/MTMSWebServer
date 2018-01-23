@@ -1319,204 +1319,233 @@ theater_id</RefColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="311" parent="241" name="fk_seat_hall1_idx">
+    <column id="311" parent="241" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="312" parent="241" name="user_email">
+      <Position>7</Position>
+      <DataType>varchar(45)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="313" parent="241" name="order_datetime">
+      <Position>8</Position>
+      <DataType>datetime|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="314" parent="241" name="fk_seat_hall1_idx">
       <ColNames>auditorium_id</ColNames>
     </index>
-    <key id="312" parent="241" name="PRIMARY">
+    <index id="315" parent="241" name="fk_seat_user1_idx">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="316" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 auditorium_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="313" parent="241" name="fk_seat_auditorium1">
+    <foreign-key id="317" parent="241" name="fk_seat_auditorium1">
       <ColNames>auditorium_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>auditorium</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="314" parent="242" name="id">
+    <foreign-key id="318" parent="241" name="fk_seat_user1">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>movie_ticket_management_system</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="319" parent="242" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="242" name="name">
+    <column id="320" parent="242" name="name">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="242" name="location">
+    <column id="321" parent="242" name="location">
       <Position>3</Position>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="317" parent="242" name="name_UNIQUE">
+    <index id="322" parent="242" name="name_UNIQUE">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="318" parent="242" name="PRIMARY">
+    <key id="323" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="319" parent="242" name="name_UNIQUE">
+    <key id="324" parent="242" name="name_UNIQUE">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>name_UNIQUE</UnderlyingIndexName>
     </key>
-    <column id="320" parent="243" name="id">
+    <column id="325" parent="243" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="321" parent="243" name="movie_id">
+    <column id="326" parent="243" name="movie_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="322" parent="243" name="movie_title">
+    <column id="327" parent="243" name="movie_title">
       <Position>3</Position>
       <DataType>varchar(60)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="323" parent="243" name="movie_id_UNIQUE">
+    <index id="328" parent="243" name="movie_id_UNIQUE">
       <ColNames>movie_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="324" parent="243" name="fk_top_movie_movie1_idx">
+    <index id="329" parent="243" name="fk_top_movie_movie1_idx">
       <ColNames>movie_id</ColNames>
     </index>
-    <key id="325" parent="243" name="PRIMARY">
+    <key id="330" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 movie_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="326" parent="243" name="movie_id_UNIQUE">
+    <key id="331" parent="243" name="movie_id_UNIQUE">
       <ColNames>movie_id</ColNames>
       <UnderlyingIndexName>movie_id_UNIQUE</UnderlyingIndexName>
     </key>
-    <foreign-key id="327" parent="243" name="fk_top_movie_movie1">
+    <foreign-key id="332" parent="243" name="fk_top_movie_movie1">
       <ColNames>movie_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>movie</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="328" parent="244" name="id">
+    <column id="333" parent="244" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="329" parent="244" name="email">
+    <column id="334" parent="244" name="email">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="330" parent="244" name="password">
+    <column id="335" parent="244" name="password">
       <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="331" parent="244" name="username">
+    <column id="336" parent="244" name="username">
       <Position>4</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="332" parent="244" name="avatar">
+    <column id="337" parent="244" name="avatar">
       <Position>5</Position>
       <DataType>mediumblob|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="333" parent="244" name="gender">
+    <column id="338" parent="244" name="gender">
       <Position>6</Position>
       <DataType>varchar(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="334" parent="244" name="home_location">
+    <column id="339" parent="244" name="home_location">
       <Position>7</Position>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="335" parent="244" name="email_UNIQUE">
+    <index id="340" parent="244" name="email_UNIQUE">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="336" parent="244" name="PRIMARY">
+    <key id="341" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="337" parent="244" name="email_UNIQUE">
+    <key id="342" parent="244" name="email_UNIQUE">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>email_UNIQUE</UnderlyingIndexName>
     </key>
-    <column id="338" parent="245" name="id">
+    <column id="343" parent="245" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="339" parent="245" name="user_id">
+    <column id="344" parent="245" name="user_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="340" parent="245" name="movie_id">
+    <column id="345" parent="245" name="movie_id">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="341" parent="245" name="score">
+    <column id="346" parent="245" name="score">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="342" parent="245" name="title">
+    <column id="347" parent="245" name="title">
       <Position>5</Position>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="343" parent="245" name="text">
+    <column id="348" parent="245" name="text">
       <Position>6</Position>
       <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="344" parent="245" name="date_time">
+    <column id="349" parent="245" name="is_spoilers">
       <Position>7</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="350" parent="245" name="date_time">
+      <Position>8</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="345" parent="245" name="fk_rating_user1_idx">
+    <index id="351" parent="245" name="fk_rating_user1_idx">
       <ColNames>user_id</ColNames>
     </index>
-    <index id="346" parent="245" name="fk_rating_movie_detail1_idx">
+    <index id="352" parent="245" name="fk_rating_movie_detail1_idx">
       <ColNames>movie_id</ColNames>
     </index>
-    <key id="347" parent="245" name="PRIMARY">
+    <key id="353" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id
 user_id
 movie_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="348" parent="245" name="fk_rating_user1">
+    <foreign-key id="354" parent="245" name="fk_rating_user1">
       <ColNames>user_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="349" parent="245" name="fk_rating_movie1">
+    <foreign-key id="355" parent="245" name="fk_rating_movie1">
       <ColNames>movie_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>movie</RefTableName>

@@ -9,6 +9,7 @@ public class UserReviewEntity {
     private int score;
     private String title;
     private String text;
+    private boolean isSpoilers;
     private Timestamp dateTime;
 
     public int getId() {
@@ -57,6 +58,14 @@ public class UserReviewEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean getIsSpoilers() {
+        return isSpoilers;
+    }
+
+    public void setIsSpoilers(boolean isSpoilers) {
+        this.isSpoilers = isSpoilers;
     }
 
     public Timestamp getDateTime() {
