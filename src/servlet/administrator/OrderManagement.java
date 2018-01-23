@@ -204,7 +204,7 @@ public class OrderManagement extends HttpServlet {
 
         if (email.compareTo("") == 0 || date.compareTo("") == 0 || time.compareTo("") == 00) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
             return;
@@ -216,7 +216,7 @@ public class OrderManagement extends HttpServlet {
         userEntity = userDao.queryByEmail(userEntity);
         if (userEntity == null) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: User not found." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: User not found." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
             return;
@@ -229,7 +229,7 @@ public class OrderManagement extends HttpServlet {
         customerOrderEntity = customerOrderDao.queryByUserIdAndOrderDatetime(customerOrderEntity);
         if (customerOrderEntity == null) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: Order not found." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: Order not found." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
             return;
@@ -237,7 +237,7 @@ public class OrderManagement extends HttpServlet {
 
         if (customerOrderEntity.getIsPaid() != true) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: To pay first." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: To pay first." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
             return;
@@ -245,7 +245,7 @@ public class OrderManagement extends HttpServlet {
 
         if (customerOrderEntity.getIsUsed() == true) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: Used, invalid ticket." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: Used, invalid ticket." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
             return;
@@ -256,12 +256,12 @@ public class OrderManagement extends HttpServlet {
         int status = customerOrderDao.update(customerOrderEntity);
         if (status > 0) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: Success." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: Success." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: Failure." + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " use: Failure." + "');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         }
