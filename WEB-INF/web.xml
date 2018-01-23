@@ -13,7 +13,7 @@
         <listener-class>util.MobileTerminalUtils</listener-class>
     </listener>
     <listener>
-        <listener-class>util.FileUtils</listener-class>
+        <listener-class>util.FileUtil</listener-class>
     </listener>
 
     <!-- ===============Servlet configuration=============== -->

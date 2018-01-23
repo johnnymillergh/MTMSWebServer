@@ -3,10 +3,8 @@ package util;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.File;
-import java.nio.file.Path;
-import java.util.regex.Pattern;
 
-public class FileUtils implements ServletContextListener {
+public class FileUtil implements ServletContextListener {
 
     private static String userHomePath = System.getProperty("user.home");
     public static File pictureDirectory = new File(userHomePath + "/MTMS/upload/pic");
@@ -37,7 +35,7 @@ public class FileUtils implements ServletContextListener {
     }
 
     public static String getPictureSavingPath() {
-        return FileUtils.convertBackslash2Slash(FileUtils.pictureDirectory.getPath());
+        return FileUtil.convertBackslash2Slash(FileUtil.pictureDirectory.getPath());
     }
 
     /**

@@ -2,7 +2,7 @@ package servlet.administrator;
 
 import dao.MovieDao;
 import entity.MovieEntity;
-import util.FileUtils;
+import util.FileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "MovieManagement")
@@ -96,10 +95,10 @@ public class MovieManagement extends HttpServlet {
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
         //
-        String savePath = FileUtils.getPictureSavingPath();
+        String savePath = FileUtil.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
-        filename = FileUtils.getRealName(filename);
+        filename = FileUtil.getRealName(filename);
         System.out.println("savePath: " + savePath + "/" + filename);
         part.write(savePath + "/" + filename);
         // Read uploaded file.
@@ -151,7 +150,7 @@ public class MovieManagement extends HttpServlet {
         // Get file name
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
-        String savePath = FileUtils.getPictureSavingPath();
+        String savePath = FileUtil.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
         part.write(savePath + "/" + filename);
