@@ -2,15 +2,15 @@ package entity;
 
 import java.sql.Timestamp;
 
-public class OrderEntity {
+public class CustomerOrderEntity {
     private int id;
     private int userId;
     private Timestamp orderDatetime;
     private int movieScheduleId;
     private boolean isPaid;
-    private boolean idUsed;
+    private boolean isUsed;
     private int ticketAmount;
-    private int totalPrice;
+    private float totalPrice;
 
     public int getId() {
         return id;
@@ -44,20 +44,20 @@ public class OrderEntity {
         this.movieScheduleId = movieScheduleId;
     }
 
-    public boolean isPaid() {
+    public boolean getIsPaid() {
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setIsPaid(boolean paid) {
         isPaid = paid;
     }
 
-    public boolean isIdUsed() {
-        return idUsed;
+    public boolean getIsUsed() {
+        return isUsed;
     }
 
-    public void setIdUsed(boolean idUsed) {
-        this.idUsed = idUsed;
+    public void setIsUsed(boolean isUsed) {
+        this.isUsed = isUsed;
     }
 
     public int getTicketAmount() {
@@ -68,16 +68,16 @@ public class OrderEntity {
         this.ticketAmount = ticketAmount;
     }
 
-    public int getTotalPrice() {
+    public float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
     @Override
     public String toString() {
-        return "OrderEntity: " + id + ", " + userId + ", " + orderDatetime + ", " + movieScheduleId;
+        return "CustomerOrderEntity: " + id + ", " + userId + ", " + orderDatetime + ", " + movieScheduleId;
     }
 }
