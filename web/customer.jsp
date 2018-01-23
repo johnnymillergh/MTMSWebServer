@@ -106,6 +106,18 @@
                 </tr>
             </table>
         </form>
+        <fieldset style="width:fit-content; height:fit-content;">
+            <legend>
+                <h3>Get Top Movie (JSON Object)</h3>
+            </legend>
+            <form action="${pageContext.request.contextPath}/servlet.customer.GetTopMovie" method="post">
+                <table align="center">
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit">
+                    </td>
+                </table>
+            </form>
+        </fieldset>
     </fieldset>
 </div>
 <br>
@@ -150,6 +162,7 @@
                         <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
                         <input type="radio" name="orderOperation" value="pay"/>Pay
                         <input type="radio" name="orderOperation" value="use"/>Use
+                        <input type="radio" name="orderOperation" value="getJson"/>Get Json
                         <input type="radio" name="orderOperation" value="query"/>Query
                         <input type="submit" value="Submit">
                     </td>

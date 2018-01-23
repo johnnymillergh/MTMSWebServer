@@ -36,7 +36,7 @@
             <table>
                 <tr>
                     <td align="right">Email</td>
-                    <td align="center"><input type="text" name="email"></td>
+                    <td align="center"><input type="email" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Username</td>
@@ -67,7 +67,7 @@
                 <table align="center">
                     <tr>
                         <td align="right">Email</td>
-                        <td align="center"><input type="text" name="email"></td>
+                        <td align="center"><input type="email" name="email"></td>
                     </tr>
                     <tr>
                         <td align="right">Message</td>
@@ -174,15 +174,15 @@
                 </tr>
                 <tr>
                     <td align="right">Movie ID</td>
-                    <td align="center"><input type="text" name="movieId"></td>
+                    <td align="center"><input type="number" name="movieId"></td>
                 </tr>
                 <tr>
                     <td align="right">Theater ID</td>
-                    <td align="center"><input type="text" name="theaterId"></td>
+                    <td align="center"><input type="number" name="theaterId"></td>
                 </tr>
                 <tr>
                     <td align="right">Auditorium ID</td>
-                    <td align="center"><input type="text" name="auditoriumId"></td>
+                    <td align="center"><input type="number" name="auditoriumId"></td>
                 </tr>
                 <tr>
                     <td align="right">Price</td>
@@ -200,7 +200,7 @@
                     <td colspan="2" align="center">
                         <input type="radio" name="movieScheduleOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="movieScheduleOperation" value="update"/>Update
-                        <input type="text" name="id" size="12" placeholder="movieScheduleId"/>
+                        <input type="number" name="id" size="12" placeholder="movieScheduleId"/>
                         <input type="radio" name="movieScheduleOperation" value="delete"/>Delete
                         <input type="radio" name="movieScheduleOperation" value="query"/>Query
                         <input type="radio" name="movieScheduleOperation" value="getAll"/>Get all
@@ -263,7 +263,7 @@
             <table align="center">
                 <tr>
                     <td align="right">User Email</td>
-                    <td align="left"><input type="text" name="email"></td>
+                    <td align="left"><input type="email" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Title</td>
@@ -316,24 +316,24 @@
         <form action="${pageContext.request.contextPath}/servlet.administrator.OrderManagement" method="post">
             <table align="center">
                 <tr>
-                    <td align="right">User ID</td>
-                    <td align="center"><input type="text" name="userId"></td>
+                    <td align="right">User ID (Optional)</td>
+                    <td align="center"><input type="number" name="userId"></td>
                 </tr>
                 <tr>
                     <td align="right">Email</td>
-                    <td align="center"><input type="text" name="email"></td>
+                    <td align="center"><input type="email" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Schedule ID</td>
-                    <td align="center"><input type="text" name="movieScheduleId"></td>
+                    <td align="center"><input type="number" name="movieScheduleId"></td>
                 </tr>
                 <tr>
                     <td align="right">Ticket Amount</td>
-                    <td align="center"><input type="text" name="movieScheduleId"></td>
+                    <td align="center"><input type="number" name="ticketAmount"></td>
                 </tr>
                 <tr>
                     <td align="right">Date of Order</td>
-                    <td align="center"><input type="text" name="date" onfocus="WdatePicker()"/></td>
+                    <td align="center"><input type="date" name="date"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Order</td>
