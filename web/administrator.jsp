@@ -169,10 +169,6 @@
         <form action="${pageContext.request.contextPath}/servlet.administrator.MovieScheduleManagement" method="post">
             <table align="center">
                 <tr>
-                    <td align="right">Movie Title (Optional)</td>
-                    <td align="center"><input type="text" name="movieTitle"></td>
-                </tr>
-                <tr>
                     <td align="right">Movie ID</td>
                     <td align="center"><input type="number" name="movieId"></td>
                 </tr>
@@ -186,11 +182,11 @@
                 </tr>
                 <tr>
                     <td align="right">Price</td>
-                    <td align="center"><input type="text" name="price"></td>
+                    <td align="center"><input type="number" name="price"></td>
                 </tr>
                 <tr>
                     <td align="right">Date of Show</td>
-                    <td align="center"><input type="text" id="dateOfShow" name="dateOfShow"/></td>
+                    <td align="center"><input type="date" id="dateOfShow" name="dateOfShow"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Show</td>
@@ -271,7 +267,7 @@
                 </tr>
                 <tr>
                     <td align="right">Score</td>
-                    <td align="left"><input type="text" name="score"></td>
+                    <td align="left"><input type="number" name="score"></td>
                 </tr>
                 <tr>
                     <td align="right">Title</td>
@@ -285,7 +281,7 @@
                 </tr>
                 <tr>
                     <td align="right">Date of Review</td>
-                    <td align="left"><input type="text" name="date" onfocus="WdatePicker()"/></td>
+                    <td align="left"><input type="date" name="date"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Review</td>
