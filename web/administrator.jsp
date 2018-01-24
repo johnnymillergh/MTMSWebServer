@@ -170,7 +170,7 @@
                 </tr>
                 <tr>
                     <td align="right">Country</td>
-                    <td align="center"><input type="text" name="country" id="contryMovieManagement"></td>
+                    <td align="center"><input type="text" name="country" id="countryMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Language</td>
@@ -178,27 +178,28 @@
                 </tr>
                 <tr>
                     <td align="right">Release Date</td>
-                    <td align="center"><input type="text" name="releaseDate"/></td>
+                    <td align="center"><input type="text" name="releaseDate" id="releaseDateMovieManagement"/></td>
                 </tr>
                 <tr>
                     <td align="right">Filming Location</td>
-                    <td align="center"><input type="text" name="filmingLocation"></td>
+                    <td align="center"><input type="text" name="filmingLocation" id="filmingLocationMovieManagement">
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Runtime</td>
-                    <td align="center"><input type="text" name="runtime"></td>
+                    <td align="center"><input type="text" name="runtime" id="runtimeMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Aspect Ratio</td>
-                    <td align="center"><input type="text" name="aspectRatio"></td>
+                    <td align="center"><input type="text" name="aspectRatio" id="aspectRatioMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Description</td>
-                    <td align="center"><input type="text" name="description"></td>
+                    <td align="center"><input type="text" name="description" id="descriptionMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Poster</td>
-                    <td align="center"><input type="file" name="poster"></td>
+                    <td align="center"><input type="file" name="poster" id="posterMovieManagement"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -218,7 +219,7 @@
 <br>
 <script type="text/javascript">
     function onCheckMovieManagementForm() {
-        var radios = document.getElementsByClassName('MovieManagement');
+        var radios = document.getElementsByName('movieOperation');
         var radioChecked;
         for (var i = 0; i < radios.length; i++) {
             if (radios[i].checked) {
@@ -226,47 +227,170 @@
                 break;
             }
         }
+        var titleMovieManagement = document.getElementById('titleMovieManagement');
+        var durationMovieManagement = document.getElementById('durationMovieManagement');
+        var genreMovieManagement = document.getElementById('genreMovieManagement');
+        var directorMovieManagement = document.getElementById('directorMovieManagement');
+        var starsMovieManagement = document.getElementById('starsMovieManagement');
+        var countryMovieManagement = document.getElementById('countryMovieManagement');
+        var languageMovieManagement = document.getElementById('languageMovieManagement');
+        var releaseDateMovieManagement = document.getElementById('releaseDateMovieManagement');
+        var filmingLocationMovieManagement = document.getElementById('filmingLocationMovieManagement');
+        var runtimeMovieManagement = document.getElementById('runtimeMovieManagement');
+        var aspectRatioMovieManagement = document.getElementById('aspectRatioMovieManagement');
+        var descriptionMovieManagement = document.getElementById('descriptionMovieManagement');
+        var posterMovieManagement = document.getElementById('posterMovieManagement');
+
         switch (radioChecked.value) {
             case 'add':
-                if (document.getElementsByName('emailUserManagement').value.length === 0) {
-                    alert('Enter email');
-                    document.getElementById('emailUserManagement').focus();
+                if (titleMovieManagement.value.length == 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter title');
                     return false;
                 }
-                if (document.getElementById('passwordUserManagement').value.length === 0) {
-                    alert('Enter password');
-                    document.getElementById('passwordUserManagement').focus();
+                if (durationMovieManagement.value.length == 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter duration');
                     return false;
                 }
-                if (document.getElementById('usernameUserManagement').value.length === 0) {
-                    alert('Enter username');
-                    document.getElementById('usernameUserManagement').focus();
+                if (genreMovieManagement.value.length == 0) {
+                    genreMovieManagement.focus();
+                    alert('Enter genre');
+                    return false;
+                }
+                if (directorMovieManagement.value.length == 0) {
+                    directorMovieManagement.focus();
+                    alert('Enter genre');
+                    return false;
+                }
+                if (starsMovieManagement.value.length == 0) {
+                    starsMovieManagement.focus();
+                    alert('Enter stars');
+                    return false;
+                }
+                if (countryMovieManagement.value.length == 0) {
+                    countryMovieManagement.focus();
+                    alert('Enter country');
+                    return false;
+                }
+                if (languageMovieManagement.value.length == 0) {
+                    languageMovieManagement.focus();
+                    alert('Enter language');
+                    return false;
+                }
+                if (releaseDateMovieManagement.value.length == 0) {
+                    releaseDateMovieManagement.focus();
+                    alert('Enter release date');
+                    return false;
+                }
+                if (filmingLocationMovieManagement.value.length == 0) {
+                    filmingLocationMovieManagement.focus();
+                    alert('Enter filming location');
+                    return false;
+                }
+                if (runtimeMovieManagement.value.length == 0) {
+                    runtimeMovieManagement.focus();
+                    alert('Enter runtime');
+                    return false;
+                }
+                if (aspectRatioMovieManagement.value.length == 0) {
+                    aspectRatioMovieManagement.focus();
+                    alert('Enter aspect ratio');
+                    return false;
+                }
+                if (descriptionMovieManagement.value.length == 0) {
+                    descriptionMovieManagement.focus();
+                    alert('Enter description');
+                    return false;
+                }
+                if (posterMovieManagement.value.length == 0) {
+                    posterMovieManagement.focus();
+                    alert('Upload poster');
                     return false;
                 }
                 break;
             case 'update':
-                if (document.getElementById('emailUserManagement').value.length === 0) {
-                    alert('Enter email');
-                    document.getElementById('emailUserManagement').focus();
+                if (titleMovieManagement.value.length == 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter title');
+                    return false;
+                }
+                if (durationMovieManagement.value.length == 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter duration');
+                    return false;
+                }
+                if (genreMovieManagement.value.length == 0) {
+                    genreMovieManagement.focus();
+                    alert('Enter genre');
+                    return false;
+                }
+                if (directorMovieManagement.value.length == 0) {
+                    directorMovieManagement.focus();
+                    alert('Enter genre');
+                    return false;
+                }
+                if (starsMovieManagement.value.length == 0) {
+                    starsMovieManagement.focus();
+                    alert('Enter stars');
+                    return false;
+                }
+                if (countryMovieManagement.value.length == 0) {
+                    countryMovieManagement.focus();
+                    alert('Enter country');
+                    return false;
+                }
+                if (languageMovieManagement.value.length == 0) {
+                    languageMovieManagement.focus();
+                    alert('Enter language');
+                    return false;
+                }
+                if (releaseDateMovieManagement.value.length == 0) {
+                    releaseDateMovieManagement.focus();
+                    alert('Enter release date');
+                    return false;
+                }
+                if (filmingLocationMovieManagement.value.length == 0) {
+                    filmingLocationMovieManagement.focus();
+                    alert('Enter filming location');
+                    return false;
+                }
+                if (runtimeMovieManagement.value.length == 0) {
+                    runtimeMovieManagement.focus();
+                    alert('Enter runtime');
+                    return false;
+                }
+                if (aspectRatioMovieManagement.value.length == 0) {
+                    aspectRatioMovieManagement.focus();
+                    alert('Enter aspect ratio');
+                    return false;
+                }
+                if (descriptionMovieManagement.value.length == 0) {
+                    descriptionMovieManagement.focus();
+                    alert('Enter description');
+                    return false;
+                }
+                if (posterMovieManagement.value.length == 0) {
+                    posterMovieManagement.focus();
+                    alert('Upload poster');
                     return false;
                 }
                 break;
             case 'delete':
-                if (document.getElementById('emailUserManagement').value.length === 0) {
-                    alert('Enter email');
-                    document.getElementById('emailUserManagement').focus();
+                if (titleMovieManagement.value.length == 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter title');
                     return false;
                 }
                 break;
             case 'query':
-                if (document.getElementById('emailUserManagement').value.length === 0) {
-                    alert('Enter email');
-                    document.getElementById('emailUserManagement').focus();
+                if (titleMovieManagement.value.length == 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter title');
                     return false;
                 }
                 break;
             default:
-                break;
         }
     }
 </script>
