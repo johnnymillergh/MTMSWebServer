@@ -873,31 +873,34 @@
         <legend>
             <h2>5. Customer Order Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.CustomerOrderManagement" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.CustomerOrderManagement" method="post"
+              onsubmit="return onCheckCustomerOrderManagementForm()">
             <table align="center">
                 <tr>
                     <td align="right">User ID (Optional)</td>
-                    <td align="center"><input type="number" name="userId"></td>
+                    <td align="center"><input type="number" name="userId" id="userIdCustomerOrderManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Email</td>
-                    <td align="center"><input type="email" name="email"></td>
+                    <td align="center"><input type="email" name="email" id="emailCustomerOrderManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Schedule ID</td>
-                    <td align="center"><input type="number" name="movieScheduleId"></td>
+                    <td align="center"><input type="number" name="movieScheduleId"
+                                              id="movieScheduleIdCustomerOrderManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Ticket Amount</td>
-                    <td align="center"><input type="number" name="ticketAmount"></td>
+                    <td align="center"><input type="number" name="ticketAmount"
+                                              id="ticketAmountCustomerOrderManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Date of Order</td>
-                    <td align="center"><input type="date" name="date"/></td>
+                    <td align="center"><input type="date" name="date" id="dateCustomerOrderManagement"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Order</td>
-                    <td align="center"><input type="text" name="time"/></td>
+                    <td align="center"><input type="text" name="time" id="timeCustomerOrderManagement"/></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -916,8 +919,8 @@
 </div>
 <br>
 <script type="text/javascript">
-    function onCheckUserReviewManagementForm() {
-        var radios = document.getElementsByName('userReviewOperation');
+    function onCheckCustomerOrderManagementForm() {
+        var radios = document.getElementsByName('orderOperation');
         var radioChecked;
         for (var i = 0; i < radios.length; i++) {
             if (radios[i].checked) {
@@ -925,112 +928,85 @@
                 break;
             }
         }
-        var emailUserReviewManagement = document.getElementById('emailUserReviewManagement');
-        var movieTitleUserReviewManagement = document.getElementById('movieTitleUserReviewManagement');
-        var scoreUserReviewManagement = document.getElementById('scoreUserReviewManagement');
-        var userReviewTitleUserReviewManagement = document.getElementById('userReviewTitleUserReviewManagement');
-        var textUserReviewManagement = document.getElementById('textUserReviewManagement');
-        var dateUserReviewManagement = document.getElementById('dateUserReviewManagement');
-        var timePicker2 = document.getElementById('timePicker2');
+        // var userIdCustomerOrderManagement = document.getElementById('userIdCustomerOrderManagement');
+        var emailCustomerOrderManagement = document.getElementById('emailCustomerOrderManagement');
+        var movieScheduleIdCustomerOrderManagement = document.getElementById('movieScheduleIdCustomerOrderManagement');
+        var ticketAmountCustomerOrderManagement = document.getElementById('ticketAmountCustomerOrderManagement');
+        var dateCustomerOrderManagement = document.getElementById('dateCustomerOrderManagement');
+        var timeCustomerOrderManagement = document.getElementById('timeCustomerOrderManagement');
 
         switch (radioChecked.value) {
-            case 'add':
-                if (emailUserReviewManagement.value.length === 0) {
-                    emailUserReviewManagement.focus();
+            case 'takeOrder':
+                if (emailCustomerOrderManagement.value.length === 0) {
+                    emailCustomerOrderManagement.focus();
                     alert('Enter email');
                     return false;
                 }
-                if (movieTitleUserReviewManagement.value.length === 0) {
-                    movieTitleUserReviewManagement.focus();
-                    alert('Enter movie title');
+                if (movieScheduleIdCustomerOrderManagement.value.length === 0) {
+                    movieScheduleIdCustomerOrderManagement.focus();
+                    alert('Enter movie schedule id');
                     return false;
                 }
-                if (scoreUserReviewManagement.value.length === 0) {
-                    scoreUserReviewManagement.focus();
-                    alert('Enter score');
+                if (ticketAmountCustomerOrderManagement.value.length === 0) {
+                    ticketAmountCustomerOrderManagement.focus();
+                    alert('Enter ticket amount');
                     return false;
                 }
-                if (userReviewTitleUserReviewManagement.value.length === 0) {
-                    userReviewTitleUserReviewManagement.focus();
-                    alert('Enter review title');
+                break;
+            case 'pay':
+                if (emailCustomerOrderManagement.value.length === 0) {
+                    emailCustomerOrderManagement.focus();
+                    alert('Enter email');
                     return false;
                 }
-                if (textUserReviewManagement.value.length === 0) {
-                    textUserReviewManagement.focus();
-                    alert('Enter text');
-                    return false;
-                }
-                if (dateUserReviewManagement.value.length === 0) {
-                    dateUserReviewManagement.focus();
+                if (dateCustomerOrderManagement.value.length === 0) {
+                    dateCustomerOrderManagement.focus();
                     alert('Enter date');
                     return false;
                 }
-                if (timePicker2.value.length === 0) {
-                    timePicker2.focus();
+                if (timeCustomerOrderManagement.value.length === 0) {
+                    timeCustomerOrderManagement.focus();
                     alert('Enter time');
                     return false;
                 }
                 break;
-            case 'update':
-                if (emailUserReviewManagement.value.length === 0) {
-                    emailUserReviewManagement.focus();
+            case 'use':
+                if (emailCustomerOrderManagement.value.length === 0) {
+                    emailCustomerOrderManagement.focus();
                     alert('Enter email');
                     return false;
                 }
-                if (movieTitleUserReviewManagement.value.length === 0) {
-                    movieTitleUserReviewManagement.focus();
-                    alert('Enter movie title');
-                    return false;
-                }
-                if (scoreUserReviewManagement.value.length === 0) {
-                    scoreUserReviewManagement.focus();
-                    alert('Enter score');
-                    return false;
-                }
-                if (userReviewTitleUserReviewManagement.value.length === 0) {
-                    userReviewTitleUserReviewManagement.focus();
-                    alert('Enter review title');
-                    return false;
-                }
-                if (textUserReviewManagement.value.length === 0) {
-                    textUserReviewManagement.focus();
-                    alert('Enter text');
-                    return false;
-                }
-                if (dateUserReviewManagement.value.length === 0) {
-                    dateUserReviewManagement.focus();
+                if (dateCustomerOrderManagement.value.length === 0) {
+                    dateCustomerOrderManagement.focus();
                     alert('Enter date');
                     return false;
                 }
-                if (timePicker2.value.length === 0) {
-                    timePicker2.focus();
+                if (timeCustomerOrderManagement.value.length === 0) {
+                    timeCustomerOrderManagement.focus();
                     alert('Enter time');
                     return false;
                 }
                 break;
             case 'delete':
-                if (emailUserReviewManagement.value.length === 0) {
-                    emailUserReviewManagement.focus();
+                if (emailCustomerOrderManagement.value.length === 0) {
+                    emailCustomerOrderManagement.focus();
                     alert('Enter email');
                     return false;
                 }
-                if (movieTitleUserReviewManagement.value.length === 0) {
-                    movieTitleUserReviewManagement.focus();
-                    alert('Enter movie title');
+                if (dateCustomerOrderManagement.value.length === 0) {
+                    dateCustomerOrderManagement.focus();
+                    alert('Enter date');
                     return false;
                 }
-                if (window.confirm('Delete confirmation') === true) {
-                    return true;
-                } else {
+                if (timeCustomerOrderManagement.value.length === 0) {
+                    timeCustomerOrderManagement.focus();
+                    alert('Enter time');
                     return false;
                 }
                 break;
-            case 'query':
-                if (titleMovieManagement.value.length === 0) {
-                    titleMovieManagement.focus();
-                    alert('Enter title');
-                    return false;
-                }
+            case 'getAll':
+                break;
+            case 'getJson':
                 break;
             default:
         }
