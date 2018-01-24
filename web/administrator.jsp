@@ -31,11 +31,14 @@
             <h2>1. User Management</h2>
         </legend>
         <form action="${pageContext.request.contextPath}/servlet.administrator.UserManagement" method="post"
-              onsubmit="return onCheckUserManagementForm()">
+              enctype="multipart/form-data" onsubmit="return onCheckUserManagementForm()">
             <table>
                 <tr>
                     <td align="right">Email</td>
                     <td align="center"><input type="email" id="emailUserManagement" name="email"></td>
+                    <td rowspan="6">
+                        <img src="" id="avatarImage" style="height: 100px;width: auto; background:#CCCCCC;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Username</td>
@@ -46,7 +49,23 @@
                     <td align="center"><input type="text" id="passwordUserManagement" name="password"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td align="right">Gender</td>
+                    <td align="center"><select name="gender">
+                        <option value="Male" selected>Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Secret">Secret</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td align="right">Home Location</td>
+                    <td align="center"><input type="text" id="homeLocationUserManagement" name="homeLocation"></td>
+                </tr>
+                <tr>
+                    <td align="right">Avatar</td>
+                    <td align="center"><input type="file" id="avatarUserManagement" name="avatar"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
                         <input type="radio" name="userOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="userOperation" value="update"/>Update
                         <input type="radio" name="userOperation" value="delete"/>Delete
@@ -86,6 +105,15 @@
 </div>
 <br>
 <script type="text/javascript">
+    document.getElementById('avatarUserManagement').onchange = function () {
+        var imgFile = this.files[0];
+        var fr = new FileReader();
+        fr.onload = function () {
+            document.getElementById('avatarImage').src = fr.result;
+        };
+        fr.readAsDataURL(imgFile);
+    };
+
     function onCheckUserManagementForm() {
         var radios = document.getElementsByName('userOperation');
         var radioChecked;
