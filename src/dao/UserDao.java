@@ -21,7 +21,11 @@ public class UserDao implements IDao<UserEntity> {
             int status = preparedStatement.executeUpdate();
             System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
-            return status;
+            if (status > 0) {
+                return status;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -57,7 +61,11 @@ public class UserDao implements IDao<UserEntity> {
             int status = preparedStatement.executeUpdate();
             System.out.println("updateByEmail: " + getClass() + ", " + status);
             connection.commit();
-            return status;
+            if (status > 0) {
+                return status;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -169,14 +177,18 @@ public class UserDao implements IDao<UserEntity> {
 
     private int deleteByEmail(UserEntity entity) {
         Connection connection = MySQLUtil.getConnection();
-        String sql = "DELETE FROM user WHERE id=?";
+        String sql = "DELETE FROM user WHERE email=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getEmail());
             int status = preparedStatement.executeUpdate();
             System.out.println("deleteByEmail: " + getClass() + ", " + status);
             connection.commit();
-            return status;
+            if (status > 0) {
+                return status;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();

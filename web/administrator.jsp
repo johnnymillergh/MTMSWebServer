@@ -382,6 +382,11 @@
                     alert('Enter title');
                     return false;
                 }
+                if (window.confirm('Delete confirmation') === true) {
+                    return true;
+                } else {
+                    return false;
+                }
                 break;
             case 'query':
                 if (titleMovieManagement.value.length === 0) {
@@ -449,27 +454,28 @@
             <legend>
                 <h3>Top Movie Management</h3>
             </legend>
-            <form action="${pageContext.request.contextPath}/servlet.administrator.TopMovieManagement" method="post">
+            <form action="${pageContext.request.contextPath}/servlet.administrator.TopMovieManagement" method="post"
+                  onsubmit="return onCheckTopMovieManagementForm()">
                 <table align="center">
                     <tr>
                         <td align="right">Movie Title 1</td>
-                        <td align="center"><input type="text" name="title1"></td>
+                        <td align="center"><input type="text" name="title1" id="title1TopMovieManagement"></td>
                     </tr>
                     <tr>
                         <td align="right">Movie Title 2</td>
-                        <td align="center"><input type="text" name="title2"></td>
+                        <td align="center"><input type="text" name="title2" id="title2TopMovieManagement"></td>
                     </tr>
                     <tr>
                         <td align="right">Movie Title 3</td>
-                        <td align="center"><input type="text" name="title3"></td>
+                        <td align="center"><input type="text" name="title3" id="title3TopMovieManagement"></td>
                     </tr>
                     <tr>
                         <td align="right">Movie Title 4</td>
-                        <td align="center"><input type="text" name="title4"></td>
+                        <td align="center"><input type="text" name="title4" id="title4TopMovieManagement"></td>
                     </tr>
                     <tr>
                         <td align="right">Movie Title 5</td>
-                        <td align="center"><input type="text" name="title5"></td>
+                        <td align="center"><input type="text" name="title5" id="totle5TopMovieManagement"></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
@@ -583,6 +589,11 @@
                     alert('Enter movie schedule id');
                     return false;
                 }
+                if (window.confirm('Delete confirmation') === true) {
+                    return true;
+                } else {
+                    return false;
+                }
                 break;
             case 'query':
                 if (movieScheduleIdMovieScheduleManagement.value.length === 0) {
@@ -590,6 +601,89 @@
                     alert('Enter movie schedule id');
                     return false;
                 }
+                break;
+            default:
+        }
+    }
+
+    function onCheckTopMovieManagementForm() {
+        var radios = document.getElementsByName('topMovieOperation');
+        var radioChecked;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                radioChecked = radios[i];
+                break;
+            }
+        }
+        var title1TopMovieManagement = document.getElementById('title1TopMovieManagement');
+        var title2TopMovieManagement = document.getElementById('title2TopMovieManagement');
+        var title3TopMovieManagement = document.getElementById('title3TopMovieManagement');
+        var title4TopMovieManagement = document.getElementById('title4TopMovieManagement');
+        var title5TopMovieManagement = document.getElementById('title5TopMovieManagement');
+
+        switch (radioChecked.value) {
+            case 'add':
+                if (title1TopMovieManagement.value.length === 0) {
+                    title1TopMovieManagement.focus();
+                    alert('Enter title 1');
+                    return false;
+                }
+                if (title2TopMovieManagement.value.length === 0) {
+                    title2TopMovieManagement.focus();
+                    alert('Enter title 2');
+                    return false;
+                }
+                if (title3TopMovieManagement.value.length === 0) {
+                    title3TopMovieManagement.focus();
+                    alert('Enter title 3');
+                    return false;
+                }
+                if (title4TopMovieManagement.value.length === 0) {
+                    title4TopMovieManagement.focus();
+                    alert('Enter title 4');
+                    return false;
+                }
+                if (title5TopMovieManagement.value.length === 0) {
+                    title5TopMovieManagement.focus();
+                    alert('Enter title 5');
+                    return false;
+                }
+                break;
+            case 'update':
+                if (title1TopMovieManagement.value.length === 0) {
+                    title1TopMovieManagement.focus();
+                    alert('Enter title 1');
+                    return false;
+                }
+                if (title2TopMovieManagement.value.length === 0) {
+                    title2TopMovieManagement.focus();
+                    alert('Enter title 2');
+                    return false;
+                }
+                if (title3TopMovieManagement.value.length === 0) {
+                    title3TopMovieManagement.focus();
+                    alert('Enter title 3');
+                    return false;
+                }
+                if (title4TopMovieManagement.value.length === 0) {
+                    title4TopMovieManagement.focus();
+                    alert('Enter title 4');
+                    return false;
+                }
+                if (title5TopMovieManagement.value.length === 0) {
+                    title5TopMovieManagement.focus();
+                    alert('Enter title 5');
+                    return false;
+                }
+                break;
+            case 'delete':
+                if (window.confirm('Delete confirmation') === true) {
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+            case 'query':
                 break;
             default:
         }
