@@ -1101,6 +1101,57 @@
     }
 </script>
 
+<div align="center">
+    <fieldset style="width:fit-content; height:fit-content;">
+        <legend>
+            <h2>6. Seat, Auditorium, Theater Management</h2>
+        </legend>
+        <form action="${pageContext.request.contextPath}/servlet.administrator.XXX" method="post"
+              onsubmit="return onCheckXXXManagementForm()">
+            <table align="center">
+                <tr>
+                    <td align="right">Query theater</td>
+                    <td align="center"><input type="number" name="theaterId" id="theaterIdXXXManagement"></td>
+                </tr>
+                <tr>
+                    <td align="right">Email</td>
+                    <td align="center"><input type="email" name="email" id="emailCustomerOrderManagement"></td>
+                </tr>
+                <tr>
+                    <td align="right">Movie Schedule ID</td>
+                    <td align="center"><input type="number" name="movieScheduleId"
+                                              id="movieScheduleIdCustomerOrderManagement"></td>
+                </tr>
+                <tr>
+                    <td align="right">Ticket Amount</td>
+                    <td align="center"><input type="number" name="ticketAmount"
+                                              id="ticketAmountCustomerOrderManagement"></td>
+                </tr>
+                <tr>
+                    <td align="right">Date of Order</td>
+                    <td align="center"><input type="date" name="date" id="dateCustomerOrderManagement"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Time of Order</td>
+                    <td align="center"><input type="text" name="time" id="timeCustomerOrderManagement"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
+                        <input type="radio" name="orderOperation" value="pay"/>Pay
+                        <input type="radio" name="orderOperation" value="use"/>Use
+                        <input type="radio" name="orderOperation" value="delete"/>Delete
+                        <input type="radio" name="orderOperation" value="getAll"/>Get all
+                        <input type="radio" name="orderOperation" value="getJson"/>Get Json
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>
+<br>
+
 <script type="text/javascript">
     ng.ready(function () {
         // Init time picker
