@@ -43,6 +43,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return -1;
         } finally {
             if (connection != null) {
                 try {
@@ -52,22 +53,11 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
-        return -1;
     }
 
     @Override
     public int update(MovieEntity entity) {
         return updateByTitle(entity);
-    }
-
-    @Override
-    public MovieEntity queryById(MovieEntity entity) {
-        return null;
-    }
-
-    @Override
-    public int delete(MovieEntity entity) {
-        return -1;
     }
 
     private int updateByTitle(MovieEntity entity) {
@@ -100,6 +90,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return -1;
         } finally {
             if (connection != null) {
                 try {
@@ -109,7 +100,11 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
-        return -1;
+    }
+
+    @Override
+    public MovieEntity queryById(MovieEntity entity) {
+        return null;
     }
 
     public MovieEntity queryByTitle(MovieEntity entity) {
@@ -139,6 +134,8 @@ public class MovieDao implements IDao<MovieEntity> {
                 connection.commit();
                 System.out.println("queryByTitle: " + getClass() + ", " + movieEntity.getTitle());
                 return movieEntity;
+            } else {
+                return null;
             }
         } catch (Exception e) {
             try {
@@ -147,6 +144,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -156,7 +154,11 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
-        return null;
+    }
+
+    @Override
+    public int delete(MovieEntity entity) {
+        return -1;
     }
 
     @Override
@@ -225,6 +227,8 @@ public class MovieDao implements IDao<MovieEntity> {
                 connection.commit();
                 System.out.println("getPoster(title): " + getClass() + ", " + movieEntity.getTitle());
                 return movieEntity;
+            } else {
+                return null;
             }
         } catch (Exception e) {
             try {
@@ -233,6 +237,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -242,7 +247,6 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
-        return null;
     }
 
     public MovieEntity getPosterBytes(MovieEntity entity) {
@@ -262,6 +266,8 @@ public class MovieDao implements IDao<MovieEntity> {
                 System.out.println("getPosterBytes: " + getClass() + ", id: " + movieEntity.getId() + ", title: " +
                         movieEntity.getTitle());
                 return movieEntity;
+            } else {
+                return null;
             }
         } catch (Exception e) {
             try {
@@ -270,6 +276,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -279,6 +286,5 @@ public class MovieDao implements IDao<MovieEntity> {
                 }
             }
         }
-        return null;
     }
 }
