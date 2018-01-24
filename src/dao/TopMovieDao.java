@@ -58,7 +58,11 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
             int status = preparedStatement.executeUpdate();
             connection.commit();
             System.out.println("updateById: " + getClass() + ", " + status);
-            return status;
+            if (status > 0) {
+                return status;
+            } else {
+                return -1;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
@@ -95,7 +99,7 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getId());
             int status = preparedStatement.executeUpdate();
-            System.out.println("deleteById: " + getClass() + ", "+ status);
+            System.out.println("deleteById: " + getClass() + ", " + status);
             connection.commit();
             return status;
         } catch (Exception e) {

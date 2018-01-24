@@ -9,7 +9,7 @@ public class SeatEntity {
     private int colNumber;
     private boolean isSelected;
     private int userId;
-    private int userEmail;
+    private String userEmail;
     private Timestamp orderDatetime;
 
     public int getId() {
@@ -60,11 +60,11 @@ public class SeatEntity {
         this.userId = userId;
     }
 
-    public int getUserEmail() {
+    public String getUserEmail() {
         return userEmail;
     }
 
-    public void setUserEmail(int userEmail) {
+    public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 

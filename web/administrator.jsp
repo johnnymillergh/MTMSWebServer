@@ -1160,8 +1160,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center"><input type="radio" name="satOperation" value="setSeatAvailability"/>Get
-                        Seat of Auditorium Json
+                    <td align="center"><input type="radio" name="satOperation" value="setSeatAvailability"/>Set Seat Availability
                     </td>
                 </tr>
             </table>

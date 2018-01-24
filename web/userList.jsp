@@ -1,6 +1,4 @@
-<%@ page import="dao.UserDao" %>
-<%@ page import="entity.UserEntity" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Johnny
   Date: 1/24/2018
@@ -8,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="dao.UserDao" %>
+<%@ page import="entity.UserEntity" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
     <title>User List</title>

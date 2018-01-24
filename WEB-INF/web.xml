@@ -55,6 +55,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SATManagement</servlet-name>
+        <servlet-class>servlet.administrator.SATManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SATManagement</servlet-name>
+        <url-pattern>/servlet.administrator.SATManagement</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>UserReviewManagement</servlet-name>
         <servlet-class>servlet.administrator.UserReviewManagement</servlet-class>
     </servlet>
