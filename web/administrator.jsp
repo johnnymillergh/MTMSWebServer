@@ -37,7 +37,7 @@
                     <td align="right">Email</td>
                     <td align="center"><input type="email" id="emailUserManagement" name="email"></td>
                     <td rowspan="6">
-                        <img src="" id="avatarImage" style="height: 100px;width: auto; background:#CCCCCC;"/>
+                        <img src="" id="avatarImage" style="height: 150px;width: auto; background:#CCCCCC;" border="3"/>
                     </td>
                 </tr>
                 <tr>
@@ -179,6 +179,9 @@
                 <tr>
                     <td align="right">Title</td>
                     <td align="center"><input type="text" name="title" id="titleMovieManagement"></td>
+                    <td rowspan="13">
+                        <img src="" id="posterImage" style="height: auto;width: 200px; background:#CCCCCC;" border="3"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Duration</td>
@@ -230,7 +233,7 @@
                     <td align="center"><input type="file" name="poster" id="posterMovieManagement"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="3" align="center">
                         <input type="radio" name="movieOperation" value="add" checked="checked"
                                id="addRadioMovieManagement"/>Add
                         <input type="radio" name="movieOperation" value="update"/>Update
@@ -246,6 +249,14 @@
 </div>
 <br>
 <script type="text/javascript">
+    document.getElementById('posterMovieManagement').onchange = function () {
+        var imgFile = this.files[0];
+        var fr = new FileReader();
+        fr.onload = function () {
+            document.getElementById('posterImage').src = fr.result;
+        };
+        fr.readAsDataURL(imgFile);
+    };
     function onCheckMovieManagementForm() {
         var radios = document.getElementsByName('movieOperation');
         var radioChecked;
