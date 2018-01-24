@@ -29,6 +29,7 @@ public class UserDao implements IDao<UserEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return -1;
         } finally {
             if (connection != null) {
                 try {
@@ -38,7 +39,6 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
-        return -1;
     }
 
     @Override
@@ -65,6 +65,7 @@ public class UserDao implements IDao<UserEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return -1;
         } finally {
             if (connection != null) {
                 try {
@@ -74,7 +75,6 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
-        return -1;
     }
 
     @Override
@@ -94,6 +94,8 @@ public class UserDao implements IDao<UserEntity> {
                 resultSet.close();
                 System.out.println("queryById: " + getClass() + ", " + userEntity.getUsername());
                 return userEntity;
+            } else {
+                return null;
             }
         } catch (Exception e) {
             try {
@@ -102,6 +104,7 @@ public class UserDao implements IDao<UserEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -111,7 +114,6 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
-        return null;
     }
 
     @Override
@@ -182,6 +184,7 @@ public class UserDao implements IDao<UserEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return -1;
         } finally {
             if (connection != null) {
                 try {
@@ -191,6 +194,5 @@ public class UserDao implements IDao<UserEntity> {
                 }
             }
         }
-        return -1;
     }
 }
