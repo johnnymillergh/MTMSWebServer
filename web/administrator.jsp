@@ -418,7 +418,8 @@
                 </tr>
                 <tr>
                     <td align="right">Price</td>
-                    <td align="center"><input type="number" name="price" id="priceMovieScheduleManagement"></td>
+                    <td align="center"><input type="number" step="0.01" name="price" id="priceMovieScheduleManagement">
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Date of Show</td>
