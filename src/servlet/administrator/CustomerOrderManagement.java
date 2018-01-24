@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-@WebServlet(name = "OrderManagement")
-public class OrderManagement extends HttpServlet {
+@WebServlet(name = "CustomerOrderManagement")
+public class CustomerOrderManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");

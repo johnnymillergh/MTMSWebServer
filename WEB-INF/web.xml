@@ -46,12 +46,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>OrderManagementSU</servlet-name>
-        <servlet-class>servlet.administrator.OrderManagement</servlet-class>
+        <servlet-name>CustomerOrderManagementSU</servlet-name>
+        <servlet-class>servlet.administrator.CustomerOrderManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>OrderManagementSU</servlet-name>
-        <url-pattern>/servlet.administrator.OrderManagement</url-pattern>
+        <servlet-name>CustomerOrderManagementSU</servlet-name>
+        <url-pattern>/servlet.administrator.CustomerOrderManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
