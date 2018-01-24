@@ -1106,43 +1106,46 @@
         <legend>
             <h2>6. Seat, Auditorium, Theater Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.XXX" method="post"
+        <form action="${pageContext.request.contextPath}/servlet.administrator.SATManagement" method="post"
               onsubmit="return onCheckXXXManagementForm()">
             <table align="center">
                 <tr>
-                    <td align="right">Query theater</td>
-                    <td align="center"><input type="number" name="theaterId" id="theaterIdXXXManagement"></td>
+                    <td align="right">Theater ID</td>
+                    <td align="left"><input type="number" name="theaterId" id="theaterIdSATManagement"></td>
                 </tr>
                 <tr>
-                    <td align="right">Email</td>
-                    <td align="center"><input type="email" name="email" id="emailCustomerOrderManagement"></td>
+                    <td align="right">Theater Name</td>
+                    <td align="left"><input type="email" name="theaterName" id="theaterNameSATManagement">
+                    </td>
                 </tr>
                 <tr>
-                    <td align="right">Movie Schedule ID</td>
-                    <td align="center"><input type="number" name="movieScheduleId"
-                                              id="movieScheduleIdCustomerOrderManagement"></td>
+                    <td align="right">Auditorium ID</td>
+                    <td align="left"><input type="number" name="auditoriumId" id="auditoriumIdSATManagement"></td>
                 </tr>
                 <tr>
-                    <td align="right">Ticket Amount</td>
-                    <td align="center"><input type="number" name="ticketAmount"
-                                              id="ticketAmountCustomerOrderManagement"></td>
+                    <td align="right">Seat ID</td>
+                    <td align="left"><input type="number" name="seatId" id="seatIdSATManagement"></td>
                 </tr>
                 <tr>
-                    <td align="right">Date of Order</td>
-                    <td align="center"><input type="date" name="date" id="dateCustomerOrderManagement"/></td>
-                </tr>
-                <tr>
-                    <td align="right">Time of Order</td>
-                    <td align="center"><input type="text" name="time" id="timeCustomerOrderManagement"/></td>
+                    <td align="right">Seat Availability</td>
+                    <td align="left">
+                        <select name="seatAvailability" id="seatAvailabilitySATManagement">
+                            <option value="NotSelected" selected>Not selected</option>
+                            <option value="Selected">Selected</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="radio" name="orderOperation" value="takeOrder" checked="checked"/>Take Order
-                        <input type="radio" name="orderOperation" value="pay"/>Pay
-                        <input type="radio" name="orderOperation" value="use"/>Use
-                        <input type="radio" name="orderOperation" value="delete"/>Delete
-                        <input type="radio" name="orderOperation" value="getAll"/>Get all
-                        <input type="radio" name="orderOperation" value="getJson"/>Get Json
+                        <input type="radio" name="satOperation" value="getAllTheater" checked="checked"/>Get All
+                        Theaters
+                        <input type="radio" name="satOperation" value="getAllAuditorium"/>Get All Auditorium
+                        <input type="radio" name="satOperation" value="getAllSeatOfAuditorium"/>Get All Seat of
+                        Auditorium
+                        <input type="radio" name="satOperation" value="getSeatOfAuditoriumJson"/>Get Seat of Auditorium
+                        Json
+                        <input type="radio" name="satOperation" value="setSeatAvailability"/>Get Seat of Auditorium
+                        Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
