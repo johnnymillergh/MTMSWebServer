@@ -37,7 +37,8 @@
                     <td align="right">Email</td>
                     <td align="center"><input type="email" id="emailUserManagement" name="email"></td>
                     <td rowspan="6">
-                        <img src="" id="avatarImage" style="height: 150px;width: auto; background:#CCCCCC;" border="3"/>
+                        <img src="" id="avatarImage" style="height: 150px;width: auto; background:#CCCCCC;" border="3"
+                             alt="Avatar Preview"/>
                     </td>
                 </tr>
                 <tr>
@@ -180,7 +181,8 @@
                     <td align="right">Title</td>
                     <td align="center"><input type="text" name="title" id="titleMovieManagement"></td>
                     <td rowspan="13">
-                        <img src="" id="posterImage" style="height: auto;width: 200px; background:#CCCCCC;" border="3"/>
+                        <img src="" id="posterImage" style="height: auto;width: 200px; background:#CCCCCC;" border="3"
+                             alt="Poster Preview"/>
                     </td>
                 </tr>
                 <tr>
@@ -257,6 +259,7 @@
         };
         fr.readAsDataURL(imgFile);
     };
+
     function onCheckMovieManagementForm() {
         var radios = document.getElementsByName('movieOperation');
         var radioChecked;
