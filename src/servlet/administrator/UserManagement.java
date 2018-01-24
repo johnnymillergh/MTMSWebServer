@@ -1,18 +1,27 @@
 package servlet.administrator;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.UserDao;
 import entity.UserEntity;
+import util.FileUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "UserManagement")
+@MultipartConfig
 public class UserManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -86,6 +95,30 @@ public class UserManagement extends HttpServlet {
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String gender = request.getParameter("gender");
+        String homeLocation = request.getParameter("homeLocation");
+
+        // Get part parameter
+        Part part = request.getPart("avatar");
+        // Get file name
+        String contentDisposition = part.getHeader("Content-Disposition");
+        System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
+        // Save file to work directory
+        String savePath = FileUtil.getPictureSavingPath();
+        int filenameIndex = contentDisposition.indexOf("filename=");
+        String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
+        filename = FileUtil.getRealName(filename);
+        part.write(savePath + "/" + filename);
+        System.out.println("Saving file, path: " + savePath + "/" + filename);
+        // Get file length
+        File file = new File(savePath + "/" + filename);
+        Long fileLength = file.length();
+        System.out.println("fileLength: " + fileLength + " bytes");
+        byte[] bytes = new byte[fileLength.intValue()];
+        // Read file to memory
+        FileInputStream in = new FileInputStream(file);
+        in.read(bytes);
+        in.close();
 
         // Task of checking the validations of parameter is assigned to web browser
 
@@ -93,6 +126,9 @@ public class UserManagement extends HttpServlet {
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(password);
+        user.setGender(gender);
+        user.setAvatar(bytes);
+        user.setHomeLocation(homeLocation);
         int status = userDao.save(user);
 
         if (status > 0) {
@@ -117,6 +153,30 @@ public class UserManagement extends HttpServlet {
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String gender = request.getParameter("gender");
+        String homeLocation = request.getParameter("homeLocation");
+
+        // Get part parameter
+        Part part = request.getPart("avatar");
+        // Get file name
+        String contentDisposition = part.getHeader("Content-Disposition");
+        System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
+        // Save file to work directory
+        String savePath = FileUtil.getPictureSavingPath();
+        int filenameIndex = contentDisposition.indexOf("filename=");
+        String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
+        filename = FileUtil.getRealName(filename);
+        part.write(savePath + "/" + filename);
+        System.out.println("Saving file, path: " + savePath + "/" + filename);
+        // Get file length
+        File file = new File(savePath + "/" + filename);
+        Long fileLength = file.length();
+        System.out.println("fileLength: " + fileLength + " bytes");
+        byte[] bytes = new byte[fileLength.intValue()];
+        // Read file to memory
+        FileInputStream in = new FileInputStream(file);
+        in.read(bytes);
+        in.close();
 
         // Task of checking the validations of parameter is assigned to web browser
 
@@ -124,6 +184,9 @@ public class UserManagement extends HttpServlet {
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(password);
+        user.setGender(gender);
+        user.setAvatar(bytes);
+        user.setHomeLocation(homeLocation);
         int status = userDao.update(user);
 
         if (status > 0) {
@@ -186,18 +249,57 @@ public class UserManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " query: User not found.');;window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " query: User not found.');window.history.go(-1)</script>");
             out.flush();
             out.close();
         }
     }
 
-    private void getAll(HttpServletRequest request, HttpServletResponse response) {
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open('/userList.jsp');window.history.go(-1)</script>");
+        out.flush();
+        out.close();
     }
 
     private void getOnlineUser(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void getJson(HttpServletRequest request, HttpServletResponse response) {
+    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setContentType("text/json");
+
+        UserDao dao = new UserDao();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+        String email = request.getParameter("email");
+
+        if (email.compareTo("") != 0) {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setEmail(email);
+            userEntity = dao.queryByEmail(userEntity);
+            if (userEntity != null) {
+                PrintWriter out = response.getWriter();
+                String json = gson.toJson(userEntity);
+                out.println(json);
+                out.flush();
+                System.out.println("getJson: " + getClass());
+                out.close();
+                return;
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('" + getClass() + " getJson: ERROR: User not found');window.history.go(-1)</script>");
+                out.flush();
+                out.close();
+                return;
+            }
+        }
+
+        List<UserEntity> entities = dao.getAll();
+        PrintWriter out = response.getWriter();
+        String json = gson.toJson(entities);
+        out.println(json);
+        out.flush();
+        System.out.println("getJson: " + getClass());
+        out.close();
     }
 }

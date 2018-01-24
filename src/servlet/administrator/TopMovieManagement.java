@@ -201,26 +201,18 @@ public class TopMovieManagement extends HttpServlet {
         out.close();
     }
 
-    private void getJson(HttpServletRequest request, HttpServletResponse response) {
+    private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType("text/json");
 
         TopMovieDao dao = new TopMovieDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         List<TopMovieEntity> topMovieList = dao.getAll();
 
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            String json = gson.toJson(topMovieList);
-            out.println(json);
-            out.flush();
-            System.out.println("getJson: " + getClass());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-        }
+        PrintWriter out = response.getWriter();
+        String json = gson.toJson(topMovieList);
+        out.println(json);
+        out.flush();
+        System.out.println("getJson: " + getClass());
+        out.close();
     }
 }

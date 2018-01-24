@@ -87,10 +87,6 @@ public class MovieManagement extends HttpServlet {
         String runtime = request.getParameter("runtime");
         String aspectRatio = request.getParameter("aspectRatio");
         String description = request.getParameter("description");
-        String savePath = null;
-        String filename = null;
-        File file = null;
-        byte[] bytes = new byte[0];
 
         // Get part parameter
         Part part = request.getPart("poster");
@@ -98,17 +94,17 @@ public class MovieManagement extends HttpServlet {
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
         // Save file to work directory
-        savePath = FileUtil.getPictureSavingPath();
+        String savePath = FileUtil.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
-        filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
+        String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
         filename = FileUtil.getRealName(filename);
         part.write(savePath + "/" + filename);
         System.out.println("Saving file, path: " + savePath + "/" + filename);
         // Get file length
-        file = new File(savePath + "/" + filename);
+        File file = new File(savePath + "/" + filename);
         Long fileLength = file.length();
         System.out.println("fileLength: " + fileLength + " bytes");
-        bytes = new byte[fileLength.intValue()];
+        byte[] bytes = new byte[fileLength.intValue()];
         // Read file to memory
         FileInputStream in = new FileInputStream(file);
         in.read(bytes);
