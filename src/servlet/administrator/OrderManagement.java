@@ -272,7 +272,10 @@ public class OrderManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("/customerOrderList.jsp");
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open('customerOrderList.jsp');window.history.go(-1);</script>");
+        out.flush();
+        out.close();
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {

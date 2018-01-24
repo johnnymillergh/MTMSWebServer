@@ -194,12 +194,11 @@ public class TopMovieManagement extends HttpServlet {
     private void query(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void getAll(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            response.sendRedirect("/topMovieList.jsp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open('/topMovieList.jsp');window.history.go(-1);</script>");
+        out.flush();
+        out.close();
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) {

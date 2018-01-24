@@ -240,7 +240,7 @@ public class MovieManagement extends HttpServlet {
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Open a new tab and keep opened page stay
         PrintWriter out = response.getWriter();
-        out.println("<script>window.open(\"\\movieList.jsp\");window.history.go(-1)</script>");
+        out.println("<script>window.open('/movieList.jsp');window.history.go(-1)</script>");
         out.flush();
         out.close();
     }
