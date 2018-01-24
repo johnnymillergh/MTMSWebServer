@@ -23,6 +23,7 @@ public class MovieManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+
         String radio = request.getParameter("movieOperation");
         System.out.println("movieOperation: " + radio);
         switch (radio) {
@@ -86,34 +87,32 @@ public class MovieManagement extends HttpServlet {
         String runtime = request.getParameter("runtime");
         String aspectRatio = request.getParameter("aspectRatio");
         String description = request.getParameter("description");
-        System.out.println(title + "\n" + duration + "\n" + genre + "\n" + director + "\n" + stars + "\n" + country +
-                "\n" + language + "\n" + releaseDate + "\n" + filmingLocation + "\n" + runtime + "\n" +
-                aspectRatio + "\n" + description);
-        //特殊参数用part取
+        String savePath = null;
+        String filename = null;
+        File file = null;
+        byte[] bytes = new byte[0];
+
+        // Get part parameter
         Part part = request.getPart("poster");
-        //获取文件名
+        // Get file name
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
-        //
-        String savePath = FileUtil.getPictureSavingPath();
+        // Save file to work directory
+        savePath = FileUtil.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
-        String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
+        filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
         filename = FileUtil.getRealName(filename);
-        System.out.println("savePath: " + savePath + "/" + filename);
         part.write(savePath + "/" + filename);
-        // Read uploaded file.
-        File file = new File(savePath + "/" + filename);
+        System.out.println("Saving file, path: " + savePath + "/" + filename);
+        // Get file length
+        file = new File(savePath + "/" + filename);
         Long fileLength = file.length();
         System.out.println("fileLength: " + fileLength + " bytes");
-        byte[] bytes = new byte[fileLength.intValue()];
-        try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(bytes);
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("File path: " + savePath + "/" + filename);
+        bytes = new byte[fileLength.intValue()];
+        // Read file to memory
+        FileInputStream in = new FileInputStream(file);
+        in.read(bytes);
+        in.close();
 
         // Set entity and save
         movieEntity.setTitle(title);
@@ -129,42 +128,50 @@ public class MovieManagement extends HttpServlet {
         movieEntity.setAspectRatio(aspectRatio);
         movieEntity.setDescription(description);
         movieEntity.setPoster(bytes);
-        movieDao.save(movieEntity);
+        int status = movieDao.save(movieEntity);
 
         // Delete file
         file.delete();
 
-        // Go to administrator.jsp
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('MovieManagement added.');window.location.href='/administrator.jsp'</script>");
-        out.flush();
-        out.close();
+        if (status > 0) {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " add: Success.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1)</script>");
+            out.flush();
+            out.close();
+        }
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MovieEntity movieEntity = new MovieEntity();
         MovieDao movieDao = new MovieDao();
+        File file = null;
+        byte[] bytes = new byte[0];
 
         // Get parameter
         Part part = request.getPart("poster");
         // Get file name
         String contentDisposition = part.getHeader("Content-Disposition");
         System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
+        // Save file to work directory
         String savePath = FileUtil.getPictureSavingPath();
         int filenameIndex = contentDisposition.indexOf("filename=");
         String filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
         part.write(savePath + "/" + filename);
-        System.out.println("File path: " + savePath + "/" + filename);
-        File file = new File(savePath + "/" + filename);
+        System.out.println("Saving file, path: " + savePath + "/" + filename);
+        // Get file length
+        file = new File(savePath + "/" + filename);
         Long fileLength = file.length();
-        byte[] bytes = new byte[fileLength.intValue()];
-        try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(bytes);
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        bytes = new byte[fileLength.intValue()];
+        // Read file to memory
+        FileInputStream in = new FileInputStream(file);
+        in.read(bytes);
+        in.close();
 
         // Set entity
         movieEntity.setTitle(request.getParameter("title"));
@@ -182,20 +189,28 @@ public class MovieManagement extends HttpServlet {
         movieEntity.setPoster(bytes);
 
         // Update
-        movieDao.update(movieEntity);
+        int status = movieDao.update(movieEntity);
         file.delete();
 
-        // Go to administrator.jsp
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('MovieManagement updated.');window.location.href='/administrator.jsp'</script>");
-        out.flush();
-        out.close();
+        if (status > 0) {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " update: Success.');window.location.href='/administrator.jsp'</script>");
+            out.flush();
+            out.close();
+        } else {
+            // Go to administrator.jsp
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1)</script>");
+            out.flush();
+            out.close();
+        }
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('MovieManagement deleted.');window.location.href='/administrator.jsp'</script>");
+        out.println("<script>alert('" + getClass() + " delete: Still in construction.');window.history.go(-1)</script>");
         out.flush();
         out.close();
     }
@@ -203,28 +218,30 @@ public class MovieManagement extends HttpServlet {
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MovieDao movieDao = new MovieDao();
         MovieEntity movieEntity = new MovieEntity();
+
         String title = request.getParameter("title");
-        if (title.compareTo("") != 0) {
-            movieEntity.setTitle(title);
-            movieEntity = movieDao.queryByTitle(movieEntity);
+
+        movieEntity.setTitle(title);
+        movieEntity = movieDao.queryByTitle(movieEntity);
+
+        if (movieEntity != null) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('MovieManagement query: " + movieEntity.getLanguage() + "');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " query: Movie found.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
-            // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('MovieManagement query.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " query: Movie not found.');window.history.go(-1)</script>");
             out.flush();
             out.close();
         }
     }
 
-    private void getAll(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            response.sendRedirect("/movieList.jsp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Open a new tab and keep opened page stay
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open(\"\\movieList.jsp\");window.history.go(-1)</script>");
+        out.flush();
+        out.close();
     }
 }

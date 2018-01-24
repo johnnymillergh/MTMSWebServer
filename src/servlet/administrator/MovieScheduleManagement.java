@@ -24,6 +24,7 @@ public class MovieScheduleManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+
         String radio = request.getParameter("movieScheduleOperation");
         System.out.println("movieScheduleOperation: " + radio);
         switch (radio) {
@@ -84,11 +85,16 @@ public class MovieScheduleManagement extends HttpServlet {
         String movieId = request.getParameter("movieId");
         String theaterId = request.getParameter("theaterId");
         String auditoriumId = request.getParameter("auditoriumId");
+        if (movieId.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1)'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
         String price = request.getParameter("price");
         String dateOfShow = request.getParameter("dateOfShow");
         String timeOfShow = request.getParameter("timeOfShow");
-        System.out.println("Add movie schedule: " + movieId + ", " + theaterId + ", " + auditoriumId + ", " + price +
-                ", " + dateOfShow + ", " + timeOfShow);
 
         entity.setMovieId(Integer.parseInt(movieId));
         entity.setAuditoriumTheaterId(Integer.parseInt(theaterId));
@@ -102,12 +108,12 @@ public class MovieScheduleManagement extends HttpServlet {
         int status = dao.save(entity);
         if (status == 1) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('MovieScheduleManagement: added.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " add: Success.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('MovieScheduleManagement: add failed.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1)'</script>");
             out.flush();
             out.close();
         }
@@ -121,11 +127,16 @@ public class MovieScheduleManagement extends HttpServlet {
         String movieId = request.getParameter("movieId");
         String theaterId = request.getParameter("theaterId");
         String auditoriumId = request.getParameter("auditoriumId");
+        if (id.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0) {
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1)'</script>");
+            out.flush();
+            out.close();
+            return;
+        }
         String price = request.getParameter("price");
         String dateOfShow = request.getParameter("dateOfShow");
         String timeOfShow = request.getParameter("timeOfShow");
-        System.out.println("Update movie schedule: " + movieId + ", " + theaterId + ", " + auditoriumId + ", " + price +
-                ", " + dateOfShow + ", " + timeOfShow);
 
         entity.setId(Integer.parseInt(id));
         entity.setMovieId(Integer.parseInt(movieId));
@@ -140,31 +151,37 @@ public class MovieScheduleManagement extends HttpServlet {
         int status = dao.update(entity);
         if (status == 1) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('MovieScheduleManagement: updated.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " update: Success.');window.location.href='/administrator.jsp'</script>");
             out.flush();
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('MovieScheduleManagement: update failed.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1)'</script>");
             out.flush();
             out.close();
         }
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('" + getClass() + " delete: Still in construction.');window.history.go(-1)'</script>");
+        out.flush();
+        out.close();
     }
 
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('" + getClass() + " query: Still in construction.');window.history.go(-1)'</script>");
+        out.flush();
+        out.close();
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
-            response.sendRedirect("/movieScheduleList.jsp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Open a new tab and keep opened page stay
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open(\"\\movieScheduleList.jsp\");window.history.go(-1)</script>");
+        out.flush();
+        out.close();
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
