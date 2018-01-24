@@ -257,6 +257,54 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
         }
     }
 
+    public List<UserReviewEntity> getReviewOfUserAndMovie(UserReviewEntity entity) {
+        List<UserReviewEntity> userReviewList = new ArrayList<>();
+        UserReviewEntity userReview;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM user_review WHERE user_id=? AND movie_id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getUserId());
+            preparedStatement.setInt(2, entity.getMovieId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                userReview = new UserReviewEntity();
+                userReview.setId(resultSet.getInt("id"));
+                userReview.setUserId(resultSet.getInt("user_id"));
+                userReview.setMovieId(resultSet.getInt("movie_id"));
+                userReview.setScore(resultSet.getInt("score"));
+                userReview.setTitle(resultSet.getString("title"));
+                userReview.setText(resultSet.getString("text"));
+                userReview.setDateTime(resultSet.getTimestamp("date_time"));
+                userReviewList.add(userReview);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getReviewOfUserAndMovie: " + getClass());
+            if (userReviewList.size() != 0) {
+                return userReviewList;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     @Override
     public int delete(UserReviewEntity entity) {
         return 0;

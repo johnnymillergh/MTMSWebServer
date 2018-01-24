@@ -695,33 +695,36 @@
         <legend>
             <h2>4. User Review Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.UserReviewManagement" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.UserReviewManagement" method="post"
+              onsubmit="return onCheckUserReviewManagementForm()">
             <table align="center">
                 <tr>
                     <td align="right">User Email</td>
-                    <td align="left"><input type="email" name="email"></td>
+                    <td align="left"><input type="email" name="email" id="emailUserReviewManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Movie Title</td>
-                    <td align="left"><input type="text" name="movieTitle"></td>
+                    <td align="left"><input type="text" name="movieTitle" id="movieTitleUserReviewManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Score</td>
-                    <td align="left"><input type="number" name="score"></td>
+                    <td align="left"><input type="number" name="score" id="scoreUserReviewManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Title</td>
-                    <td align="left"><input type="text" name="userReviewTitle"></td>
+                    <td align="left"><input type="text" name="userReviewTitle" id="userReviewTitleUserReviewManagement">
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Text</td>
                     <td align="left">
-                        <textarea name="text" style="resize: none; width: 450px; height: 100px"></textarea>
+                        <textarea name="text" style="resize: none; width: 450px; height: 100px"
+                                  id="textUserReviewManagement"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td align="right">Date of Review</td>
-                    <td align="left"><input type="date" name="date"/></td>
+                    <td align="left"><input type="date" name="date" id="dateUserReviewManagement"/></td>
                 </tr>
                 <tr>
                     <td align="right">Time of Review</td>
@@ -743,6 +746,127 @@
     </fieldset>
 </div>
 <br>
+<script type="text/javascript">
+    function onCheckUserReviewManagementForm() {
+        var radios = document.getElementsByName('userReviewOperation');
+        var radioChecked;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                radioChecked = radios[i];
+                break;
+            }
+        }
+        var emailUserReviewManagement = document.getElementById('emailUserReviewManagement');
+        var movieTitleUserReviewManagement = document.getElementById('movieTitleUserReviewManagement');
+        var scoreUserReviewManagement = document.getElementById('scoreUserReviewManagement');
+        var userReviewTitleUserReviewManagement = document.getElementById('userReviewTitleUserReviewManagement');
+        var textUserReviewManagement = document.getElementById('textUserReviewManagement');
+        var dateUserReviewManagement = document.getElementById('dateUserReviewManagement');
+        var timePicker2 = document.getElementById('timePicker2');
+
+        switch (radioChecked.value) {
+            case 'add':
+                if (emailUserReviewManagement.value.length === 0) {
+                    emailUserReviewManagement.focus();
+                    alert('Enter email');
+                    return false;
+                }
+                if (movieTitleUserReviewManagement.value.length === 0) {
+                    movieTitleUserReviewManagement.focus();
+                    alert('Enter movie title');
+                    return false;
+                }
+                if (scoreUserReviewManagement.value.length === 0) {
+                    scoreUserReviewManagement.focus();
+                    alert('Enter score');
+                    return false;
+                }
+                if (userReviewTitleUserReviewManagement.value.length === 0) {
+                    userReviewTitleUserReviewManagement.focus();
+                    alert('Enter review title');
+                    return false;
+                }
+                if (textUserReviewManagement.value.length === 0) {
+                    textUserReviewManagement.focus();
+                    alert('Enter text');
+                    return false;
+                }
+                if (dateUserReviewManagement.value.length === 0) {
+                    dateUserReviewManagement.focus();
+                    alert('Enter date');
+                    return false;
+                }
+                if (timePicker2.value.length === 0) {
+                    timePicker2.focus();
+                    alert('Enter time');
+                    return false;
+                }
+                break;
+            case 'update':
+                if (emailUserReviewManagement.value.length === 0) {
+                    emailUserReviewManagement.focus();
+                    alert('Enter email');
+                    return false;
+                }
+                if (movieTitleUserReviewManagement.value.length === 0) {
+                    movieTitleUserReviewManagement.focus();
+                    alert('Enter movie title');
+                    return false;
+                }
+                if (scoreUserReviewManagement.value.length === 0) {
+                    scoreUserReviewManagement.focus();
+                    alert('Enter score');
+                    return false;
+                }
+                if (userReviewTitleUserReviewManagement.value.length === 0) {
+                    userReviewTitleUserReviewManagement.focus();
+                    alert('Enter review title');
+                    return false;
+                }
+                if (textUserReviewManagement.value.length === 0) {
+                    textUserReviewManagement.focus();
+                    alert('Enter text');
+                    return false;
+                }
+                if (dateUserReviewManagement.value.length === 0) {
+                    dateUserReviewManagement.focus();
+                    alert('Enter date');
+                    return false;
+                }
+                if (timePicker2.value.length === 0) {
+                    timePicker2.focus();
+                    alert('Enter time');
+                    return false;
+                }
+                break;
+            case 'delete':
+                if (emailUserReviewManagement.value.length === 0) {
+                    emailUserReviewManagement.focus();
+                    alert('Enter email');
+                    return false;
+                }
+                if (movieTitleUserReviewManagement.value.length === 0) {
+                    movieTitleUserReviewManagement.focus();
+                    alert('Enter movie title');
+                    return false;
+                }
+                if (window.confirm('Delete confirmation') === true) {
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+            case 'query':
+                if (titleMovieManagement.value.length === 0) {
+                    titleMovieManagement.focus();
+                    alert('Enter title');
+                    return false;
+                }
+                break;
+            default:
+        }
+    }
+</script>
 
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">

@@ -25,6 +25,7 @@ public class UserReviewManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+
         String radio = request.getParameter("userReviewOperation");
         System.out.println("userReviewOperation: " + radio);
         switch (radio) {
@@ -103,6 +104,7 @@ public class UserReviewManagement extends HttpServlet {
         userEntity = userDao.queryByEmail(userEntity);
         movieEntity.setTitle(movieTitle);
         movieEntity = movieDao.queryByTitle(movieEntity);
+
         if (userEntity != null && movieEntity != null) {
             userReviewEntity.setUserId(userEntity.getId());
             userReviewEntity.setMovieId(movieEntity.getId());
@@ -118,28 +120,25 @@ public class UserReviewManagement extends HttpServlet {
                 int status = userReviewDao.save(userReviewEntity);
                 if (status == 1) {
                     PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " add: " + userEntity.getUsername() + ", " +
-                            movieEntity.getTitle() + "');window.location.href='/administrator.jsp'</script>");
+                    out.println("<script>alert('" + getClass() + " add: Success.');window.location.href='/administrator.jsp';</script>");
                     out.flush();
                     out.close();
                 } else {
                     System.out.println(userReviewEntity.toString());
                     PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " Add failed." +
-                            "');window.location.href='/administrator.jsp'</script>");
+                    out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
                     out.flush();
                     out.close();
                 }
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("<script>alert('" + getClass() + " ERROR: User rated: " + userEntity.getUsername() + ", " +
-                        movieEntity.getTitle() + "');window.location.href='/administrator.jsp'</script>");
+                out.println("<script>alert('" + getClass() + " add: ERROR: User rated.');window.history.go(-1);</script>");
                 out.flush();
                 out.close();
             }
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " ERROR: User or movie not found.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " add: ERROR: User or movie not found.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -155,11 +154,10 @@ public class UserReviewManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
-            response.sendRedirect("/userReviewList.jsp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open('/userReviewList.jsp');window.history.go(-1);</script>");
+        out.flush();
+        out.close();
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -203,6 +201,11 @@ public class UserReviewManagement extends HttpServlet {
                 out.flush();
                 System.out.println("getJson: " + getClass());
                 out.close();
+            } else {
+                out = response.getWriter();
+                out.println("Parameters ERROR!");
+                out.flush();
+                out.close();
             }
         } else if (email.compareTo("") != 0 && movieTitle.compareTo("") == 0) {
             userEntity.setEmail(email);
@@ -217,13 +220,36 @@ public class UserReviewManagement extends HttpServlet {
                 out.flush();
                 System.out.println("getJson: " + getClass());
                 out.close();
+            } else {
+                out = response.getWriter();
+                out.println("Parameters ERROR!");
+                out.flush();
+                out.close();
             }
-        } else {
-            out = response.getWriter();
-            out.println("Parameters ERROR!");
-            out.flush();
-            out.close();
-        }
+        } else if (email.compareTo("") != 0 && movieTitle.compareTo("") != 0) {
+            userEntity.setEmail(email);
+            userEntity = userDao.queryByEmail(userEntity);
 
+            movieEntity.setTitle(movieTitle);
+            movieEntity = movieDao.queryByTitle(movieEntity);
+
+            if (userEntity != null && movieEntity != null) {
+                userReviewEntity.setUserId(userEntity.getId());
+                userReviewEntity.setMovieId(movieEntity.getId());
+                userReviewEntityList = userReviewDao.getReviewOfUserAndMovie(userReviewEntity);
+
+                out = response.getWriter();
+                String json = gson.toJson(userReviewEntityList);
+                out.println(json);
+                out.flush();
+                System.out.println("getJson: " + getClass());
+                out.close();
+            } else {
+                out = response.getWriter();
+                out.println("Parameters ERROR!");
+                out.flush();
+                out.close();
+            }
+        }
     }
 }
