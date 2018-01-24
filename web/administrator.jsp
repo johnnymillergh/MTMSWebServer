@@ -100,36 +100,36 @@
         var usernameUserManagement = document.getElementById('usernameUserManagement');
         switch (radioChecked.value) {
             case 'add':
-                if (emailUserManagement.value.length == 0) {
+                if (emailUserManagement.value.length === 0) {
                     emailUserManagement.focus();
                     alert('Enter email');
                     return false;
                 }
-                if (passwordUserManagement.value.length == 0) {
+                if (passwordUserManagement.value.length === 0) {
                     alert('Enter password');
                     passwordUserManagement.focus();
                     return false;
                 }
-                if (usernameUserManagement.value.length == 0) {
+                if (usernameUserManagement.value.length === 0) {
                     alert('Enter username');
                     usernameUserManagement.focus();
                     return false;
                 }
                 break;
             case 'update':
-                if (passwordUserManagement.value.length == 0) {
+                if (passwordUserManagement.value.length === 0) {
                     alert('Enter email');
                     return false;
                 }
                 break;
             case 'delete':
-                if (emailUserManagement.value.length == 0) {
+                if (emailUserManagement.value.length === 0) {
                     alert('Enter email');
                     return false;
                 }
                 break;
             case 'query':
-                if (emailUserManagement.value.length == 0) {
+                if (emailUserManagement.value.length === 0) {
                     alert('Enter email');
                     return false;
                 }
@@ -243,148 +243,148 @@
 
         switch (radioChecked.value) {
             case 'add':
-                if (titleMovieManagement.value.length == 0) {
+                if (titleMovieManagement.value.length === 0) {
                     titleMovieManagement.focus();
                     alert('Enter title');
                     return false;
                 }
-                if (durationMovieManagement.value.length == 0) {
+                if (durationMovieManagement.value.length === 0) {
                     titleMovieManagement.focus();
                     alert('Enter duration');
                     return false;
                 }
-                if (genreMovieManagement.value.length == 0) {
+                if (genreMovieManagement.value.length === 0) {
                     genreMovieManagement.focus();
                     alert('Enter genre');
                     return false;
                 }
-                if (directorMovieManagement.value.length == 0) {
+                if (directorMovieManagement.value.length === 0) {
                     directorMovieManagement.focus();
                     alert('Enter genre');
                     return false;
                 }
-                if (starsMovieManagement.value.length == 0) {
+                if (starsMovieManagement.value.length === 0) {
                     starsMovieManagement.focus();
                     alert('Enter stars');
                     return false;
                 }
-                if (countryMovieManagement.value.length == 0) {
+                if (countryMovieManagement.value.length === 0) {
                     countryMovieManagement.focus();
                     alert('Enter country');
                     return false;
                 }
-                if (languageMovieManagement.value.length == 0) {
+                if (languageMovieManagement.value.length === 0) {
                     languageMovieManagement.focus();
                     alert('Enter language');
                     return false;
                 }
-                if (releaseDateMovieManagement.value.length == 0) {
+                if (releaseDateMovieManagement.value.length === 0) {
                     releaseDateMovieManagement.focus();
                     alert('Enter release date');
                     return false;
                 }
-                if (filmingLocationMovieManagement.value.length == 0) {
+                if (filmingLocationMovieManagement.value.length === 0) {
                     filmingLocationMovieManagement.focus();
                     alert('Enter filming location');
                     return false;
                 }
-                if (runtimeMovieManagement.value.length == 0) {
+                if (runtimeMovieManagement.value.length === 0) {
                     runtimeMovieManagement.focus();
                     alert('Enter runtime');
                     return false;
                 }
-                if (aspectRatioMovieManagement.value.length == 0) {
+                if (aspectRatioMovieManagement.value.length === 0) {
                     aspectRatioMovieManagement.focus();
                     alert('Enter aspect ratio');
                     return false;
                 }
-                if (descriptionMovieManagement.value.length == 0) {
+                if (descriptionMovieManagement.value.length === 0) {
                     descriptionMovieManagement.focus();
                     alert('Enter description');
                     return false;
                 }
-                if (posterMovieManagement.value.length == 0) {
+                if (posterMovieManagement.value.length === 0) {
                     posterMovieManagement.focus();
                     alert('Upload poster');
                     return false;
                 }
                 break;
             case 'update':
-                if (titleMovieManagement.value.length == 0) {
+                if (titleMovieManagement.value.length === 0) {
                     titleMovieManagement.focus();
                     alert('Enter title');
                     return false;
                 }
-                if (durationMovieManagement.value.length == 0) {
+                if (durationMovieManagement.value.length === 0) {
                     titleMovieManagement.focus();
                     alert('Enter duration');
                     return false;
                 }
-                if (genreMovieManagement.value.length == 0) {
+                if (genreMovieManagement.value.length === 0) {
                     genreMovieManagement.focus();
                     alert('Enter genre');
                     return false;
                 }
-                if (directorMovieManagement.value.length == 0) {
+                if (directorMovieManagement.value.length === 0) {
                     directorMovieManagement.focus();
                     alert('Enter genre');
                     return false;
                 }
-                if (starsMovieManagement.value.length == 0) {
+                if (starsMovieManagement.value.length === 0) {
                     starsMovieManagement.focus();
                     alert('Enter stars');
                     return false;
                 }
-                if (countryMovieManagement.value.length == 0) {
+                if (countryMovieManagement.value.length === 0) {
                     countryMovieManagement.focus();
                     alert('Enter country');
                     return false;
                 }
-                if (languageMovieManagement.value.length == 0) {
+                if (languageMovieManagement.value.length === 0) {
                     languageMovieManagement.focus();
                     alert('Enter language');
                     return false;
                 }
-                if (releaseDateMovieManagement.value.length == 0) {
+                if (releaseDateMovieManagement.value.length === 0) {
                     releaseDateMovieManagement.focus();
                     alert('Enter release date');
                     return false;
                 }
-                if (filmingLocationMovieManagement.value.length == 0) {
+                if (filmingLocationMovieManagement.value.length === 0) {
                     filmingLocationMovieManagement.focus();
                     alert('Enter filming location');
                     return false;
                 }
-                if (runtimeMovieManagement.value.length == 0) {
+                if (runtimeMovieManagement.value.length === 0) {
                     runtimeMovieManagement.focus();
                     alert('Enter runtime');
                     return false;
                 }
-                if (aspectRatioMovieManagement.value.length == 0) {
+                if (aspectRatioMovieManagement.value.length === 0) {
                     aspectRatioMovieManagement.focus();
                     alert('Enter aspect ratio');
                     return false;
                 }
-                if (descriptionMovieManagement.value.length == 0) {
+                if (descriptionMovieManagement.value.length === 0) {
                     descriptionMovieManagement.focus();
                     alert('Enter description');
                     return false;
                 }
-                if (posterMovieManagement.value.length == 0) {
+                if (posterMovieManagement.value.length === 0) {
                     posterMovieManagement.focus();
                     alert('Upload poster');
                     return false;
                 }
                 break;
             case 'delete':
-                if (titleMovieManagement.value.length == 0) {
+                if (titleMovieManagement.value.length === 0) {
                     titleMovieManagement.focus();
                     alert('Enter title');
                     return false;
                 }
                 break;
             case 'query':
-                if (titleMovieManagement.value.length == 0) {
+                if (titleMovieManagement.value.length === 0) {
                     titleMovieManagement.focus();
                     alert('Enter title');
                     return false;
@@ -400,27 +400,30 @@
         <legend>
             <h2>3. Movie Schedule Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.MovieScheduleManagement" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.MovieScheduleManagement" method="post"
+              onsubmit="return onCheckMovieScheduleManagementForm()">
             <table align="center">
                 <tr>
                     <td align="right">Movie ID</td>
-                    <td align="center"><input type="number" name="movieId"></td>
+                    <td align="center"><input type="number" name="movieId" id="movieIdMovieScheduleManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Theater ID</td>
-                    <td align="center"><input type="number" name="theaterId"></td>
+                    <td align="center"><input type="number" name="theaterId" id="theaterIdMovieScheduleManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Auditorium ID</td>
-                    <td align="center"><input type="number" name="auditoriumId"></td>
+                    <td align="center"><input type="number" name="auditoriumId"
+                                              id="auditoriumIdMovieScheduleManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Price</td>
-                    <td align="center"><input type="number" name="price"></td>
+                    <td align="center"><input type="number" name="price" id="priceMovieScheduleManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Date of Show</td>
-                    <td align="center"><input type="date" id="dateOfShow" name="dateOfShow"/></td>
+                    <td align="center"><input type="date" name="dateOfShow" id="dateOfShowMovieScheduleManagement"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Time of Show</td>
@@ -430,7 +433,8 @@
                     <td colspan="2" align="center">
                         <input type="radio" name="movieScheduleOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="movieScheduleOperation" value="update"/>Update
-                        <input type="number" name="id" size="12" placeholder="movieScheduleId"/>
+                        <input type="number" name="id" size="12" placeholder="movieScheduleId"
+                               id="movieScheduleIdMovieScheduleManagement"/>
                         <input type="radio" name="movieScheduleOperation" value="delete"/>Delete
                         <input type="radio" name="movieScheduleOperation" value="query"/>Query
                         <input type="radio" name="movieScheduleOperation" value="getAll"/>Get all
@@ -483,6 +487,113 @@
     </fieldset>
 </div>
 <br>
+<script type="text/javascript">
+    function onCheckMovieScheduleManagementForm() {
+        var radios = document.getElementsByName('movieScheduleOperation');
+        var radioChecked;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                radioChecked = radios[i];
+                break;
+            }
+        }
+        var movieIdMovieScheduleManagement = document.getElementById('movieIdMovieScheduleManagement');
+        var theaterIdMovieScheduleManagement = document.getElementById('theaterIdMovieScheduleManagement');
+        var auditoriumIdMovieScheduleManagement = document.getElementById('auditoriumIdMovieScheduleManagement');
+        var priceMovieScheduleManagement = document.getElementById('priceMovieScheduleManagement');
+        var dateOfShowMovieScheduleManagement = document.getElementById('dateOfShowMovieScheduleManagement');
+        var timePicker = document.getElementById('timePicker');
+
+        var movieScheduleIdMovieScheduleManagement = document.getElementById('movieScheduleIdMovieScheduleManagement');
+
+        switch (radioChecked.value) {
+            case 'add':
+                if (movieIdMovieScheduleManagement.value.length === 0) {
+                    movieIdMovieScheduleManagement.focus();
+                    alert('Enter movie id');
+                    return false;
+                }
+                if (theaterIdMovieScheduleManagement.value.length === 0) {
+                    theaterIdMovieScheduleManagement.focus();
+                    alert('Enter theater id');
+                    return false;
+                }
+                if (auditoriumIdMovieScheduleManagement.value.length === 0) {
+                    auditoriumIdMovieScheduleManagement.focus();
+                    alert('Enter auditorium id');
+                    return false;
+                }
+                if (priceMovieScheduleManagement.value.length === 0) {
+                    priceMovieScheduleManagement.focus();
+                    alert('Enter price');
+                    return false;
+                }
+                if (dateOfShowMovieScheduleManagement.value.length === 0) {
+                    dateOfShowMovieScheduleManagement.focus();
+                    alert('Enter date of show');
+                    return false;
+                }
+                if (timePicker.value.length === 0) {
+                    timePicker.focus();
+                    alert('Enter time of show');
+                    return false;
+                }
+                break;
+            case 'update':
+                if (movieScheduleIdMovieScheduleManagement.value.length === 0) {
+                    movieScheduleIdMovieScheduleManagement.focus();
+                    alert('Enter movie schedule id');
+                    return false;
+                }
+                if (movieIdMovieScheduleManagement.value.length === 0) {
+                    movieIdMovieScheduleManagement.focus();
+                    alert('Enter movie id');
+                    return false;
+                }
+                if (theaterIdMovieScheduleManagement.value.length === 0) {
+                    theaterIdMovieScheduleManagement.focus();
+                    alert('Enter theater id');
+                    return false;
+                }
+                if (auditoriumIdMovieScheduleManagement.value.length === 0) {
+                    auditoriumIdMovieScheduleManagement.focus();
+                    alert('Enter auditorium id');
+                    return false;
+                }
+                if (priceMovieScheduleManagement.value.length === 0) {
+                    priceMovieScheduleManagement.focus();
+                    alert('Enter price');
+                    return false;
+                }
+                if (dateOfShowMovieScheduleManagement.value.length === 0) {
+                    dateOfShowMovieScheduleManagement.focus();
+                    alert('Enter date of show');
+                    return false;
+                }
+                if (timePicker.value.length === 0) {
+                    timePicker.focus();
+                    alert('Enter time of show');
+                    return false;
+                }
+                break;
+            case 'delete':
+                if (movieScheduleIdMovieScheduleManagement.value.length === 0) {
+                    movieScheduleIdMovieScheduleManagement.focus();
+                    alert('Enter movie schedule id');
+                    return false;
+                }
+                break;
+            case 'query':
+                if (movieScheduleIdMovieScheduleManagement.value.length === 0) {
+                    movieScheduleIdMovieScheduleManagement.focus();
+                    alert('Enter movie schedule id');
+                    return false;
+                }
+                break;
+            default:
+        }
+    }
+</script>
 
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">
@@ -603,10 +714,10 @@
         });
 
         // Init date picket
-        var my_cal = new ng.Calendar({
-            input: 'dateOfShow',
-            date_format: 'Y-n-j'
-        });
+        // var my_cal = new ng.Calendar({
+        //     input: 'dateOfShow',
+        //     date_format: 'Y-n-j'
+        // });
     });
 </script>
 
