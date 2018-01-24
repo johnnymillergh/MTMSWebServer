@@ -87,18 +87,9 @@ public class CustomerOrderManagement extends HttpServlet {
         MovieScheduleDao movieScheduleDao = new MovieScheduleDao();
         MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
 
-        // Get parameters
         String email = request.getParameter("email");
         int movieScheduleId = Integer.parseInt(request.getParameter("movieScheduleId"));
         int ticketAmount = Integer.parseInt(request.getParameter("ticketAmount"));
-
-        if (email.compareTo("") == 0) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " takeOrder: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
-            return;
-        }
 
         userEntity.setEmail(email);
         userEntity = userDao.queryByEmail(userEntity);
@@ -136,18 +127,10 @@ public class CustomerOrderManagement extends HttpServlet {
     }
 
     private void pay(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Get parameters
+
         String email = request.getParameter("email");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
-
-        if (email.compareTo("") == 0 || date.compareTo("") == 0 || time.compareTo("") == 00) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
-            return;
-        }
 
         UserDao userDao = new UserDao();
         UserEntity userEntity = new UserEntity();
@@ -198,18 +181,10 @@ public class CustomerOrderManagement extends HttpServlet {
     }
 
     private void use(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Get parameters
+
         String email = request.getParameter("email");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
-
-        if (email.compareTo("") == 0 || date.compareTo("") == 0 || time.compareTo("") == 00) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " use: Parameter ERROR." + "');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
-            return;
-        }
 
         UserDao userDao = new UserDao();
         UserEntity userEntity = new UserEntity();
