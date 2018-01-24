@@ -6,6 +6,7 @@ public class UserEntity {
     private String password;
     private String username;
     private byte[] avatar;
+    private String avatarStr;
     private String gender;
     private String homeLocation;
 
@@ -47,6 +48,14 @@ public class UserEntity {
 
     public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
+    }
+
+    public String getAvatarStr() {
+        return avatarStr;
+    }
+
+    public void setAvatarStr(String avatarStr) {
+        this.avatarStr = avatarStr;
     }
 
     public String getGender() {
