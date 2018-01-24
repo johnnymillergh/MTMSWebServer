@@ -30,27 +30,30 @@
         <legend>
             <h2>1. User Management</h2>
         </legend>
-        <form action="${pageContext.request.contextPath}/servlet.administrator.UserManagement" method="post">
+        <form action="${pageContext.request.contextPath}/servlet.administrator.UserManagement" method="post"
+              onsubmit="return onCheckUserManagementForm()">
             <table>
                 <tr>
                     <td align="right">Email</td>
-                    <td align="center"><input type="email" name="email"></td>
+                    <td align="center"><input type="email" id="emailUserManagement" name="email"></td>
                 </tr>
                 <tr>
                     <td align="right">Username</td>
-                    <td align="center"><input type="text" name="username"></td>
+                    <td align="center"><input type="text" id="usernameUserManagement" name="username"></td>
                 </tr>
                 <tr>
                     <td align="right">Password</td>
-                    <td align="center"><input type="text" name="password"></td>
+                    <td align="center"><input type="text" id="passwordUserManagement" name="password"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="radio" name="userOperation" value="add" checked="checked" align=""/>Add
+                        <input type="radio" name="userOperation" value="add" checked="checked"/>Add
                         <input type="radio" name="userOperation" value="update"/>Update
                         <input type="radio" name="userOperation" value="delete"/>Delete
                         <input type="radio" name="userOperation" value="query"/>Query
-                        <input type="radio" name="userOperation" value="queryOnline"/>Query Online User
+                        <input type="radio" name="userOperation" value="getAll"/>Get all
+                        <input type="radio" name="userOperation" value="getOnlineUser"/>Get online user
+                        <input type="radio" name="userOperation" value="getJson"/>Get Json
                         <input type="submit" value="Submit">
                     </td>
                 </tr>
@@ -82,42 +85,96 @@
     </fieldset>
 </div>
 <br>
+<script type="text/javascript">
+    function onCheckUserManagementForm() {
+        var radios = document.getElementsByName('userOperation');
+        var radioChecked;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                radioChecked = radios[i];
+                break;
+            }
+        }
+        var emailUserManagement = document.getElementById('emailUserManagement');
+        var passwordUserManagement = document.getElementById('passwordUserManagement');
+        var usernameUserManagement = document.getElementById('usernameUserManagement');
+        switch (radioChecked.value) {
+            case 'add':
+                if (emailUserManagement.value.length == 0) {
+                    emailUserManagement.focus();
+                    alert('Enter email');
+                    return false;
+                }
+                if (passwordUserManagement.value.length == 0) {
+                    alert('Enter password');
+                    passwordUserManagement.focus();
+                    return false;
+                }
+                if (usernameUserManagement.value.length == 0) {
+                    alert('Enter username');
+                    usernameUserManagement.focus();
+                    return false;
+                }
+                break;
+            case 'update':
+                if (passwordUserManagement.value.length == 0) {
+                    alert('Enter email');
+                    return false;
+                }
+                break;
+            case 'delete':
+                if (emailUserManagement.value.length == 0) {
+                    alert('Enter email');
+                    return false;
+                }
+                break;
+            case 'query':
+                if (emailUserManagement.value.length == 0) {
+                    alert('Enter email');
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+</script>
 
-<div align="center">
+<div align="center" class="MovieManagement">
     <fieldset style="width:fit-content; height:fit-content;">
         <legend>
             <h2>2. Movie Management</h2>
         </legend>
         <form action="${pageContext.request.contextPath}/servlet.administrator.MovieManagement" method="post"
-              enctype="multipart/form-data">
+              enctype="multipart/form-data" onsubmit="return onCheckMovieManagementForm()">
             <table align="center">
                 <tr>
                     <td align="right">Title</td>
-                    <td align="center"><input type="text" name="title"></td>
+                    <td align="center"><input type="text" name="title" id="titleMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Duration</td>
-                    <td align="center"><input type="text" name="duration"></td>
+                    <td align="center"><input type="text" name="duration" id="durationMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Genre</td>
-                    <td align="center"><input type="text" name="genre"></td>
+                    <td align="center"><input type="text" name="genre" id="genreMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Director</td>
-                    <td align="center"><input type="text" name="director"></td>
+                    <td align="center"><input type="text" name="director" id="directorMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Stars</td>
-                    <td align="center"><input type="text" name="stars"></td>
+                    <td align="center"><input type="text" name="stars" id="starsMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Country</td>
-                    <td align="center"><input type="text" name="country"></td>
+                    <td align="center"><input type="text" name="country" id="contryMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Language</td>
-                    <td align="center"><input type="text" name="language"></td>
+                    <td align="center"><input type="text" name="language" id="languageMovieManagement"></td>
                 </tr>
                 <tr>
                     <td align="right">Release Date</td>
@@ -145,7 +202,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="radio" name="movieOperation" value="add" checked="checked"/>Add
+                        <input type="radio" name="movieOperation" value="add" checked="checked"
+                               id="addRadioMovieManagement"/>Add
                         <input type="radio" name="movieOperation" value="update"/>Update
                         <input type="radio" name="movieOperation" value="delete"/>Delete
                         <input type="radio" name="movieOperation" value="query"/>Query
@@ -158,6 +216,60 @@
     </fieldset>
 </div>
 <br>
+<script type="text/javascript">
+    function onCheckMovieManagementForm() {
+        var radios = document.getElementsByClassName('MovieManagement');
+        var radioChecked;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                radioChecked = radios[i];
+                break;
+            }
+        }
+        switch (radioChecked.value) {
+            case 'add':
+                if (document.getElementsByName('emailUserManagement').value.length === 0) {
+                    alert('Enter email');
+                    document.getElementById('emailUserManagement').focus();
+                    return false;
+                }
+                if (document.getElementById('passwordUserManagement').value.length === 0) {
+                    alert('Enter password');
+                    document.getElementById('passwordUserManagement').focus();
+                    return false;
+                }
+                if (document.getElementById('usernameUserManagement').value.length === 0) {
+                    alert('Enter username');
+                    document.getElementById('usernameUserManagement').focus();
+                    return false;
+                }
+                break;
+            case 'update':
+                if (document.getElementById('emailUserManagement').value.length === 0) {
+                    alert('Enter email');
+                    document.getElementById('emailUserManagement').focus();
+                    return false;
+                }
+                break;
+            case 'delete':
+                if (document.getElementById('emailUserManagement').value.length === 0) {
+                    alert('Enter email');
+                    document.getElementById('emailUserManagement').focus();
+                    return false;
+                }
+                break;
+            case 'query':
+                if (document.getElementById('emailUserManagement').value.length === 0) {
+                    alert('Enter email');
+                    document.getElementById('emailUserManagement').focus();
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+</script>
 
 <div align="center">
     <fieldset style="width:fit-content; height:fit-content;">
@@ -361,12 +473,6 @@
         });
         var tp2 = new ng.TimePicker({
             input: 'timePicker2',  // the input field id
-            format: 'H:i:s',
-            server_format: 'H:i:s',
-            use24: true
-        });
-        var tp3 = new ng.TimePicker({
-            input: 'timePicker3',  // the input field id
             format: 'H:i:s',
             server_format: 'H:i:s',
             use24: true
