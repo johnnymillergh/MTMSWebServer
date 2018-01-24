@@ -51,11 +51,13 @@
                 </tr>
                 <tr>
                     <td align="right">Gender</td>
-                    <td align="center"><select name="gender">
-                        <option value="Male" selected>Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Secret">Secret</option>
-                    </select></td>
+                    <td align="center">
+                        <select name="gender" id="genderUserManagement">
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Secret">Secret</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td align="right">Home Location</td>
@@ -127,6 +129,9 @@
         var emailUserManagement = document.getElementById('emailUserManagement');
         var passwordUserManagement = document.getElementById('passwordUserManagement');
         var usernameUserManagement = document.getElementById('usernameUserManagement');
+        var genderUserManagement = document.getElementById('genderUserManagement');
+        var homeLocationUserManagement = document.getElementById('homeLocationUserManagement');
+        var avatarUserManagement = document.getElementById('avatarUserManagement');
         switch (radioChecked.value) {
             case 'add':
                 if (emailUserManagement.value.length === 0) {
@@ -144,10 +149,51 @@
                     usernameUserManagement.focus();
                     return false;
                 }
+                if (genderUserManagement.value.length === 0) {
+                    alert('Enter gender');
+                    genderUserManagement.focus();
+                    return false;
+                }
+                if (homeLocationUserManagement.value.length === 0) {
+                    alert('Enter home location');
+                    homeLocationUserManagement.focus();
+                    return false;
+                }
+                if (avatarUserManagement.value.length === 0) {
+                    alert('Upload avatar');
+                    avatarUserManagement.focus();
+                    return false;
+                }
                 break;
             case 'update':
-                if (passwordUserManagement.value.length === 0) {
+                if (emailUserManagement.value.length === 0) {
+                    emailUserManagement.focus();
                     alert('Enter email');
+                    return false;
+                }
+                if (passwordUserManagement.value.length === 0) {
+                    alert('Enter password');
+                    passwordUserManagement.focus();
+                    return false;
+                }
+                if (usernameUserManagement.value.length === 0) {
+                    alert('Enter username');
+                    usernameUserManagement.focus();
+                    return false;
+                }
+                if (genderUserManagement.value.length === 0) {
+                    alert('Enter gender');
+                    genderUserManagement.focus();
+                    return false;
+                }
+                if (homeLocationUserManagement.value.length === 0) {
+                    alert('Enter home location');
+                    homeLocationUserManagement.focus();
+                    return false;
+                }
+                if (avatarUserManagement.value.length === 0) {
+                    alert('Upload avatar');
+                    avatarUserManagement.focus();
                     return false;
                 }
                 break;
