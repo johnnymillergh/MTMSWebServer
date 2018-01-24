@@ -1107,7 +1107,7 @@
             <h2>6. Seat, Auditorium, Theater Management</h2>
         </legend>
         <form action="${pageContext.request.contextPath}/servlet.administrator.SATManagement" method="post"
-              onsubmit="return onCheckXXXManagementForm()">
+              onsubmit="return onCheckSATManagementForm()">
             <table align="center">
                 <tr>
                     <td align="right">Theater ID</td>
@@ -1136,17 +1136,32 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td align="center">
                         <input type="radio" name="satOperation" value="getAllTheater" checked="checked"/>Get All
                         Theaters
-                        <input type="radio" name="satOperation" value="getAllAuditorium"/>Get All Auditorium
-                        <input type="radio" name="satOperation" value="getAllSeatOfAuditorium"/>Get All Seat of
-                        Auditorium
-                        <input type="radio" name="satOperation" value="getSeatOfAuditoriumJson"/>Get Seat of Auditorium
-                        Json
-                        <input type="radio" name="satOperation" value="setSeatAvailability"/>Get Seat of Auditorium
-                        Json
+                    </td>
+                    <td rowspan="5" align="center">
                         <input type="submit" value="Submit">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="radio" name="satOperation" value="getAllAuditorium"/>Get
+                        All Auditorium
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="radio" name="satOperation"
+                                              value="getAllSeatOfAuditorium"/>Get All Seat of Auditorium
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="radio" name="satOperation"
+                                              value="getSeatOfAuditoriumJson"/>Get Seat of Auditorium Json
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><input type="radio" name="satOperation" value="setSeatAvailability"/>Get
+                        Seat of Auditorium Json
                     </td>
                 </tr>
             </table>
@@ -1154,6 +1169,52 @@
     </fieldset>
 </div>
 <br>
+<script type="text/javascript">
+    function onCheckSATManagementForm() {
+        var radios = document.getElementsByName('satOperation');
+        var radioChecked;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                radioChecked = radios[i];
+                break;
+            }
+        }
+
+        var theaterIdSATManagement = document.getElementById('theaterIdSATManagement');
+        var theaterNameSATManagement = document.getElementById('theaterNameSATManagement');
+        var auditoriumIdSATManagement = document.getElementById('auditoriumIdSATManagement');
+        var seatIdSATManagement = document.getElementById('seatIdSATManagement');
+
+        switch (radioChecked.value) {
+            case 'getAllTheater':
+                break;
+            case 'getAllAuditorium':
+                break;
+            case 'getAllSeatOfAuditorium':
+                if (auditoriumIdSATManagement.value.length === 0) {
+                    auditoriumIdSATManagement.focus();
+                    alert('Enter auditorium id');
+                    return false;
+                }
+                break;
+            case 'getSeatOfAuditoriumJson':
+                if (auditoriumIdSATManagement.value.length === 0) {
+                    auditoriumIdSATManagement.focus();
+                    alert('Enter auditorium id');
+                    return false;
+                }
+                break;
+            case 'setSeatAvailability':
+                if (auditoriumIdSATManagement.value.length === 0) {
+                    auditoriumIdSATManagement.focus();
+                    alert('Enter auditorium id');
+                    return false;
+                }
+                break;
+            default:
+        }
+    }
+</script>
 
 <script type="text/javascript">
     ng.ready(function () {
