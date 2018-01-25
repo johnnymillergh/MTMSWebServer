@@ -87,7 +87,7 @@ public class MovieScheduleManagement extends HttpServlet {
         String auditoriumId = request.getParameter("auditoriumId");
         if (movieId.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1)'</script>");
+            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1);</script>");
             out.flush();
             out.close();
             return;
@@ -113,7 +113,7 @@ public class MovieScheduleManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1)'</script>");
+            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -129,7 +129,7 @@ public class MovieScheduleManagement extends HttpServlet {
         String auditoriumId = request.getParameter("auditoriumId");
         if (id.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0) {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1)'</script>");
+            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1);</script>");
             out.flush();
             out.close();
             return;
@@ -156,7 +156,7 @@ public class MovieScheduleManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1)'</script>");
+            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -164,14 +164,14 @@ public class MovieScheduleManagement extends HttpServlet {
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + getClass() + " delete: Still in construction.');window.history.go(-1)'</script>");
+        out.println("<script>alert('" + getClass() + " delete: Still in construction.');window.history.go(-1);</script>");
         out.flush();
         out.close();
     }
 
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + getClass() + " query: Still in construction.');window.history.go(-1)'</script>");
+        out.println("<script>alert('" + getClass() + " query: Still in construction.');window.history.go(-1);</script>");
         out.flush();
         out.close();
     }
@@ -179,7 +179,7 @@ public class MovieScheduleManagement extends HttpServlet {
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Open a new tab and keep opened page stay
         PrintWriter out = response.getWriter();
-        out.println("<script>window.open('/movieScheduleList.jsp');window.history.go(-1)</script>");
+        out.println("<script>window.open('/movieScheduleList.jsp');window.history.go(-1);</script>");
         out.flush();
         out.close();
     }

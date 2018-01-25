@@ -139,7 +139,7 @@ public class UserManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -197,7 +197,7 @@ public class UserManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -224,7 +224,7 @@ public class UserManagement extends HttpServlet {
         } else {
             // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " delete: Failure.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " delete: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -249,7 +249,7 @@ public class UserManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " query: User not found.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " query: User not found.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -257,7 +257,7 @@ public class UserManagement extends HttpServlet {
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
-        out.println("<script>window.open('/userList.jsp');window.history.go(-1)</script>");
+        out.println("<script>window.open('/userList.jsp');window.history.go(-1);</script>");
         out.flush();
         out.close();
     }
@@ -287,7 +287,7 @@ public class UserManagement extends HttpServlet {
                 return;
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("<script>alert('" + getClass() + " getJson: ERROR: User not found');window.history.go(-1)</script>");
+                out.println("<script>alert('" + getClass() + " getJson: ERROR: User not found');window.history.go(-1);</script>");
                 out.flush();
                 out.close();
                 return;

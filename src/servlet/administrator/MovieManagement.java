@@ -137,7 +137,7 @@ public class MovieManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -197,7 +197,7 @@ public class MovieManagement extends HttpServlet {
         } else {
             // Go to administrator.jsp
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -206,7 +206,7 @@ public class MovieManagement extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Go to administrator.jsp
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + getClass() + " delete: Still in construction.');window.history.go(-1)</script>");
+        out.println("<script>alert('" + getClass() + " delete: Still in construction.');window.history.go(-1);</script>");
         out.flush();
         out.close();
     }
@@ -227,7 +227,7 @@ public class MovieManagement extends HttpServlet {
             out.close();
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " query: Movie not found.');window.history.go(-1)</script>");
+            out.println("<script>alert('" + getClass() + " query: Movie not found.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
@@ -236,7 +236,7 @@ public class MovieManagement extends HttpServlet {
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Open a new tab and keep opened page stay
         PrintWriter out = response.getWriter();
-        out.println("<script>window.open('/movieList.jsp');window.history.go(-1)</script>");
+        out.println("<script>window.open('/movieList.jsp');window.history.go(-1);</script>");
         out.flush();
         out.close();
     }
