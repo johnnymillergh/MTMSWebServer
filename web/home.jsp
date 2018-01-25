@@ -31,13 +31,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 130px;
-                background: #000000;
+                height: 120px;
+                background: #434343;
             }
 
             #bd {
                 position: absolute;
-                top: 130px;
+                top: 120px;
                 right: 0;
                 bottom: 110px;
                 left: 0;
@@ -72,7 +72,7 @@
                 left: 0;
                 width: 100%;
                 height: 100px;
-                background: #000000;
+                background: #434343;
             }
 
             .tit-layout {
