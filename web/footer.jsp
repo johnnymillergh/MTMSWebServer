@@ -6,12 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<hr size="2" noshade="noshade">
-<div align="center">
-    <br><br>
-    Johnny Miller © MTMS v0.2<br>
+<div align="center" style="color:#ffffff; font-size:18px">
+    MTMS v0.5<br>
+    <address class="copyright">
+        Johnny Miller &copy; Copyright <a href="https://github.com/johnnymillergh">GitHub</a>
+    </address>
     <jsp:useBean id="time" class="java.util.Date"/>
     <%=time%>
-    <br><br>
 </div>
 
