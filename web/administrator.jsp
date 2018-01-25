@@ -140,7 +140,7 @@
 <div id="bd">
     <div id="side">
         <div style="font-size: 24px;">Navigation</div>
-        <div style="font-size: 18px;"><a href="home.jsp">《《Back to home《《</a></div>
+        <div style="font-size: 18px;"><a href="home.jsp">》》Back to home《《</a></div>
         <div style="font-size: 18px;"><a href="#userManagement">1. User Management</a><br></div>
         <div style="font-size: 18px;"><a href="#movieManagement">2. Movie Management</a><br></div>
         <div style="font-size: 18px;"><a href="#movieScheduleManagement">3. Movie Schedule Management</a><br></div>
@@ -1284,27 +1284,27 @@
                             <table align="center">
                                 <tr>
                                     <td align="right">Theater ID</td>
-                                    <td align="left"><input type="number" name="theaterId" id="theaterIdSATManagement">
+                                    <td align="center"><input type="number" name="theaterId" id="theaterIdSATManagement">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Theater Name</td>
-                                    <td align="left"><input type="email" name="theaterName"
+                                    <td align="center"><input type="email" name="theaterName"
                                                             id="theaterNameSATManagement">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Auditorium ID</td>
-                                    <td align="left"><input type="number" name="auditoriumId"
+                                    <td align="center"><input type="number" name="auditoriumId"
                                                             id="auditoriumIdSATManagement"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Seat ID</td>
-                                    <td align="left"><input type="number" name="seatId" id="seatIdSATManagement"></td>
+                                    <td align="center"><input type="number" name="seatId" id="seatIdSATManagement"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Seat Availability</td>
-                                    <td align="left">
+                                    <td align="center">
                                         <select name="seatAvailability" id="seatAvailabilitySATManagement">
                                             <option value="NotSelected" selected>Not selected</option>
                                             <option value="Selected">Selected</option>
@@ -1312,36 +1312,26 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center">
-                                        <input type="radio" name="satOperation" value="getAllTheater"
-                                               checked="checked"/>Get All
-                                        Theaters
+                                    <td align="right">Get All Theaters<input type="radio" name="satOperation" value="getAllTheater" checked="checked"/>
                                     </td>
                                     <td rowspan="5" align="center">
                                         <input type="submit" value="Submit">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center"><input type="radio" name="satOperation"
-                                                              value="getAllAuditorium"/>Get
-                                        All Auditorium
+                                    <td align="right">Get All Auditorium<input type="radio" name="satOperation" value="getAllAuditorium"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center"><input type="radio" name="satOperation"
-                                                              value="getAllSeatOfAuditorium"/>Get All Seat of Auditorium
+                                    <td align="right">Get All Seat of Auditorium<input type="radio" name="satOperation" value="getAllSeatOfAuditorium"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center"><input type="radio" name="satOperation"
-                                                              value="getSeatOfAuditoriumJson"/>Get Seat of Auditorium
-                                        Json
+                                    <td align="right">Get Seat of Auditorium Json<input type="radio" name="satOperation" value="getSeatOfAuditoriumJson"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center"><input type="radio" name="satOperation"
-                                                              value="setSeatAvailability"/>Set Seat
-                                        Availability
+                                    <td align="right">Set Seat Availability<input type="radio" name="satOperation" value="setSeatAvailability"/>
                                     </td>
                                 </tr>
                             </table>

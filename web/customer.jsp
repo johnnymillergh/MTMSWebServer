@@ -88,7 +88,6 @@
             background: #000000;
         }
 
-        /* 与布局无关，一些说明性内容样式 */
         .tit-layout {
             margin: 30px 0 0;
             font-size: 32px;
@@ -139,7 +138,7 @@
 <div id="bd">
     <div id="side">
         <div style="font-size: 24px;">Navigation</div>
-        <div style="font-size: 18px;"><a href="home.jsp">《《Back to home《《</a></div>
+        <div style="font-size: 18px;"><a href="home.jsp">》》Back to home《《</a></div>
         <div style="font-size: 18px;"><a href="#userManagement">1. User Management</a><br></div>
         <div style="font-size: 18px;"><a href="#movieManagement">2. Movie Management</a><br></div>
         <div style="font-size: 18px;"><a href="#movieScheduleManagement">3. Movie Schedule Management</a><br></div>
