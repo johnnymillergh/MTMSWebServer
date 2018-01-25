@@ -67,11 +67,11 @@ public class UserDao implements IDao<UserEntity> {
             preparedStatement.setString(4, entity.getGender());
             preparedStatement.setString(5, entity.getHomeLocation());
             preparedStatement.setString(6, entity.getEmail());
-            int status = preparedStatement.executeUpdate();
+            long status = preparedStatement.executeLargeUpdate();
             System.out.println("updateByEmail: " + getClass() + ", " + status);
             connection.commit();
             if (status > 0) {
-                return status;
+                return (int) status;
             } else {
                 return -1;
             }
