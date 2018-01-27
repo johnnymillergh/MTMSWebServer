@@ -305,15 +305,15 @@ public class MovieDao implements IDao<MovieEntity> {
          * 2. If variable 'currentPage' > variable 'totalPage', set the currentPage to equal variable 'totalPage';
          */
         if (pageEntity.getCurrentPage() <= 0) {
-            pageEntity.setCurrentPage(1);                        // 把当前页设置为1
+            pageEntity.setCurrentPage(1);
         } else if (pageEntity.getCurrentPage() > pageEntity.getTotalPage()) {
-            pageEntity.setCurrentPage(pageEntity.getTotalPage());        // 把当前页设置为最大页数
+            pageEntity.setCurrentPage(pageEntity.getTotalPage());
         }
 
         // Use currentPage and page offset to get index
         int currentPage = pageEntity.getCurrentPage();
-        int index = (currentPage - 1) * pageEntity.getRowCount();        // 查询的起始行
-        int count = pageEntity.getRowCount();                            // 查询返回的行数
+        int index = (currentPage - 1) * pageEntity.getRowCount();
+        int count = pageEntity.getRowCount();
 
         // Query data
         String sql = "SELECT * FROM movie LIMIT ?,?";
