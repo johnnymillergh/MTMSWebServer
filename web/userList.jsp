@@ -10,6 +10,13 @@
 <%@ page import="dao.UserDao" %>
 <%@ page import="entity.UserEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="entity.PageEntity" %>
+
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+
 <html>
 <head>
     <title>User List</title>
@@ -33,8 +40,25 @@
         </tr>
         <%
             UserDao dao = new UserDao();
-            List<UserEntity> users = dao.getAll();
-            for (UserEntity entity : users) {%>
+            PageEntity<UserEntity> pageEntity = new PageEntity<>();
+            try {
+                int currentPage = (int) session.getAttribute("currentPage");
+                dao.getAll(pageEntity);
+            } catch (Exception e) {
+                e.printStackTrace();
+                pageEntity.setCurrentPage(1);
+                dao.getAll(pageEntity);
+            }
+            try {
+                int currentPage2 = Integer.parseInt(request.getParameter("currentPage"));
+                pageEntity.setCurrentPage(currentPage2);
+                dao.getAll(pageEntity);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                pageEntity.setCurrentPage(1);
+                dao.getAll(pageEntity);
+            }
+            for (UserEntity entity : pageEntity.getPageData()) {%>
         <tr>
             <td><%=entity.getId() %>
             </td>
@@ -54,6 +78,25 @@
         <%
             }
         %>
+        <tr align="center">
+            <td colspan="14">
+                <div style="color: blue">
+                    Current Page <%=pageEntity.getCurrentPage()%>; Total Page(s) <%=pageEntity.getTotalPage()%><br>
+                </div>
+                <a href="<%=basePath%>userList.jsp?currentPage=1">
+                    <input type="button" value="Start Page"></a>
+                <a href="<%=basePath%>userList.jsp?currentPage=<%=pageEntity.getCurrentPage()-1%>">
+                    <input type="button" value="<<Prev"></a>
+                <a href="<%=basePath%>userList.jsp?currentPage=<%=pageEntity.getCurrentPage()+1%>">
+                    <input type="button" value="Next>>"></a>
+                <a href="<%=basePath%>userList.jsp?currentPage=<%=pageEntity.getTotalPage()%>">
+                    <input type="button" value="End Page"></a>
+                <form action="<%=basePath%>userList.jsp" method="get" onsubmit="return onCheckCurrentPageMovieList()">
+                    <input type="number" name="currentPage" id="currentPageMovieList">
+                    <input type="submit">
+                </form>
+            </td>
+        </tr>
     </table>
 </div>
 

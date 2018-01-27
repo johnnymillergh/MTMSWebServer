@@ -1,5 +1,6 @@
 package dao;
 
+import entity.PageEntity;
 import util.ImageUtil;
 import util.MySQLUtil;
 import entity.UserEntity;
@@ -320,6 +321,91 @@ public class UserDao implements IDao<UserEntity> {
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
+            e.printStackTrace();
+            return -1;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void getAll(PageEntity<UserEntity> pageEntity) {
+
+        // Get totalCount and use it to get how many pages will be generated
+        int totalCount = this.getTotalCount();
+        pageEntity.setTotalCount(totalCount);
+
+        /*
+         * Problem:
+         * 1. If current page is the first page, clicking Prev will throw exception;
+         * 2. If current page is the last page, clicking Next will also break down;
+         *
+         * Solution:
+         * 1. If variable 'currentPage' <= 0, set the currentPage to equal 1;
+         * 2. If variable 'currentPage' > variable 'totalPage', set the currentPage to equal variable 'totalPage';
+         */
+        if (pageEntity.getCurrentPage() <= 0) {
+            pageEntity.setCurrentPage(1);
+        } else if (pageEntity.getCurrentPage() > pageEntity.getTotalPage()) {
+            pageEntity.setCurrentPage(pageEntity.getTotalPage());
+        }
+
+        // Use currentPage and page offset to get index
+        int currentPage = pageEntity.getCurrentPage();
+        int index = (currentPage - 1) * pageEntity.getRowCount();
+        int count = pageEntity.getRowCount();
+
+        // Query data
+        String sql = "SELECT * FROM user LIMIT ?,?";
+        Connection connection = MySQLUtil.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, index);
+            preparedStatement.setInt(2, count);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<UserEntity> pageData = new ArrayList<>();
+            while (resultSet.next()) {
+                UserEntity entity = new UserEntity();
+                entity.setId(resultSet.getInt("id"));
+                entity.setEmail(resultSet.getString("email"));
+                entity.setPassword(resultSet.getString("password"));
+                entity.setUsername(resultSet.getString("username"));
+//                entity.setAvatar(resultSet.getBytes("avatar"));
+                entity.setGender(resultSet.getString("gender"));
+                entity.setHomeLocation(resultSet.getString("home_location"));
+                pageData.add(entity);
+            }
+            pageEntity.setPageData(pageData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(*) AS row_count FROM user";
+        Connection connection = MySQLUtil.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                return resultSet.getInt("row_count");
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         } finally {

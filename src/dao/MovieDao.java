@@ -291,38 +291,37 @@ public class MovieDao implements IDao<MovieEntity> {
 
     public void getAll(PageEntity<MovieEntity> pageEntity) {
 
-        //2. 查询总记录数;  设置到pageEntity对象中
+        // Get totalCount and use it to get how many pages will be generated
         int totalCount = this.getTotalCount();
         pageEntity.setTotalCount(totalCount);
 
         /*
-         * 问题： jsp页面，如果当前页为首页，再点击上一页报错！
-         *              如果当前页为末页，再点下一页显示有问题！
-         * 解决：
-         *        1. 如果当前页 <= 0;       当前页设置当前页为1;
-         *        2. 如果当前页 > 最大页数；  当前页设置为最大页数
+         * Problem:
+         * 1. If current page is the first page, clicking Prev will throw exception;
+         * 2. If current page is the last page, clicking Next will also break down;
+         *
+         * Solution:
+         * 1. If variable 'currentPage' <= 0, set the currentPage to equal 1;
+         * 2. If variable 'currentPage' > variable 'totalPage', set the currentPage to equal variable 'totalPage';
          */
-        // 判断
         if (pageEntity.getCurrentPage() <= 0) {
             pageEntity.setCurrentPage(1);                        // 把当前页设置为1
         } else if (pageEntity.getCurrentPage() > pageEntity.getTotalPage()) {
             pageEntity.setCurrentPage(pageEntity.getTotalPage());        // 把当前页设置为最大页数
         }
 
-        //1. 获取当前页： 计算查询的起始行、返回的行数
+        // Use currentPage and page offset to get index
         int currentPage = pageEntity.getCurrentPage();
         int index = (currentPage - 1) * pageEntity.getRowCount();        // 查询的起始行
         int count = pageEntity.getRowCount();                            // 查询返回的行数
 
-        //3. 分页查询数据;  把查询到的数据设置到pageEntity对象中
+        // Query data
         String sql = "SELECT * FROM movie LIMIT ?,?";
         Connection connection = MySQLUtil.getConnection();
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, index);
             preparedStatement.setInt(2, count);
-            // 根据当前页，查询当前页数据(一页数据)
             ResultSet resultSet = preparedStatement.executeQuery();
             List<MovieEntity> pageData = new ArrayList<>();
             while (resultSet.next()) {
@@ -343,7 +342,6 @@ public class MovieDao implements IDao<MovieEntity> {
                 //movieEntity.setPosterStr(resultSet.getString("title"));//14: use title to set the poster name.
                 pageData.add(movieEntity);
             }
-            // 设置到pb对象中
             pageEntity.setPageData(pageData);
         } catch (Exception e) {
             e.printStackTrace();

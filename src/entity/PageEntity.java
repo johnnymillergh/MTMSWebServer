@@ -3,25 +3,11 @@ package entity;
 import java.util.List;
 
 public class PageEntity<T> {
-    private int currentPage = 1; // 当前页, 默认显示第一页
-    private int rowCount = 10;   // 每页显示的行数(查询返回的行数), 默认每页显示10行
-    private int totalCount;      // 总记录数
-    private int totalPage;       // 总页数 = 总记录数 / 每页显示的行数  (+ 1)
-    private List<T> pageData;       // 分页查询到的数据
-
-    // 返回总页数
-    public int getTotalPage() {
-        if (totalCount % rowCount == 0) {
-            totalPage = totalCount / rowCount;
-        } else {
-            totalPage = totalCount / rowCount + 1;
-        }
-        return totalPage;
-    }
-
-    public void setTotalPage(int totalPage) {
-        this.totalPage = totalPage;
-    }
+    private int currentPage = 1;
+    private final int rowCount = 10;
+    private int totalCount;
+    private int totalPage;// 总页数 = 总记录数 / 每页显示的行数  (+ 1)
+    private List<T> pageData;
 
     public int getCurrentPage() {
         return currentPage;
@@ -45,6 +31,18 @@ public class PageEntity<T> {
 
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
+    }
+
+    public int getTotalPage() {
+        if (totalCount % rowCount == 0) {
+            return totalPage = totalCount / rowCount;
+        } else {
+            return totalPage = totalCount / rowCount + 1;
+        }
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 
     public List<T> getPageData() {
