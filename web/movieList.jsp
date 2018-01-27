@@ -9,6 +9,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page import="dao.MovieDao,entity.MovieEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="entity.PageEntity" %>
 
 <%
     String path = request.getContextPath();
@@ -36,18 +37,34 @@
             <td>stars</td>
             <td>country</td>
             <td>language</td>
-            <td>releaseDate</td>
-            <td>filmingLocation</td>
+            <td>release_date</td>
+            <td>filming_location</td>
             <td>runtime</td>
-            <td>aspectRatio</td>
+            <td>aspect_ratio</td>
             <td>description</td>
             <td>poster</td>
-            <%--<td>poster</td>--%>
         </tr>
         <%
             MovieDao dao = new MovieDao();
-            List<MovieEntity> movies = dao.getAll();
-            for (MovieEntity entity : movies) {%>
+            PageEntity<MovieEntity> pageEntity = new PageEntity<>();
+            try {
+                int currentPage = (int) session.getAttribute("currentPage");
+                dao.getAll(pageEntity);
+            } catch (Exception e) {
+                e.printStackTrace();
+                pageEntity.setCurrentPage(1);
+                dao.getAll(pageEntity);
+            }
+            try {
+                int currentPage2 = Integer.parseInt(request.getParameter("currentPage"));
+                pageEntity.setCurrentPage(currentPage2);
+                dao.getAll(pageEntity);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                pageEntity.setCurrentPage(1);
+                dao.getAll(pageEntity);
+            }
+            for (MovieEntity entity : pageEntity.getPageData()) {%>
         <tr>
             <td><%=entity.getId() %>
             </td>
@@ -80,8 +97,38 @@
         <%
             }
         %>
+        <tr align="center">
+            <td colspan="14">
+                <div style="color: blue">
+                    Current Page <%=pageEntity.getCurrentPage()%>; Total Page(s) <%=pageEntity.getTotalPage()%><br>
+                </div>
+                <a href="<%=basePath%>movieList.jsp?currentPage=1">
+                    <input type="button" value="Start Page"></a>
+                <a href="<%=basePath%>movieList.jsp?currentPage=<%=pageEntity.getCurrentPage()-1%>">
+                    <input type="button" value="<<Prev"></a>
+                <a href="<%=basePath%>movieList.jsp?currentPage=<%=pageEntity.getCurrentPage()+1%>">
+                    <input type="button" value="Next>>"></a>
+                <a href="<%=basePath%>movieList.jsp?currentPage=<%=pageEntity.getTotalPage()%>">
+                    <input type="button" value="End Page"></a>
+                <form action="<%=basePath%>movieList.jsp" method="get" onsubmit="return onCheckCurrentPageMovieList()">
+                    <input type="number" name="currentPage" id="currentPageMovieList">
+                    <input type="submit">
+                </form>
+            </td>
+        </tr>
     </table>
 </div>
-
+<script type="text/javascript">
+    function onCheckCurrentPageMovieList() {
+        var input = document.getElementById('currentPageMovieList');
+        if (input.value.length === 0) {
+            alert("Enter page to jump");
+            input.focus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
 </body>
 </html>

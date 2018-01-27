@@ -432,6 +432,9 @@
                                         <input type="radio" name="movieOperation" value="delete"/>Delete
                                         <input type="radio" name="movieOperation" value="query"/>Query
                                         <input type="radio" name="movieOperation" value="getAll"/>Get all
+                                        <%
+                                            session.setAttribute("currentPage", 1);
+                                        %>
                                         <input type="submit" value="Submit">
                                     </td>
                                 </tr>
