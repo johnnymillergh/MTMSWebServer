@@ -32,13 +32,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 120px;
+                height: 105px;
                 background: #434343;
             }
 
             #bd {
                 position: absolute;
-                top: 120px;
+                top: 105px;
                 right: 0;
                 bottom: 110px;
                 left: 0;
@@ -119,8 +119,21 @@
 <body>
 
 <div id="hd">
-    <div align="center"><b style="color:#ffffff; font-size:35px">Movie Ticket Management System</b></div>
-    <div align="center"><b style="color:#115dff; font-size:30px">Navigation</b></div>
+    <table align="center">
+        <tr>
+            <td rowspan="2">
+                <img src="res/drawable/new_vista_icon_128x128.ico" width="100px" height="100px">
+            </td>
+            <td>
+                <div align="center"><b style="color:#ffffff; font-size:35px">Movie Ticket Management System</b></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div align="center"><b style="color:#115dff; font-size:30px">Navigation</b></div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div id="bd">
