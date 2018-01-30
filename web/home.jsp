@@ -40,7 +40,7 @@
                 position: absolute;
                 top: 105px;
                 right: 0;
-                bottom: 110px;
+                bottom: 100px;
                 left: 0;
                 overflow: hidden;
                 width: 100%;
