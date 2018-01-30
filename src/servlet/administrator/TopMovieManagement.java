@@ -237,14 +237,22 @@ public class TopMovieManagement extends HttpServlet {
             out.flush();
             out.close();
         } else {
+            int status = 0;
             for (TopMovieEntity entity : topMovies) {
-                topMovieDao.update(entity);
+                status = topMovieDao.update(entity);
             }
 
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('TopMovieManagement: updated.');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
+            if (status > 0) {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('TopMovieManagement: updated.');window.location.href='/administrator.jsp'</script>");
+                out.flush();
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('TopMovieManagement: fail to update.');window.location.href='/administrator.jsp'</script>");
+                out.flush();
+                out.close();
+            }
         }
     }
 
