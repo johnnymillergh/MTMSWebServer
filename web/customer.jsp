@@ -159,7 +159,7 @@
                             <table align="center">
                                 <tr>
                                     <td align="right">Email</td>
-                                    <td align="center"><input type="text" name="email"></td>
+                                    <td align="center"><input type="email" name="email"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Password</td>
@@ -189,7 +189,7 @@
                             <table align="center">
                                 <tr>
                                     <td align="right">Email</td>
-                                    <td align="center"><input type="text" name="email"></td>
+                                    <td align="center"><input type="email" name="email"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Password</td>
@@ -215,8 +215,7 @@
                             <table align="center">
                                 <tr>
                                     <td align="left"><input type="radio" name="movieOperation" value="getAll"
-                                                            checked="checked"
-                                                            align=""/>Get all the movies w/o poster picture
+                                                            checked="checked"/>Get all the movies w/o poster picture
                                     </td>
                                 </tr>
                                 <tr>
@@ -245,9 +244,25 @@
                         <form action="${pageContext.request.contextPath}/servlet.customer.GetTopMovie"
                               method="post">
                             <table align="center">
-                                <td colspan="2" align="center">
-                                    <input type="submit" value="Submit">
-                                </td>
+                                <tr>
+                                    <td align="left"><input type="radio" name="topMovieOperation" value="getAll"
+                                                            checked="checked"/>Get all top movies w/o poster picture
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <input type="radio" name="topMovieOperation" value="getPoster"
+                                               checked="checked"/>Get the poster picture of top movie
+                                    </td>
+                                    <td align="center">
+                                        <input type="number" name="id">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <input type="submit" value="Submit">
+                                    </td>
+                                </tr>
                             </table>
                         </form>
                     </fieldset>
@@ -262,11 +277,11 @@
                             <table align="center">
                                 <tr>
                                     <td align="right">User ID</td>
-                                    <td align="center"><input type="text" name="userId"></td>
+                                    <td align="center"><input type="number" name="userId"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Email</td>
-                                    <td align="center"><input type="text" name="email"></td>
+                                    <td align="center"><input type="email" name="email"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Current datetime</td>
@@ -316,7 +331,7 @@
                             <table align="center">
                                 <tr>
                                     <td align="right">User Email</td>
-                                    <td align="left"><input type="text" name="email"></td>
+                                    <td align="left"><input type="email" name="email"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Movie Title</td>
@@ -324,7 +339,7 @@
                                 </tr>
                                 <tr>
                                     <td align="right">Score</td>
-                                    <td align="left"><input type="text" name="score"></td>
+                                    <td align="left"><input type="number" name="score"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Title</td>
