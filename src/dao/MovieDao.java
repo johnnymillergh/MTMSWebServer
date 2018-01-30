@@ -226,7 +226,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 movieEntity.setPosterStr(ImageUtil.encode(resultSet.getBytes("poster")));// 14
                 resultSet.close();
                 connection.commit();
-                System.out.println("getPoster(title): " + getClass() + ", " + movieEntity.getTitle());
+                System.out.println("getPosterStr(title): " + getClass() + ", " + movieEntity.getTitle());
                 return movieEntity;
             } else {
                 return null;

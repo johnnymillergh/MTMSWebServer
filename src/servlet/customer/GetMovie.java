@@ -61,8 +61,8 @@ public class GetMovie extends HttpServlet {
 
     private void getPosterOfMovie(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MovieDao movieDao = new MovieDao();
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         MovieEntity movieEntity = new MovieEntity();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         // Get parameter
         String title = request.getParameter("title");

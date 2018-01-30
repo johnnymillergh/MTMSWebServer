@@ -185,7 +185,7 @@ public class UserDao implements IDao<UserEntity> {
         }
     }
 
-    public UserEntity getPoster(UserEntity entity) {
+    public UserEntity getAvatarStr(UserEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, email, avatar FROM user WHERE email=?";
         try {
@@ -223,7 +223,7 @@ public class UserDao implements IDao<UserEntity> {
         }
     }
 
-    public UserEntity getPosterBytes(UserEntity entity) {
+    public UserEntity getAvatarBytes(UserEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, email, avatar FROM user WHERE email=?";
         try {

@@ -5,6 +5,7 @@ public class TopMovieEntity {
     private int movieId;
     private String movieTitle;
     private byte[] poster;
+    private String posterStr;
 
     public int getId() {
         return id;
@@ -36,5 +37,13 @@ public class TopMovieEntity {
 
     public void setPoster(byte[] poster) {
         this.poster = poster;
+    }
+
+    public String getPosterStr() {
+        return posterStr;
+    }
+
+    public void setPosterStr(String posterStr) {
+        this.posterStr = posterStr;
     }
 }
