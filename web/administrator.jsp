@@ -15,6 +15,7 @@
 <html>
 <head>
     <title>MTMS: Administrator</title>
+    <link rel="shortcut icon" href="res/drawable/tab_icon_16x16.ico" type="image/x-icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style type="text/css">
         html, body {

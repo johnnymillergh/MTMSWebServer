@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Home | Movie Ticket Management System</title>
+    <link rel="shortcut icon" href="res/drawable/tab_icon_16x16.ico" type="image/x-icon"/>
     <head>
         <title>MTMS: Administrator</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

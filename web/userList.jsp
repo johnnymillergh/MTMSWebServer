@@ -20,6 +20,7 @@
 <html>
 <head>
     <title>User List</title>
+    <link rel="shortcut icon" href="res/drawable/tab_icon_16x16.ico" type="image/x-icon"/>
 </head>
 <body>
 
