@@ -32,6 +32,7 @@
             <td>id</td>
             <td>movie_id</td>
             <td>movie_title</td>
+            <td>poster</td>
         </tr>
         <%
             TopMovieDao dao = new TopMovieDao();
@@ -43,6 +44,8 @@
             <td><%=topMovieEntity.getMovieId() %>
             </td>
             <td><%=topMovieEntity.getMovieTitle() %>
+            </td>
+            <td><img src="showTopMoviePoster.jsp?id=<%=topMovieEntity.getId()%>" style="height: 150px;width: 267px"/>
             </td>
         </tr>
         <%

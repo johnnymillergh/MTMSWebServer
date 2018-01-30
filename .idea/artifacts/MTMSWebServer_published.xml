@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="MTMSWebServer_published">
+  <artifact type="war" build-on-make="true" name="MTMSWebServer_published">
     <output-path>$PROJECT_DIR$/out/artifacts/MTMSWebServer_published</output-path>
     <root id="archive" name="MTMSWebServer_published.war">
       <element id="artifact" artifact-name="MTMSWebServer:war exploded" />

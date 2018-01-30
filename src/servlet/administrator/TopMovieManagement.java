@@ -6,21 +6,25 @@ import dao.MovieDao;
 import dao.TopMovieDao;
 import entity.MovieEntity;
 import entity.TopMovieEntity;
+import util.FileUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sun.javafx.fxml.expression.Expression.add;
-
 @SuppressWarnings("Duplicates")
 @WebServlet(name = "TopMovieManagement")
+@MultipartConfig
 public class TopMovieManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -92,6 +96,40 @@ public class TopMovieManagement extends HttpServlet {
         titles.add(request.getParameter("title4"));
         titles.add(request.getParameter("title5"));
 
+        Part part;
+        String contentDisposition;
+        String savePath = FileUtil.getPictureSavingPath();
+        int filenameIndex;
+        String filename;
+        File file;
+        Long fileLength;
+        byte[] bytes;
+        ArrayList<byte[]> bytesList = new ArrayList<>();
+        FileInputStream in;
+        for (int i = 0; i < 5; i++) {
+            // Get part parameter
+            part = request.getPart("poster" + (i + 1));
+            // Get file name
+            contentDisposition = part.getHeader("Content-Disposition");
+            System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
+            filenameIndex = contentDisposition.indexOf("filename=");
+            filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
+            filename = FileUtil.getRealName(filename);
+            // Save file to work directory
+            part.write(savePath + "/" + filename);
+            System.out.println("Saving file, path: " + savePath + "/" + filename);
+            file = new File(savePath + "/" + filename);
+            // Get file length
+            fileLength = file.length();
+            System.out.println("fileLength: " + fileLength + " bytes");
+            // Read file to memory
+            bytes = new byte[fileLength.intValue()];
+            in = new FileInputStream(file);
+            in.read(bytes);
+            in.close();
+            bytesList.add(bytes);
+        }
+
         for (int i = 0; i < 5; i++) {
             movieEntity.setTitle(titles.get(i));
             movieEntity = movieDao.queryByTitle(movieEntity);
@@ -102,6 +140,7 @@ public class TopMovieManagement extends HttpServlet {
                 topMovieEntity.setId(i + 1);
                 topMovieEntity.setMovieId(movieEntity.getId());
                 topMovieEntity.setMovieTitle(movieEntity.getTitle());
+                topMovieEntity.setPoster(bytesList.get(i));
                 topMovies.add(topMovieEntity);
             }
         }
@@ -112,14 +151,21 @@ public class TopMovieManagement extends HttpServlet {
             out.flush();
             out.close();
         } else {
+            int status = 0;
             for (TopMovieEntity entity : topMovies) {
-                topMovieDao.save(entity);
+                status = topMovieDao.save(entity);
             }
-
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('TopMovieManagement: added.');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
+            if (status > 0) {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('TopMovieManagement: added.');window.location.href='/administrator.jsp'</script>");
+                out.flush();
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('TopMovieManagement: fail to add.');window.location.href='/administrator.jsp'</script>");
+                out.flush();
+                out.close();
+            }
         }
     }
 
@@ -136,6 +182,40 @@ public class TopMovieManagement extends HttpServlet {
         titles.add(request.getParameter("title4"));
         titles.add(request.getParameter("title5"));
 
+        Part part;
+        String contentDisposition;
+        String savePath = FileUtil.getPictureSavingPath();
+        int filenameIndex;
+        String filename;
+        File file;
+        Long fileLength;
+        byte[] bytes;
+        ArrayList<byte[]> bytesList = new ArrayList<>();
+        FileInputStream in;
+        for (int i = 0; i < 5; i++) {
+            // Get part parameter
+            part = request.getPart("poster" + (i + 1));
+            // Get file name
+            contentDisposition = part.getHeader("Content-Disposition");
+            System.out.println("Poster picture: " + contentDisposition);// form-data; name="file"; filename="UserManagement.sql"
+            filenameIndex = contentDisposition.indexOf("filename=");
+            filename = contentDisposition.substring(filenameIndex + 10, contentDisposition.length() - 1);
+            filename = FileUtil.getRealName(filename);
+            // Save file to work directory
+            part.write(savePath + "/" + filename);
+            System.out.println("Saving file, path: " + savePath + "/" + filename);
+            file = new File(savePath + "/" + filename);
+            // Get file length
+            fileLength = file.length();
+            System.out.println("fileLength: " + fileLength + " bytes");
+            // Read file to memory
+            bytes = new byte[fileLength.intValue()];
+            in = new FileInputStream(file);
+            in.read(bytes);
+            in.close();
+            bytesList.add(bytes);
+        }
+
         for (int i = 0; i < 5; i++) {
             movieEntity.setTitle(titles.get(i));
             movieEntity = movieDao.queryByTitle(movieEntity);
@@ -146,6 +226,7 @@ public class TopMovieManagement extends HttpServlet {
                 topMovieEntity.setId(i + 1);
                 topMovieEntity.setMovieId(movieEntity.getId());
                 topMovieEntity.setMovieTitle(movieEntity.getTitle());
+                topMovieEntity.setPoster(bytesList.get(i));
                 topMovies.add(topMovieEntity);
             }
         }
