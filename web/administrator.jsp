@@ -58,6 +58,7 @@
             width: 220px;
             _height: 100%;
             background: #eeeeee;
+            padding-left: 10px;
         }
 
         #main {
@@ -146,9 +147,10 @@
         <div style="font-size: 18px;"><a href="#userManagement">1. User Management</a><br></div>
         <div style="font-size: 18px;"><a href="#movieManagement">2. Movie Management</a><br></div>
         <div style="font-size: 18px;"><a href="#movieScheduleManagement">3. Movie Schedule Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#userReviewManagement">4. User Review Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#customerOrderManagement">5. Customer Order Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#satManagement">6. Seat, Auditorium, Theater Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#topMovieManagement">4. Top Movie Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#userReviewManagement">5. User Review Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#customerOrderManagement">6. Customer Order Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#satManagement">7. Seat, Auditorium, Theater Management</a><br></div>
     </div>
     <div id="main">
         <div id="content">
@@ -693,54 +695,6 @@
                                 </tr>
                             </table>
                         </form>
-                        <fieldset style="width:fit-content; height:fit-content;">
-                            <legend>
-                                <h3>Top Movie Management</h3>
-                            </legend>
-                            <form action="${pageContext.request.contextPath}/servlet.administrator.TopMovieManagement"
-                                  method="post"
-                                  onsubmit="return onCheckTopMovieManagementForm()">
-                                <table align="center">
-                                    <tr>
-                                        <td align="right">Movie Title 1</td>
-                                        <td align="center"><input type="text" name="title1"
-                                                                  id="title1TopMovieManagement"></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">Movie Title 2</td>
-                                        <td align="center"><input type="text" name="title2"
-                                                                  id="title2TopMovieManagement"></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">Movie Title 3</td>
-                                        <td align="center"><input type="text" name="title3"
-                                                                  id="title3TopMovieManagement"></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">Movie Title 4</td>
-                                        <td align="center"><input type="text" name="title4"
-                                                                  id="title4TopMovieManagement"></td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">Movie Title 5</td>
-                                        <td align="center"><input type="text" name="title5"
-                                                                  id="totle5TopMovieManagement"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" align="center">
-                                            <input type="radio" name="topMovieOperation" value="update"
-                                                   checked="checked"/>Update
-                                            <input type="radio" name="topMovieOperation" value="add"/>Add
-                                            <input type="radio" name="topMovieOperation" value="delete"/>Delete All
-                                            <input type="radio" name="topMovieOperation" value="query"/>Query
-                                            <input type="radio" name="topMovieOperation" value="getAll"/>Get all
-                                            <input type="radio" name="topMovieOperation" value="getJson"/>Get Json
-                                            <input type="submit" value="Submit">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </fieldset>
                     </fieldset>
                 </div>
                 <br>
@@ -855,6 +809,151 @@
                             default:
                         }
                     }
+                </script>
+
+                <div align="center" id="topMovieManagement">
+                    <fieldset style="width:fit-content; height:fit-content;">
+                        <legend>
+                            <h2>4. Top Movie Management</h2>
+                        </legend>
+                        <form action="${pageContext.request.contextPath}/servlet.administrator.TopMovieManagement"
+                              method="post" enctype="multipart/form-data"
+                              onsubmit="return onCheckTopMovieManagementForm()">
+                            <table align="center">
+                                <tr>
+                                    <td align="right">Movie Title 1</td>
+                                    <td align="center"><input type="text" name="title1" id="title1TopMovieManagement">
+                                    </td>
+                                    <td align="right">Poster 1</td>
+                                    <td align="center"><input type="file" id="poster1TopMovieManagement" name="poster1">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Movie Title 2</td>
+                                    <td align="center"><input type="text" name="title2" id="title2TopMovieManagement">
+                                    </td>
+                                    <td align="right">Poster 2</td>
+                                    <td align="center"><input type="file" id="poster2TopMovieManagement" name="poster2">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Movie Title 3</td>
+                                    <td align="center"><input type="text" name="title3" id="title3TopMovieManagement">
+                                    </td>
+                                    <td align="right">Poster 3</td>
+                                    <td align="center"><input type="file" id="poster3TopMovieManagement" name="poster3">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Movie Title 4</td>
+                                    <td align="center"><input type="text" name="title4" id="title4TopMovieManagement">
+                                    </td>
+                                    <td align="right">Poster 4</td>
+                                    <td align="center"><input type="file" id="poster4TopMovieManagement" name="poster4">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Movie Title 5</td>
+                                    <td align="center"><input type="text" name="title5" id="title5TopMovieManagement">
+                                    </td>
+                                    <td align="right">Poster 5</td>
+                                    <td align="center"><input type="file" id="poster5TopMovieManagement" name="poster5">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <img src="" id="poster1Image"
+                                             style="height: 85px;width: 150px; background:#CCCCCC;"
+                                             border="3"
+                                             alt="Poster 1 Preview"/>
+                                    </td>
+                                    <td colspan="2">
+                                        <img src="" id="poster2Image"
+                                             style="height: 85px;width: 150px; background:#CCCCCC;"
+                                             border="3"
+                                             alt="Poster 2 Preview"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <img src="" id="poster3Image"
+                                             style="height: 85px;width: 150px; background:#CCCCCC;"
+                                             border="3"
+                                             alt="Poster 3 Preview"/>
+                                    </td>
+                                    <td colspan="2">
+                                        <img src="" id="poster4Image"
+                                             style="height: 85px;width: 150px; background:#CCCCCC;"
+                                             border="3"
+                                             alt="Poster 4 Preview"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <img src="" id="poster5Image"
+                                             style="height: 85px;width: 150px; background:#CCCCCC;"
+                                             border="3"
+                                             alt="Poster 5 Preview"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center">
+                                        <input type="radio" name="topMovieOperation" value="update"
+                                               checked="checked"/>Update
+                                        <input type="radio" name="topMovieOperation" value="add"/>Add
+                                        <input type="radio" name="topMovieOperation" value="delete"/>Delete All
+                                        <input type="radio" name="topMovieOperation" value="query"/>Query
+                                        <input type="radio" name="topMovieOperation" value="getAll"/>Get all
+                                        <input type="radio" name="topMovieOperation" value="getJson"/>Get Json
+                                        <input type="submit" value="Submit">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </fieldset>
+                    <br>
+                </div>
+                <script type="text/javascript">
+                    document.getElementById('poster1TopMovieManagement').onchange = function () {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('poster1Image').src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
+                    document.getElementById('poster2TopMovieManagement').onchange = function () {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('poster2Image').src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
+                    document.getElementById('poster3TopMovieManagement').onchange = function () {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('poster3Image').src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
+                    document.getElementById('poster4TopMovieManagement').onchange = function () {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('poster4Image').src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
+                    document.getElementById('poster5TopMovieManagement').onchange = function () {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('poster5Image').src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
 
                     function onCheckTopMovieManagementForm() {
                         var radios = document.getElementsByName('topMovieOperation');
@@ -870,6 +969,11 @@
                         var title3TopMovieManagement = document.getElementById('title3TopMovieManagement');
                         var title4TopMovieManagement = document.getElementById('title4TopMovieManagement');
                         var title5TopMovieManagement = document.getElementById('title5TopMovieManagement');
+                        var poster1TopMovieManagement = document.getElementById('poster1TopMovieManagement');
+                        var poster2TopMovieManagement = document.getElementById('poster2TopMovieManagement');
+                        var poster3TopMovieManagement = document.getElementById('poster3TopMovieManagement');
+                        var poster4TopMovieManagement = document.getElementById('poster4TopMovieManagement');
+                        var poster5TopMovieManagement = document.getElementById('poster5TopMovieManagement');
 
                         switch (radioChecked.value) {
                             case 'add':
@@ -896,6 +1000,31 @@
                                 if (title5TopMovieManagement.value.length === 0) {
                                     title5TopMovieManagement.focus();
                                     alert('Enter title 5');
+                                    return false;
+                                }
+                                if (poster1TopMovieManagement.value.length === 0) {
+                                    poster1TopMovieManagement.focus();
+                                    alert('Upload poster 1');
+                                    return false;
+                                }
+                                if (poster2TopMovieManagement.value.length === 0) {
+                                    poster2TopMovieManagement.focus();
+                                    alert('Upload poster 2');
+                                    return false;
+                                }
+                                if (poster3TopMovieManagement.value.length === 0) {
+                                    poster3TopMovieManagement.focus();
+                                    alert('Upload poster 3');
+                                    return false;
+                                }
+                                if (poster4TopMovieManagement.value.length === 0) {
+                                    poster4TopMovieManagement.focus();
+                                    alert('Upload poster 4');
+                                    return false;
+                                }
+                                if (poster5TopMovieManagement.value.length === 0) {
+                                    poster5TopMovieManagement.focus();
+                                    alert('Upload poster 5');
                                     return false;
                                 }
                                 break;
@@ -925,6 +1054,31 @@
                                     alert('Enter title 5');
                                     return false;
                                 }
+                                if (poster1TopMovieManagement.value.length === 0) {
+                                    poster1TopMovieManagement.focus();
+                                    alert('Upload poster 1');
+                                    return false;
+                                }
+                                if (poster2TopMovieManagement.value.length === 0) {
+                                    poster2TopMovieManagement.focus();
+                                    alert('Upload poster 2');
+                                    return false;
+                                }
+                                if (poster3TopMovieManagement.value.length === 0) {
+                                    poster3TopMovieManagement.focus();
+                                    alert('Upload poster 3');
+                                    return false;
+                                }
+                                if (poster4TopMovieManagement.value.length === 0) {
+                                    poster4TopMovieManagement.focus();
+                                    alert('Upload poster 4');
+                                    return false;
+                                }
+                                if (poster5TopMovieManagement.value.length === 0) {
+                                    poster5TopMovieManagement.focus();
+                                    alert('Upload poster 5');
+                                    return false;
+                                }
                                 break;
                             case 'delete':
                                 if (window.confirm('Delete confirmation') === true) {
@@ -939,11 +1093,10 @@
                         }
                     }
                 </script>
-
                 <div align="center" id="userReviewManagement">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>4. User Review Management</h2>
+                            <h2>5. User Review Management</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.administrator.UserReviewManagement"
                               method="post"
@@ -1127,7 +1280,7 @@
                 <div align="center" id="customerOrderManagement">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>5. Customer Order Management</h2>
+                            <h2>6. Customer Order Management</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.administrator.CustomerOrderManagement"
                               method="post"
@@ -1278,7 +1431,7 @@
                 <div align="center" id="satManagement">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>6. Seat, Auditorium, Theater Management</h2>
+                            <h2>7. Seat, Auditorium, Theater Management</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.administrator.SATManagement"
                               method="post"
