@@ -57,6 +57,7 @@
             width: 220px;
             _height: 100%;
             background: #eeeeee;
+            padding-left: 10px;
         }
 
         #main {
@@ -139,17 +140,17 @@
     <div id="side">
         <div style="font-size: 24px;">Navigation</div>
         <div style="font-size: 18px;"><a href="home.jsp">》》Back to home《《</a></div>
-        <div style="font-size: 18px;"><a href="#userManagement">1. User Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#movieManagement">2. Movie Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#movieScheduleManagement">3. Movie Schedule Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#userReviewManagement">4. User Review Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#customerOrderManagement">5. Customer Order Management</a><br></div>
-        <div style="font-size: 18px;"><a href="#satManagement">6. Seat, Auditorium, Theater Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#signUp">1. Sign up</a><br></div>
+        <div style="font-size: 18px;"><a href="#logIn">2. Log in</a><br></div>
+        <div style="font-size: 18px;"><a href="#getMovie">3. Get Movie (JSON Object)</a><br></div>
+        <div style="font-size: 18px;"><a href="#getTopMovie">4. Get Top Movie (JSON Object)</a><br></div>
+        <div style="font-size: 18px;"><a href="#order">5. Order</a><br></div>
+        <div style="font-size: 18px;"><a href="#userReviewManagement">6. User Review Management</a><br></div>
     </div>
     <div id="main">
         <div id="content">
             <div id="feature" class="feature">
-                <div align="center">
+                <div align="center" id="signUp">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
                             <h2>1. Sign up</h2>
@@ -179,7 +180,7 @@
                 </div>
                 <br>
 
-                <div align="center">
+                <div align="center" id="logIn">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
                             <h2>2. Log in</h2>
@@ -205,7 +206,7 @@
                 </div>
                 <br>
 
-                <div align="center">
+                <div align="center" id="getMovie">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
                             <h2>3. Get Movie (JSON Object)</h2>
@@ -232,27 +233,30 @@
                                 </tr>
                             </table>
                         </form>
-                        <fieldset style="width:fit-content; height:fit-content;">
-                            <legend>
-                                <h3>Get Top Movie (JSON Object)</h3>
-                            </legend>
-                            <form action="${pageContext.request.contextPath}/servlet.customer.GetTopMovie"
-                                  method="post">
-                                <table align="center">
-                                    <td colspan="2" align="center">
-                                        <input type="submit" value="Submit">
-                                    </td>
-                                </table>
-                            </form>
-                        </fieldset>
                     </fieldset>
                 </div>
                 <br>
 
-                <div align="center">
+                <div align="center" id="getTopMovie">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>4. Order</h2>
+                            <h2>4. Get Top Movie (JSON Object)</h2>
+                        </legend>
+                        <form action="${pageContext.request.contextPath}/servlet.customer.GetTopMovie"
+                              method="post">
+                            <table align="center">
+                                <td colspan="2" align="center">
+                                    <input type="submit" value="Submit">
+                                </td>
+                            </table>
+                        </form>
+                    </fieldset>
+                </div>
+
+                <div align="center" id="order">
+                    <fieldset style="width:fit-content; height:fit-content;">
+                        <legend>
+                            <h2>5. Order</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.customer.Order" method="post">
                             <table align="center">
@@ -302,10 +306,10 @@
                 </div>
                 <br>
 
-                <div align="center">
+                <div align="center" id="userReviewManagement">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>5. User Review Management</h2>
+                            <h2>6. User Review Management</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.customer.UserReviewManagement"
                               method="post">
