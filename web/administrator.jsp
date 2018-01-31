@@ -1139,9 +1139,16 @@
                                 </tr>
                                 <tr>
                                     <td align="right">Text</td>
+                                    <td align="left"><textarea name="text"
+                                                               style="resize: none; width: 450px; height: 100px"
+                                                               id="textUserReviewManagement"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Contain spoilers?</td>
                                     <td align="left">
-                        <textarea name="text" style="resize: none; width: 450px; height: 100px"
-                                  id="textUserReviewManagement"></textarea>
+                                        <input type="radio" name="isSpoilers" value="true" checked="checked"/>Yes&nbsp;&nbsp;
+                                        <input type="radio" name="isSpoilers" value="false"/>No
                                     </td>
                                 </tr>
                                 <tr>
@@ -1154,7 +1161,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" align="center">
+                                    <td colspan="3" align="center">
                                         <input type="radio" name="userReviewOperation" value="add" checked="checked"/>Add
                                         <input type="radio" name="userReviewOperation" value="update"/>Update
                                         <input type="radio" name="userReviewOperation" value="delete"/>Delete
