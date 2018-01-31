@@ -4,7 +4,7 @@ import java.util.List;
 
 public class PageEntity<T> {
     private int currentPage = 1;
-    private final int rowCount = 10;
+    private int rowCount = 10;
     private int totalCount;
     private int totalPage;// 总页数 = 总记录数 / 每页显示的行数  (+ 1)
     private List<T> pageData;
@@ -21,9 +21,9 @@ public class PageEntity<T> {
         return rowCount;
     }
 
-//    public void setPageCount(int rowCount) {
-//        this.rowCount = rowCount;
-//    }
+    public void setPageCount(int rowCount) {
+        this.rowCount = rowCount;
+    }
 
     public int getTotalCount() {
         return totalCount;
