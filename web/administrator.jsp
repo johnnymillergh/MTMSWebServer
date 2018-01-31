@@ -1287,8 +1287,8 @@
                                 }
                                 break;
                             case 'query':
-                                if (titleMovieManagement.value.length === 0) {
-                                    titleMovieManagement.focus();
+                                if (movieTitleUserReviewManagement.value.length === 0) {
+                                    movieTitleUserReviewManagement.focus();
                                     alert('Enter title');
                                     return false;
                                 }
