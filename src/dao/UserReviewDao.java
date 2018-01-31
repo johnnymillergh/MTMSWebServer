@@ -1,5 +1,6 @@
 package dao;
 
+import entity.PageEntity;
 import entity.UserReviewEntity;
 import util.MySQLUtil;
 
@@ -12,8 +13,8 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     @Override
     public int save(UserReviewEntity entity) {
         Connection connection = MySQLUtil.getConnectionNoConnectionPool();
-        String sql = "INSERT INTO user_review (user_id, movie_id, score, title, text, date_time) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user_review (user_id, movie_id, score, title, text, is_spoilers, date_time) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getUserId());
@@ -21,7 +22,8 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
             preparedStatement.setInt(3, entity.getScore());
             preparedStatement.setString(4, entity.getTitle());
             preparedStatement.setString(5, entity.getText());
-            preparedStatement.setTimestamp(6, entity.getDateTime());
+            preparedStatement.setBoolean(6, entity.getIsSpoilers());
+            preparedStatement.setTimestamp(7, entity.getDateTime());
             int status = preparedStatement.executeUpdate();
             System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
@@ -52,13 +54,17 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
 
     private int updateByUserIdAndMovieId(UserReviewEntity entity) {
         Connection connection = MySQLUtil.getConnection();
-        String sql = "UPDATE user_review SET score=?, title=?, text=?, date_time=? WHERE user_id=?";
+        String sql = "UPDATE user_review SET score=?, title=?, text=?, is_spoilers=?, date_time=?" +
+                "WHERE user_id=? AND movie_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getScore());
             preparedStatement.setString(2, entity.getTitle());
             preparedStatement.setString(3, entity.getText());
-            preparedStatement.setTimestamp(4, entity.getDateTime());
+            preparedStatement.setBoolean(4, entity.getIsSpoilers());
+            preparedStatement.setTimestamp(5, entity.getDateTime());
+            preparedStatement.setInt(6, entity.getUserId());
+            preparedStatement.setInt(7, entity.getMovieId());
             int status = preparedStatement.executeUpdate();
             System.out.println("updateByUserIdAndMovieId: " + getClass() + ", " + status);
             connection.commit();
@@ -103,6 +109,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 entity1.setScore(resultSet.getInt("score"));
                 entity1.setTitle(resultSet.getString("title"));
                 entity1.setText(resultSet.getString("text"));
+                entity1.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 entity1.setDateTime(resultSet.getTimestamp("date_time"));
                 resultSet.close();
                 connection.commit();
@@ -145,6 +152,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setScore(resultSet.getInt("score"));
                 userReview.setTitle(resultSet.getString("title"));
                 userReview.setText(resultSet.getString("text"));
+                userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
                 userReviewList.add(userReview);
             }
@@ -188,6 +196,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setScore(resultSet.getInt("score"));
                 userReview.setTitle(resultSet.getString("title"));
                 userReview.setText(resultSet.getString("text"));
+                userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
                 userReviewList.add(userReview);
             }
@@ -231,6 +240,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setScore(resultSet.getInt("score"));
                 userReview.setTitle(resultSet.getString("title"));
                 userReview.setText(resultSet.getString("text"));
+                userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
                 userReviewList.add(userReview);
             }
@@ -275,6 +285,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setScore(resultSet.getInt("score"));
                 userReview.setTitle(resultSet.getString("title"));
                 userReview.setText(resultSet.getString("text"));
+                userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
                 userReviewList.add(userReview);
             }
@@ -308,5 +319,91 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     @Override
     public int delete(UserReviewEntity entity) {
         return 0;
+    }
+
+    public void getAll(PageEntity<UserReviewEntity> pageEntity) {
+
+        // Get totalCount and use it to get how many pages will be generated
+        int totalCount = this.getTotalCount();
+        pageEntity.setTotalCount(totalCount);
+
+        /*
+         * Problem:
+         * 1. If current page is the first page, clicking Prev will throw exception;
+         * 2. If current page is the last page, clicking Next will also break down;
+         *
+         * Solution:
+         * 1. If variable 'currentPage' <= 0, set the currentPage to equal 1;
+         * 2. If variable 'currentPage' > variable 'totalPage', set the currentPage to equal variable 'totalPage';
+         */
+        if (pageEntity.getCurrentPage() <= 0) {
+            pageEntity.setCurrentPage(1);
+        } else if (pageEntity.getCurrentPage() > pageEntity.getTotalPage()) {
+            pageEntity.setCurrentPage(pageEntity.getTotalPage());
+        }
+
+        // Use currentPage and page offset to get index
+        int currentPage = pageEntity.getCurrentPage();
+        int index = (currentPage - 1) * pageEntity.getRowCount();
+        int count = pageEntity.getRowCount();
+
+        // Query data
+        String sql = "SELECT * FROM user_review LIMIT ?,?";
+        Connection connection = MySQLUtil.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, index);
+            preparedStatement.setInt(2, count);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<UserReviewEntity> pageData = new ArrayList<>();
+            while (resultSet.next()) {
+                UserReviewEntity entity = new UserReviewEntity();
+                entity.setId(resultSet.getInt("id"));
+                entity.setUserId(resultSet.getInt("user_id"));
+                entity.setMovieId(resultSet.getInt("movie_id"));
+                entity.setScore(resultSet.getInt("score"));
+                entity.setTitle(resultSet.getString("title"));
+                entity.setText(resultSet.getString("text"));
+                entity.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
+                entity.setDateTime(resultSet.getTimestamp("date_time"));
+                pageData.add(entity);
+            }
+            pageEntity.setPageData(pageData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(*) AS row_count FROM user_review";
+        Connection connection = MySQLUtil.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                return resultSet.getInt("row_count");
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
