@@ -90,6 +90,7 @@ public class UserReviewManagement extends HttpServlet {
         int score = Integer.parseInt(request.getParameter("score"));
         String userReviewTitle = request.getParameter("userReviewTitle");
         String text = request.getParameter("text");
+        String isSpoilers = request.getParameter("isSpoilers");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
         Timestamp dateTime = Timestamp.valueOf(date + " " + time);
@@ -99,6 +100,7 @@ public class UserReviewManagement extends HttpServlet {
         userEntity = userDao.queryByEmail(userEntity);
         movieEntity.setTitle(movieTitle);
         movieEntity = movieDao.queryByTitle(movieEntity);
+
         if (userEntity != null && movieEntity != null) {
             userReviewEntity.setUserId(userEntity.getId());
             userReviewEntity.setMovieId(movieEntity.getId());

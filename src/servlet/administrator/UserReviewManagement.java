@@ -95,6 +95,7 @@ public class UserReviewManagement extends HttpServlet {
         int score = Integer.parseInt(request.getParameter("score"));
         String userReviewTitle = request.getParameter("userReviewTitle");
         String text = request.getParameter("text");
+        String isSpoilers = request.getParameter("isSpoilers");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
         Timestamp dateTime = Timestamp.valueOf(date + " " + time);
@@ -116,6 +117,7 @@ public class UserReviewManagement extends HttpServlet {
                 userReviewEntity.setScore(score);
                 userReviewEntity.setTitle(userReviewTitle);
                 userReviewEntity.setText(text);
+                userReviewEntity.setIsSpoilers(Boolean.parseBoolean(isSpoilers));
                 userReviewEntity.setDateTime(dateTime);
                 int status = userReviewDao.save(userReviewEntity);
                 if (status == 1) {
@@ -145,9 +147,11 @@ public class UserReviewManagement extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // TODO
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // TODO
     }
 
     private void query(HttpServletRequest request, HttpServletResponse response) throws Exception {
