@@ -18,7 +18,7 @@
     UserDao dao = new UserDao();
     UserEntity userEntity = new UserEntity();
     userEntity.setEmail(email);
-    userEntity = dao.getPosterBytes(userEntity);
+    userEntity = dao.getAvatarBytes(userEntity);
     response.setContentType("image/jpeg");
     OutputStream outs = response.getOutputStream();
     outs.write(userEntity.getAvatar());
