@@ -156,6 +156,7 @@
         <div style="font-size: 18px;"><a href="home.jsp">》》Back to home《《</a></div>
         <div style="font-size: 18px;"><a href="#signUp">1. Sign up</a><br></div>
         <div style="font-size: 18px;"><a href="#logIn">2. Log in</a><br></div>
+        <div style="font-size: 18px;"><a href="#getUserImfo">3. Get User Info</a><br></div>
         <div style="font-size: 18px;"><a href="#getMovie">3. Get Movie (JSON Object)</a><br></div>
         <div style="font-size: 18px;"><a href="#getTopMovie">4. Get Top Movie (JSON Object)</a><br></div>
         <div style="font-size: 18px;"><a href="#order">5. Order</a><br></div>
@@ -226,6 +227,36 @@
                             <h2>3. Get Movie (JSON Object)</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.customer.GetMovie" method="post">
+                            <table align="center">
+                                <tr>
+                                    <td align="left"><input type="radio" name="movieOperation" value="getAll"
+                                                            checked="checked"/>Get all the movies w/o poster picture
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left"><input type="radio" name="movieOperation" value="getPoster"
+                                                            checked="checked"
+                                                            align=""/>Get the poster picture of movie
+                                    </td>
+                                    <td align="center"><input type="text" name="title"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <input type="submit" value="Submit">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </fieldset>
+                </div>
+                <br>
+
+                <div align="center" id="getUserInfo">
+                    <fieldset style="width:fit-content; height:fit-content;">
+                        <legend>
+                            <h2>3. Get User Info (JSON Object)</h2>
+                        </legend>
+                        <form action="${pageContext.request.contextPath}/servlet.customer.GetUserInfo" method="post">
                             <table align="center">
                                 <tr>
                                     <td align="left"><input type="radio" name="movieOperation" value="getAll"

@@ -101,6 +101,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetUserInfo</servlet-name>
+        <servlet-class>servlet.customer.GetUserInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserInfo</servlet-name>
+        <url-pattern>/servlet.customer.GetUserInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>GetMovie</servlet-name>
         <servlet-class>servlet.customer.GetMovie</servlet-class>
     </servlet>
