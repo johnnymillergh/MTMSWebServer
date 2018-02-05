@@ -418,4 +418,47 @@ public class UserDao implements IDao<UserEntity> {
             }
         }
     }
+
+    public UserEntity queryByEmailAndPassword(UserEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM user WHERE email=? AND password=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getEmail());
+            preparedStatement.setString(2, entity.getPassword());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.first()) {
+                UserEntity userEntity = new UserEntity();
+                userEntity.setId(resultSet.getInt("id"));
+                userEntity.setEmail(resultSet.getString("email"));
+                userEntity.setPassword(resultSet.getString("password"));
+                userEntity.setUsername(resultSet.getString("username"));
+                userEntity.setAvatarStr(ImageUtil.encode(resultSet.getBytes("avatar")));
+                userEntity.setGender(resultSet.getString("gender"));
+                userEntity.setHomeLocation(resultSet.getString("home_location"));
+                resultSet.close();
+                connection.commit();
+                System.out.println("queryByEmailAndPassword: " + getClass() + ", username: " + userEntity.getUsername());
+                return userEntity;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
