@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div align="center" style="color:#ffffff; font-size:18px">
-    MTMS v0.5<br>
+    MTMS v1.0.0-beta<br>
     <address class="copyright">
         Johnny Miller &copy; Copyright <a href="https://github.com/johnnymillergh">GitHub</a>
     </address>
