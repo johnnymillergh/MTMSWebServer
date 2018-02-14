@@ -3,8 +3,10 @@ package servlet.administrator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dao.UserDao;
+import entity.MessageEntity;
 import entity.UserEntity;
 import util.FileUtil;
+import util.MobileTerminalUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -33,6 +35,13 @@ public class UserManagement extends HttpServlet {
             case "add":
                 try {
                     add(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "secondaryLogon":
+                try {
+                    secondaryLogon(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -140,6 +149,47 @@ public class UserManagement extends HttpServlet {
         } else {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
+            out.flush();
+            out.close();
+        }
+    }
+
+    private void secondaryLogon(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/json");
+        UserEntity user = new UserEntity();
+        UserDao userDao = new UserDao();
+
+        // Get Parameter
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        int port = Integer.parseInt(request.getParameter("port"));
+
+        user.setEmail(email);
+        user.setPassword(password);
+        user = userDao.queryByEmailAndPassword(user);
+        if (user != null) {
+            String ip = request.getRemoteAddr();
+            MobileTerminalUtil.userEmail2Ip.put(email, ip);
+            MobileTerminalUtil.ip2RemotePort.put(ip, port);
+            System.out.println("secondaryLogon: Saving user's IP and port [" + ip + ":" + port + "]");
+
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setMessage("secondaryLogonStatus:success");
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            String json = gson.toJson(messageEntity);
+
+            PrintWriter out = response.getWriter();
+            out.write(json);
+            out.flush();
+            out.close();
+        } else {
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setMessage("secondaryLogonStatus:failure");
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            String json = gson.toJson(messageEntity);
+
+            PrintWriter out = response.getWriter();
+            out.write(json);
             out.flush();
             out.close();
         }

@@ -218,8 +218,13 @@
                                     <td align="center"><input type="file" id="avatarUserManagement" name="avatar"></td>
                                 </tr>
                                 <tr>
+                                    <td align="right">Android Port</td>
+                                    <td align="center"><input type="number" id="portUserManagement" name="port"></td>
+                                </tr>
+                                <tr>
                                     <td colspan="3">
                                         <input type="radio" name="userOperation" value="add" checked="checked"/>Add
+                                        <input type="radio" name="userOperation" value="secondaryLogon"/>Secondary Logon
                                         <input type="radio" name="userOperation" value="update"/>Update
                                         <input type="radio" name="userOperation" value="delete"/>Delete
                                         <input type="radio" name="userOperation" value="query"/>Query
@@ -283,6 +288,7 @@
                         var genderUserManagement = document.getElementById('genderUserManagement');
                         var homeLocationUserManagement = document.getElementById('homeLocationUserManagement');
                         var avatarUserManagement = document.getElementById('avatarUserManagement');
+                        var portUserManagement = document.getElementById('portUserManagement');
                         switch (radioChecked.value) {
                             case 'add':
                                 if (emailUserManagement.value.length === 0) {
@@ -313,6 +319,23 @@
                                 if (avatarUserManagement.value.length === 0) {
                                     alert('Upload avatar');
                                     avatarUserManagement.focus();
+                                    return false;
+                                }
+                                break;
+                            case 'secondaryLogon':
+                                if (emailUserManagement.value.length === 0) {
+                                    emailUserManagement.focus();
+                                    alert('Enter email');
+                                    return false;
+                                }
+                                if (passwordUserManagement.value.length === 0) {
+                                    alert('Enter password');
+                                    passwordUserManagement.focus();
+                                    return false;
+                                }
+                                if (portUserManagement.value.length === 0) {
+                                    alert('Enter port #');
+                                    portUserManagement.focus();
                                     return false;
                                 }
                                 break;
