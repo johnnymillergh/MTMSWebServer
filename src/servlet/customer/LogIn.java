@@ -1,6 +1,9 @@
 package servlet.customer;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dao.UserDao;
+import entity.MessageEntity;
 import entity.UserEntity;
 import util.MobileTerminalUtil;
 
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@SuppressWarnings("Duplicates")
 @WebServlet(name = "LogIn")
 public class LogIn extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,25 +41,35 @@ public class LogIn extends HttpServlet {
         entityInput.setPassword(password);
         UserEntity entityFromQuery = dao.queryByEmail(entityInput);
 
-        System.out.println("Remote client is trying to log in: [" + request.getRemoteAddr() + ":" + request.getRemotePort() + "]");
+        System.out.println(getClass() + " Remote client is trying to log in: [" + request.getRemoteAddr() + ":" + request.getRemotePort() + "]");
 
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         if (entityFromQuery != null) {
             if (entityFromQuery.getPassword().compareTo(entityInput.getPassword()) == 0) {
+                MessageEntity messageEntity = new MessageEntity();
+                messageEntity.setSourcePort(MobileTerminalUtil.serverIpPortInfo.getSourcePort());
+                messageEntity.setMessage("loginStatus:success");
+
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"success\",\"serverPushPort\":\"" +
-                        MobileTerminalUtil.serverSocket.getLocalPort() + "\"}");
+                out.println(gson.toJson(messageEntity));
                 out.flush();
                 out.close();
                 MobileTerminalUtil.userEmail2Ip.put(entityFromQuery.getEmail(), request.getRemoteAddr());
             } else {
+                MessageEntity messageEntity = new MessageEntity();
+                messageEntity.setMessage("loginStatus:failure");
+
                 PrintWriter out = response.getWriter();
-                out.println("{\"loginStatus\":\"failure\"}");
+                out.println(gson.toJson(messageEntity));
                 out.flush();
                 out.close();
             }
         } else {
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setMessage("loginStatus:failure");
+
             PrintWriter out = response.getWriter();
-            out.println("{\"loginStatus\":\"failure\"}");
+            out.println(gson.toJson(messageEntity));
             out.flush();
             out.close();
         }
