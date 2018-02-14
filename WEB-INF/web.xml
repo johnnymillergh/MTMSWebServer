@@ -28,6 +28,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>PushMessage</servlet-name>
+        <servlet-class>servlet.administrator.PushMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PushMessage</servlet-name>
+        <url-pattern>/servlet.administrator.PushMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>MovieManagement</servlet-name>
         <servlet-class>servlet.administrator.MovieManagement</servlet-class>
     </servlet>
