@@ -101,6 +101,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SecondaryLogon</servlet-name>
+        <servlet-class>servlet.customer.SecondaryLogon</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SecondaryLogon</servlet-name>
+        <url-pattern>/servlet.customer.SecondaryLogon</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>GetUserInfo</servlet-name>
         <servlet-class>servlet.customer.GetUserInfo</servlet-class>
     </servlet>
