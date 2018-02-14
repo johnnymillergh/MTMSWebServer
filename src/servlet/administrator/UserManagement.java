@@ -74,7 +74,7 @@ public class UserManagement extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-            case "getOnline":
+            case "getOnlineUser":
                 try {
                     getOnlineUser(request, response);
                 } catch (Exception e) {
@@ -312,7 +312,11 @@ public class UserManagement extends HttpServlet {
         out.close();
     }
 
-    private void getOnlineUser(HttpServletRequest request, HttpServletResponse response) {
+    private void getOnlineUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        out.println("<script>window.open('/onlineUserList.jsp');window.history.go(-1);</script>");
+        out.flush();
+        out.close();
     }
 
     private void getJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
