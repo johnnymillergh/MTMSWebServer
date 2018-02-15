@@ -9,20 +9,38 @@ import java.util.List;
 
 @SuppressWarnings("Duplicates")
 public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
+
+    /**
+     * Save all order information but <b>payment_datetime</b> and <b>used_datetime</b>
+     *
+     * @param entity CustomerOrderEntity
+     * @return either (1) the row count for SQL Data Manipulation Language (DML) statements
+     * or (2) 0 for SQL statements that return nothing
+     */
     @Override
     public int save(CustomerOrderEntity entity) {
         Connection connection = MySQLUtil.getConnectionNoConnectionPool();
-        String sql = "INSERT INTO customer_order (user_id, order_datetime, movie_schedule_id, is_paid, is_used, ticket_amount, total_price) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customer_order" +
+                "(user_id, order_datetime, movie_schedule_id, " +
+                "movie_title, showtime, seat_id, seat_location, auditorium_name, theater_name, theater_location, " +
+                "is_paid, is_used, ticket_amount, total_price) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getUserId());
             preparedStatement.setTimestamp(2, entity.getOrderDatetime());
             preparedStatement.setInt(3, entity.getMovieScheduleId());
-            preparedStatement.setBoolean(4, entity.getIsPaid());
-            preparedStatement.setBoolean(5, entity.getIsUsed());
-            preparedStatement.setInt(6, entity.getTicketAmount());
-            preparedStatement.setFloat(7, entity.getTotalPrice());
+            preparedStatement.setString(4, entity.getMovieTitle());
+            preparedStatement.setTimestamp(5, entity.getShowtime());
+            preparedStatement.setString(6, entity.getSeatId());
+            preparedStatement.setString(7, entity.getSeatLocation());
+            preparedStatement.setString(8, entity.getAuditoriumName());
+            preparedStatement.setString(9, entity.getTheaterName());
+            preparedStatement.setString(10, entity.getTheaterLocation());
+            preparedStatement.setBoolean(11, entity.getIsPaid());
+            preparedStatement.setBoolean(12, entity.getIsUsed());
+            preparedStatement.setInt(13, entity.getTicketAmount());
+            preparedStatement.setFloat(14, entity.getTotalPrice());
             int status = preparedStatement.executeUpdate();
             System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
@@ -69,6 +87,94 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
             int status = preparedStatement.executeUpdate();
             connection.commit();
             System.out.println("updateByUserIdAndOrderDatetime: " + getClass() + ", Row: " + status);
+            if (status > 0) {
+                return status;
+            } else {
+                return -2;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return -1;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Update payment information by <b>user id</b> and <b>order datetime</b>
+     *
+     * @param entity CustomerOrderEntity
+     * @return either (1) the row count for SQL Data Manipulation Language (DML) statements
+     * or (2) 0 for SQL statements that return nothing
+     */
+    public int updatePayment(CustomerOrderEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "UPDATE customer_order SET is_paid=?, payment_datetime=?" +
+                "WHERE user_id=? AND order_datetime=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setBoolean(1, entity.getIsPaid());
+            preparedStatement.setTimestamp(2, entity.getPaymentDatetime());
+            preparedStatement.setInt(3, entity.getUserId());
+            preparedStatement.setTimestamp(4, entity.getOrderDatetime());
+            int status = preparedStatement.executeUpdate();
+            connection.commit();
+            System.out.println("updatePayment: " + getClass() + ", Row: " + status);
+            if (status > 0) {
+                return status;
+            } else {
+                return -2;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return -1;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Update usage information by <b>user id</b> and <b>order datetime</b>
+     *
+     * @param entity CustomerOrderEntity
+     * @return either (1) the row count for SQL Data Manipulation Language (DML) statements
+     * or (2) 0 for SQL statements that return nothing
+     */
+    public int updateUsed(CustomerOrderEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "UPDATE customer_order SET is_used=?, used_datetime=?" +
+                "WHERE user_id=? AND order_datetime=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setBoolean(1, entity.getIsUsed());
+            preparedStatement.setTimestamp(2, entity.getUsedDatetime());
+            preparedStatement.setInt(3, entity.getUserId());
+            preparedStatement.setTimestamp(4, entity.getOrderDatetime());
+            int status = preparedStatement.executeUpdate();
+            connection.commit();
+            System.out.println("updateUsed: " + getClass() + ", Row: " + status);
             if (status > 0) {
                 return status;
             } else {
