@@ -1087,7 +1087,7 @@ theater_id</ColNames>
     </column>
     <column id="269" parent="238" name="ticket_amount">
       <Position>16</Position>
-      <DataType>int(10) unsigned|0</DataType>
+      <DataType>int(10)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="270" parent="238" name="total_price">

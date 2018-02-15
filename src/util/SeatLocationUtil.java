@@ -8,6 +8,14 @@ public class SeatLocationUtil {
         private int row;
         private int col;
 
+        public SeatLocation() {
+        }
+
+        public SeatLocation(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
         public int getRow() {
             return row;
         }

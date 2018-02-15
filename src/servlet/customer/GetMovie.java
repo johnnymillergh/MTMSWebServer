@@ -50,8 +50,7 @@ public class GetMovie extends HttpServlet {
         MovieDao movieDao = new MovieDao();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         List<MovieEntity> movies = movieDao.getAll();
-        PrintWriter out = null;
-        out = response.getWriter();
+        PrintWriter out = response.getWriter();
         String json = gson.toJson(movies);
         out.println(json);
         out.flush();
@@ -67,12 +66,11 @@ public class GetMovie extends HttpServlet {
         // Get parameter
         String title = request.getParameter("title");
 
-        PrintWriter out = null;
         if (title.compareTo("") != 0) {
             movieEntity.setTitle(title);
             movieEntity = movieDao.getPoster(movieEntity);
             String json = gson.toJson(movieEntity);
-            out = response.getWriter();
+            PrintWriter out = response.getWriter();
             out.println(json);
             out.flush();
             out.close();
