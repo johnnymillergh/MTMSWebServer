@@ -297,4 +297,60 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
             }
         }
     }
+
+    public List<CustomerOrderEntity> getAllByUserId(CustomerOrderEntity entity) {
+        List<CustomerOrderEntity> orders = new ArrayList<>();
+        CustomerOrderEntity order;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM customer_order WHERE user_id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getUserId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                order = new CustomerOrderEntity();
+                order.setId(resultSet.getInt("id"));
+                order.setUserId(resultSet.getInt("user_id"));
+                order.setOrderDatetime(resultSet.getTimestamp("order_datetime"));
+                order.setMovieScheduleId(resultSet.getInt("movie_schedule_id"));
+                order.setMovieTitle(resultSet.getString("movie_title"));
+                order.setShowtime(resultSet.getTimestamp("showtime"));
+                order.setSeatId(resultSet.getString("seat_id"));
+                order.setSeatLocation(resultSet.getString("seat_location"));
+                order.setAuditoriumName(resultSet.getString("auditorium_name"));
+                order.setTheaterName(resultSet.getString("theater_name"));
+                order.setTheaterLocation(resultSet.getString("theater_location"));
+                order.setIsPaid(resultSet.getBoolean("is_paid"));
+                order.setPaymentDatetime(resultSet.getTimestamp("payment_datetime"));
+                order.setIsUsed(resultSet.getBoolean("is_used"));
+                order.setUsedDatetime(resultSet.getTimestamp("used_datetime"));
+                order.setTicketAmount(resultSet.getInt("ticket_amount"));
+                order.setTotalPrice(resultSet.getFloat("total_price"));
+                orders.add(order);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAllByUserId: " + getClass());
+            if (orders.size() == 0) {
+                return null;
+            }
+            return orders;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
