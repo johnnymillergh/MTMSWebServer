@@ -138,6 +138,50 @@ public class SeatDao implements IDao<SeatEntity> {
         }
     }
 
+    public SeatEntity queryByAuditoriumIdAndRowAndCol(SeatEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM seat WHERE auditorium_id=? AND row_number=? AND col_number=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getAuditoriumId());
+            preparedStatement.setInt(2, entity.getRowNumber());
+            preparedStatement.setInt(3, entity.getColNumber());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.first()) {
+                SeatEntity seatEntity = new SeatEntity();
+                seatEntity.setId(resultSet.getInt("id"));
+                seatEntity.setAuditoriumId(resultSet.getInt("auditorium_id"));
+                seatEntity.setRowNumber(resultSet.getInt("row_number"));
+                seatEntity.setColNumber(resultSet.getInt("col_number"));
+                seatEntity.setIsSelected(resultSet.getBoolean("is_selected"));
+                seatEntity.setUserId(resultSet.getInt("user_id"));
+                seatEntity.setUserEmail(resultSet.getString("user_email"));
+                seatEntity.setOrderDatetime(resultSet.getTimestamp("order_datetime"));
+                resultSet.close();
+                System.out.println("queryByAuditoriumIdAndRowAndCol: " + getClass() + ", isSelected: " + seatEntity.getIsSelected());
+                return seatEntity;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     @Override
     public int delete(SeatEntity entity) {
         return 0;
