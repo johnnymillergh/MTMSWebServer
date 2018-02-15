@@ -162,4 +162,22 @@
         <servlet-name>GetTopMovie</servlet-name>
         <url-pattern>/servlet.customer.GetTopMovie</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetMovieSchedule</servlet-name>
+        <servlet-class>servlet.customer.GetMovieSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetMovieSchedule</servlet-name>
+        <url-pattern>/servlet.customer.GetMovieSchedule</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetSATInfo</servlet-name>
+        <servlet-class>servlet.customer.GetSATInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetSATInfo</servlet-name>
+        <url-pattern>/servlet.customer.GetSATInfo</url-pattern>
+    </servlet-mapping>
 </web-app>
