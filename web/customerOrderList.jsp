@@ -161,8 +161,17 @@
                             <td>user_id</td>
                             <td>order_datetime</td>
                             <td>movie_schedule_id</td>
+                            <td>movie_title</td>
+                            <td>showtime</td>
+                            <td>seat_id</td>
+                            <td>seat_location</td>
+                            <td>auditorium_name</td>
+                            <td>theater_name</td>
+                            <td>theater_location</td>
                             <td>is_paid</td>
+                            <td>payment_datetime</td>
                             <td>is_used</td>
+                            <td>used_datetime</td>
                             <td>ticket_amount</td>
                             <td>total_price</td>
                         </tr>
@@ -179,9 +188,27 @@
                             </td>
                             <td><%=order.getMovieScheduleId() %>
                             </td>
+                            <td><%=order.getMovieTitle() %>
+                            </td>
+                            <td><%=order.getShowtime() %>
+                            </td>
+                            <td><%=order.getSeatId() %>
+                            </td>
+                            <td><%=order.getSeatLocation() %>
+                            </td>
+                            <td><%=order.getAuditoriumName() %>
+                            </td>
+                            <td><%=order.getTheaterName() %>
+                            </td>
+                            <td><%=order.getTheaterLocation() %>
+                            </td>
                             <td><%=order.getIsPaid() %>
                             </td>
+                            <td><%=order.getPaymentDatetime() %>
+                            </td>
                             <td><%=order.getIsUsed() %>
+                            </td>
+                            <td><%=order.getUsedDatetime() %>
                             </td>
                             <td><%=order.getTicketAmount() %>
                             </td>

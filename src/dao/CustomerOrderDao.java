@@ -266,8 +266,17 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
                 order.setUserId(resultSet.getInt("user_id"));
                 order.setOrderDatetime(resultSet.getTimestamp("order_datetime"));
                 order.setMovieScheduleId(resultSet.getInt("movie_schedule_id"));
+                order.setMovieTitle(resultSet.getString("movie_title"));
+                order.setShowtime(resultSet.getTimestamp("showtime"));
+                order.setSeatId(resultSet.getString("seat_id"));
+                order.setSeatLocation(resultSet.getString("seat_location"));
+                order.setAuditoriumName(resultSet.getString("auditorium_name"));
+                order.setTheaterName(resultSet.getString("theater_name"));
+                order.setTheaterLocation(resultSet.getString("theater_location"));
                 order.setIsPaid(resultSet.getBoolean("is_paid"));
+                order.setPaymentDatetime(resultSet.getTimestamp("payment_datetime"));
                 order.setIsUsed(resultSet.getBoolean("is_used"));
+                order.setUsedDatetime(resultSet.getTimestamp("used_datetime"));
                 order.setTicketAmount(resultSet.getInt("ticket_amount"));
                 order.setTotalPrice(resultSet.getFloat("total_price"));
                 orders.add(order);
