@@ -181,7 +181,7 @@ public class UserReviewManagement extends HttpServlet {
             movieTitle = "";
         }
 
-        if (email.compareTo("") == 0 && movieTitle.compareTo("") == 0) {
+        if (email.equals("") && movieTitle.equals("")) {
             userReviewEntityList = userReviewDao.getAll();
             out = response.getWriter();
             String json = gson.toJson(userReviewEntityList);
@@ -189,7 +189,7 @@ public class UserReviewManagement extends HttpServlet {
             out.flush();
             System.out.println("getJson: " + getClass());
             out.close();
-        } else if (email.compareTo("") == 0 && movieTitle.compareTo("") != 0) {
+        } else if (email.equals("") && !movieTitle.equals("")) {
             movieEntity.setTitle(movieTitle);
             movieEntity = movieDao.queryByTitle(movieEntity);
             if (movieEntity != null) {
@@ -203,7 +203,7 @@ public class UserReviewManagement extends HttpServlet {
                 System.out.println("getJson: " + getClass());
                 out.close();
             }
-        } else if (email.compareTo("") != 0 && movieTitle.compareTo("") == 0) {
+        } else if (!email.equals("") && movieTitle.equals("")) {
             userEntity.setEmail(email);
             userEntity = userDao.queryByEmail(userEntity);
             if (userEntity != null) {
