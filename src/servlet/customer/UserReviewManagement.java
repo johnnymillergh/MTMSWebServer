@@ -91,8 +91,6 @@ public class UserReviewManagement extends HttpServlet {
         String userReviewTitle = request.getParameter("userReviewTitle");
         String text = request.getParameter("text");
         String isSpoilers = request.getParameter("isSpoilers");
-        String date = request.getParameter("date");
-        String time = request.getParameter("time");
         Timestamp dateTime = new Timestamp(System.currentTimeMillis());
 
         // Query: if the user have rated this movie
