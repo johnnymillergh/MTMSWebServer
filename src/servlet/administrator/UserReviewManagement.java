@@ -122,25 +122,25 @@ public class UserReviewManagement extends HttpServlet {
                 int status = userReviewDao.save(userReviewEntity);
                 if (status == 1) {
                     PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " add: Success.');window.location.href='/administrator.jsp';</script>");
+                    out.println("<script>alert('" + getClass() + " add: success.');window.location.href='/administrator.jsp';</script>");
                     out.flush();
                     out.close();
                 } else {
                     System.out.println(userReviewEntity.toString());
                     PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
+                    out.println("<script>alert('" + getClass() + " add: failure.');window.history.go(-1);</script>");
                     out.flush();
                     out.close();
                 }
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("<script>alert('" + getClass() + " add: ERROR: User rated.');window.history.go(-1);</script>");
+                out.println("<script>alert('" + getClass() + " add: failure: User rated.');window.history.go(-1);</script>");
                 out.flush();
                 out.close();
             }
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: ERROR: User or movie not found.');window.history.go(-1);</script>");
+            out.println("<script>alert('" + getClass() + " add: failure: User or movie not found.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }

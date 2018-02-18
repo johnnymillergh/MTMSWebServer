@@ -93,7 +93,7 @@ public class UserReviewManagement extends HttpServlet {
         String isSpoilers = request.getParameter("isSpoilers");
         String date = request.getParameter("date");
         String time = request.getParameter("time");
-        Timestamp dateTime = Timestamp.valueOf(date + " " + time);
+        Timestamp dateTime = new Timestamp(System.currentTimeMillis());
 
         // Query: if the user have rated this movie
         userEntity.setEmail(email);
@@ -112,32 +112,30 @@ public class UserReviewManagement extends HttpServlet {
                 userReviewEntity.setScore(score);
                 userReviewEntity.setTitle(userReviewTitle);
                 userReviewEntity.setText(text);
+                userReviewEntity.setIsSpoilers(Boolean.parseBoolean(isSpoilers));
                 userReviewEntity.setDateTime(dateTime);
                 int status = userReviewDao.save(userReviewEntity);
                 if (status == 1) {
                     PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " add: " + userEntity.getUsername() + ", " +
-                            movieEntity.getTitle() + "');window.location.href='/administrator.jsp'</script>");
+                    out.println("<script>alert('" + getClass() + " add: success.');window.location.href='/customer.jsp';</script>");
                     out.flush();
                     out.close();
                 } else {
                     System.out.println(userReviewEntity.toString());
                     PrintWriter out = response.getWriter();
-                    out.println("<script>alert('" + getClass() + " Add failed." +
-                            "');window.location.href='/administrator.jsp'</script>");
+                    out.println("<script>alert('" + getClass() + " add: failure.');window.history.go(-1);</script>");
                     out.flush();
                     out.close();
                 }
             } else {
                 PrintWriter out = response.getWriter();
-                out.println("<script>alert('" + getClass() + " ERROR: User rated: " + userEntity.getUsername() + ", " +
-                        movieEntity.getTitle() + "');window.location.href='/administrator.jsp'</script>");
+                out.println("<script>alert('" + getClass() + " add: failure: User rated.');window.history.go(-1);</script>");
                 out.flush();
                 out.close();
             }
         } else {
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " ERROR: User or movie not found.');window.location.href='/administrator.jsp'</script>");
+            out.println("<script>alert('" + getClass() + " add: failure: User or movie not found.');window.history.go(-1);</script>");
             out.flush();
             out.close();
         }
