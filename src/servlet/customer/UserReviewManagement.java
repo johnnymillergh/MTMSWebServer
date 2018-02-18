@@ -114,6 +114,7 @@ public class UserReviewManagement extends HttpServlet {
                 userReviewEntity.setText(text);
                 userReviewEntity.setIsSpoilers(Boolean.parseBoolean(isSpoilers));
                 userReviewEntity.setDateTime(dateTime);
+                userReviewEntity.setUsername(userEntity.getUsername());
                 int status = userReviewDao.save(userReviewEntity);
                 if (status == 1) {
                     PrintWriter out = response.getWriter();

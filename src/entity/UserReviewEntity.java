@@ -11,6 +11,7 @@ public class UserReviewEntity {
     private String text;
     private boolean isSpoilers;
     private Timestamp dateTime;
+    private String username;
 
     public int getId() {
         return id;
@@ -74,6 +75,14 @@ public class UserReviewEntity {
 
     public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override

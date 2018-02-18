@@ -164,6 +164,7 @@
                             <td>title and text</td>
                             <td>is_spoilers</td>
                             <td>date_time</td>
+                            <td>username</td>
                         </tr>
                         <%
                             UserReviewDao dao = new UserReviewDao();
@@ -206,12 +207,14 @@
                             <td><%=entity.getIsSpoilers() %>
                             <td><%=entity.getDateTime() %>
                             </td>
+                            <td><%=entity.getUsername() %>
+                            </td>
                         </tr>
                         <%
                             }
                         %>
                         <tr align="center">
-                            <td colspan="7">
+                            <td colspan="8">
                                 <div style="color: blue">
                                     Current Page <%=pageEntity.getCurrentPage()%>; Total
                                     Page(s) <%=pageEntity.getTotalPage()%><br>

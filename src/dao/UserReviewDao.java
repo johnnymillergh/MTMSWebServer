@@ -13,8 +13,8 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
     @Override
     public int save(UserReviewEntity entity) {
         Connection connection = MySQLUtil.getConnectionNoConnectionPool();
-        String sql = "INSERT INTO user_review (user_id, movie_id, score, title, text, is_spoilers, date_time) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user_review (user_id, movie_id, score, title, text, is_spoilers, date_time, username) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getUserId());
@@ -24,6 +24,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
             preparedStatement.setString(5, entity.getText());
             preparedStatement.setBoolean(6, entity.getIsSpoilers());
             preparedStatement.setTimestamp(7, entity.getDateTime());
+            preparedStatement.setString(8, entity.getUsername());
             int status = preparedStatement.executeUpdate();
             System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
@@ -111,6 +112,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 entity1.setText(resultSet.getString("text"));
                 entity1.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 entity1.setDateTime(resultSet.getTimestamp("date_time"));
+                entity1.setUsername(resultSet.getString("username"));
                 resultSet.close();
                 connection.commit();
                 System.out.println("queryByUserIdAndMovieId: " + getClass() + ", score: " + entity1.getScore());
@@ -154,6 +156,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setText(resultSet.getString("text"));
                 userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
+                userReview.setUsername(resultSet.getString("username"));
                 userReviewList.add(userReview);
             }
             resultSet.close();
@@ -198,6 +201,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setText(resultSet.getString("text"));
                 userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
+                userReview.setUsername(resultSet.getString("username"));
                 userReviewList.add(userReview);
             }
             resultSet.close();
@@ -242,6 +246,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setText(resultSet.getString("text"));
                 userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
+                userReview.setUsername(resultSet.getString("username"));
                 userReviewList.add(userReview);
             }
             resultSet.close();
@@ -287,6 +292,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 userReview.setText(resultSet.getString("text"));
                 userReview.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 userReview.setDateTime(resultSet.getTimestamp("date_time"));
+                userReview.setUsername(resultSet.getString("username"));
                 userReviewList.add(userReview);
             }
             resultSet.close();
@@ -366,6 +372,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 entity.setText(resultSet.getString("text"));
                 entity.setIsSpoilers(resultSet.getBoolean("is_spoilers"));
                 entity.setDateTime(resultSet.getTimestamp("date_time"));
+                entity.setUsername(resultSet.getString("username"));
                 pageData.add(entity);
             }
             pageEntity.setPageData(pageData);
