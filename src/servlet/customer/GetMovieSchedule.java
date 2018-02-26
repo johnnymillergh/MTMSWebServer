@@ -28,7 +28,7 @@ public class GetMovieSchedule extends HttpServlet {
         movieScheduleEntity.setMovieTitle(movieTitle);
         List<MovieScheduleEntity> movieSchedules = movieScheduleDao.getAllByMovieTitle(movieScheduleEntity);
 
-        Gson gson = new GsonBuilder().disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 
         PrintWriter out = response.getWriter();
         String json = gson.toJson(movieSchedules);

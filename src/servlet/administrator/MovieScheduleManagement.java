@@ -125,9 +125,6 @@ public class MovieScheduleManagement extends HttpServlet {
             entity.setAuditoriumName(auditoriumEntity.getName());
             entity.setPrice(Float.parseFloat(price));
             entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
-            entity.setDateOfShow(Date.valueOf(dateOfShow));
-            SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-            entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
 
             int status = dao.save(entity);
             if (status == 1) {
@@ -186,9 +183,6 @@ public class MovieScheduleManagement extends HttpServlet {
             entity.setAuditoriumName(auditoriumEntity.getName());
             entity.setPrice(Float.parseFloat(price));
             entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
-            entity.setDateOfShow(Date.valueOf(dateOfShow));
-            SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-            entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
 
             int status = dao.update(entity);
             if (status == 1) {

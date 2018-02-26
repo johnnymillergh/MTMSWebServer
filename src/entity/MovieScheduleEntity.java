@@ -15,8 +15,6 @@ public class MovieScheduleEntity {
     private String auditoriumName;
     private float price;
     private Timestamp showtime;
-    private Date dateOfShow;
-    private Time timeOfShow;
 
     public int getId() {
         return id;
@@ -96,22 +94,6 @@ public class MovieScheduleEntity {
 
     public void setShowtime(Timestamp showtime) {
         this.showtime = showtime;
-    }
-
-    public Date getDateOfShow() {
-        return dateOfShow;
-    }
-
-    public void setDateOfShow(Date dateOfShow) {
-        this.dateOfShow = dateOfShow;
-    }
-
-    public Time getTimeOfShow() {
-        return timeOfShow;
-    }
-
-    public void setTimeOfShow(Time timeOfShow) {
-        this.timeOfShow = timeOfShow;
     }
 
     @Override
