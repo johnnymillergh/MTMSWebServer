@@ -4,6 +4,7 @@ public class TheaterEntity {
     private int id;
     private String name;
     private String location;
+    private byte[] logo;
 
     public int getId() {
         return id;
@@ -27,5 +28,13 @@ public class TheaterEntity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(byte[] logo) {
+        this.logo = logo;
     }
 }
