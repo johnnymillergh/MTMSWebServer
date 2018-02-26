@@ -158,8 +158,11 @@
                         <tr>
                             <td>id</td>
                             <td>movie_id</td>
-                            <td>auditorium_id</td>
+                            <td>movie_title</td>
                             <td>auditorium_theater_id</td>
+                            <td>theater_name</td>
+                            <td>auditorium_id</td>
+                            <td>auditorium_name</td>
                             <td>price</td>
                             <td>showtime</td>
                             <td>date_of_show</td>
@@ -174,9 +177,15 @@
                             </td>
                             <td><%=entity.getMovieId() %>
                             </td>
-                            <td><%=entity.getAuditoriumId() %>
+                            <td><%=entity.getMovieTitle() %>
                             </td>
                             <td><%=entity.getAuditoriumTheaterId() %>
+                            </td>
+                            <td><%=entity.getTheaterName() %>
+                            </td>
+                            <td><%=entity.getAuditoriumId() %>
+                            </td>
+                            <td><%=entity.getAuditoriumName() %>
                             </td>
                             <td><%=entity.getPrice() %>
                             </td>
