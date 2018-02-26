@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("Duplicates")
+@SuppressWarnings({"Duplicates", "ConstantConditions"})
 public class TheaterDao implements IDao<TheaterEntity> {
     @Override
     public int save(TheaterEntity entity) {
@@ -125,6 +125,43 @@ public class TheaterDao implements IDao<TheaterEntity> {
                 return null;
             } else {
                 return entities;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public TheaterEntity getLogoBytesById(TheaterEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT id, logo FROM theater WHERE id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            TheaterEntity theaterEntity = new TheaterEntity();
+            if (resultSet.first()) {
+                theaterEntity.setId(resultSet.getInt("id"));
+                theaterEntity.setLogo(resultSet.getBytes("logo"));
+                resultSet.close();
+                connection.commit();
+                System.out.println("getLogoBytesById: " + getClass() + ", id: " + theaterEntity.getId());
+                return theaterEntity;
+            } else {
+                return null;
             }
         } catch (Exception e) {
             try {

@@ -155,6 +155,7 @@
                             <td>id</td>
                             <td>name</td>
                             <td>location</td>
+                            <td>logo</td>
                         </tr>
                         <%
                             TheaterDao dao = new TheaterDao();
@@ -166,6 +167,8 @@
                             <td><%=entity.getName() %>
                             </td>
                             <td><%=entity.getLocation() %>
+                            <td><img src="showTheaterLogo.jsp?id=<%=entity.getId()%>"
+                                     style="height: 300px;width: auto"/></td>
                         </tr>
                         <%
                             }
