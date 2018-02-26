@@ -10,6 +10,7 @@ public class MovieScheduleEntity {
     private String movieTitle;
     private int auditoriumTheaterId;
     private String theaterName;
+    private String location;
     private int auditoriumId;
     private String auditoriumName;
     private float price;
@@ -55,6 +56,14 @@ public class MovieScheduleEntity {
 
     public void setTheaterName(String theaterName) {
         this.theaterName = theaterName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public int getAuditoriumId() {
