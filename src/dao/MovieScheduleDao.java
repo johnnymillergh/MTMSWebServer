@@ -142,33 +142,33 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
         }
     }
 
-    public MovieScheduleEntity queryByMovieTitle(MovieScheduleEntity entity) {
+    public List<MovieScheduleEntity> queryByMovieTitle(MovieScheduleEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM movie_schedule WHERE movie_title=?";
+        List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getMovieTitle());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.first()) {
-                MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
-                movieScheduleEntity.setId(resultSet.getInt("id"));// 1
-                movieScheduleEntity.setMovieId(resultSet.getInt("movie_id"));// 2
-                movieScheduleEntity.setMovieTitle(resultSet.getString("movie_title"));// 3
-                movieScheduleEntity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
-                movieScheduleEntity.setTheaterName(resultSet.getString("theater_name"));// 5
-                movieScheduleEntity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 6
-                movieScheduleEntity.setAuditoriumName(resultSet.getString("auditorium_name"));// 7
-                movieScheduleEntity.setPrice(resultSet.getFloat("price"));// 8
-                movieScheduleEntity.setShowtime(resultSet.getTimestamp("showtime"));// 9
-                movieScheduleEntity.setDateOfShow(resultSet.getDate("date_of_show"));// 10
-                movieScheduleEntity.setTimeOfShow(resultSet.getTime("time_of_show"));// 11
-                resultSet.close();
-                connection.commit();
-                System.out.println("queryByMovieTitle: " + getClass() + ", " + "Price: " + movieScheduleEntity.getPrice());
-                return movieScheduleEntity;
-            } else {
-                return null;
+            while (resultSet.next()) {
+                entity = new MovieScheduleEntity();
+                entity.setId(resultSet.getInt("id"));// 1
+                entity.setMovieId(resultSet.getInt("movie_id"));// 2
+                entity.setMovieTitle(resultSet.getString("movie_title"));// 3
+                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
+                entity.setTheaterName(resultSet.getString("theater_name"));// 5
+                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 6
+                entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 7
+                entity.setPrice(resultSet.getFloat("price"));// 8
+                entity.setShowtime(resultSet.getTimestamp("showtime"));// 9
+                entity.setDateOfShow(resultSet.getDate("date_of_show"));// 10
+                entity.setTimeOfShow(resultSet.getTime("time_of_show"));// 11
+                movieSchedules.add(entity);
             }
+            resultSet.close();
+            connection.commit();
+            System.out.println("queryByMovieTitle: " + getClass());
+            return movieSchedules;
         } catch (Exception e) {
             try {
                 connection.rollback();

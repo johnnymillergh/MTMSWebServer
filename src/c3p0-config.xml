@@ -24,7 +24,7 @@
         <property name="autoCommitOnClose">false</property>
 
         <!--连接池中保留的最大连接数。Default: 15 -->
-        <property name="maxPoolSize">21</property>
+        <property name="maxPoolSize">30</property>
 
         <!--连接池中保持的最小连接数。Default: 3-->
         <property name="minPoolSize">3</property>
