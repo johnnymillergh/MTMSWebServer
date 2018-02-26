@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("Duplicates")
+@SuppressWarnings({"Duplicates", "ConstantConditions"})
 public class MovieDao implements IDao<MovieEntity> {
     @Override
     public int save(MovieEntity entity) {
@@ -105,7 +105,51 @@ public class MovieDao implements IDao<MovieEntity> {
 
     @Override
     public MovieEntity queryById(MovieEntity entity) {
-        return null;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM movie WHERE id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.first()) {
+                MovieEntity movieEntity = new MovieEntity();
+                movieEntity.setId(resultSet.getInt("id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setDuration(resultSet.getString("duration"));// 3
+                movieEntity.setGenre(resultSet.getString("genre"));// 4
+                movieEntity.setDirector(resultSet.getString("director"));// 5
+                movieEntity.setStars(resultSet.getString("stars"));// 6
+                movieEntity.setCountry(resultSet.getString("country"));// 7
+                movieEntity.setLanguage(resultSet.getString("language"));// 8
+                movieEntity.setReleaseDate(resultSet.getString("release_date"));// 9
+                movieEntity.setFilmingLocation(resultSet.getString("filming_location"));// 10
+                movieEntity.setRuntime(resultSet.getString("runtime"));// 11
+                movieEntity.setAspectRatio(resultSet.getString("aspect_ratio"));// 12
+                movieEntity.setDescription(resultSet.getString("description"));// 13
+                resultSet.close();
+                connection.commit();
+                System.out.println("queryById: " + getClass() + ", " + movieEntity.getTitle());
+                return movieEntity;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public MovieEntity queryByTitle(MovieEntity entity) {

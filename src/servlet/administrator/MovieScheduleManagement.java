@@ -2,8 +2,14 @@ package servlet.administrator;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dao.AuditoriumDao;
+import dao.MovieDao;
 import dao.MovieScheduleDao;
+import dao.TheaterDao;
+import entity.AuditoriumEntity;
+import entity.MovieEntity;
 import entity.MovieScheduleEntity;
+import entity.TheaterEntity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -82,40 +88,58 @@ public class MovieScheduleManagement extends HttpServlet {
         MovieScheduleEntity entity = new MovieScheduleEntity();
         MovieScheduleDao dao = new MovieScheduleDao();
 
+        // Get parameters
         String movieId = request.getParameter("movieId");
         String theaterId = request.getParameter("theaterId");
         String auditoriumId = request.getParameter("auditoriumId");
-        if (movieId.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1);</script>");
-            out.flush();
-            out.close();
-            return;
-        }
         String price = request.getParameter("price");
         String dateOfShow = request.getParameter("dateOfShow");
         String timeOfShow = request.getParameter("timeOfShow");
 
-        entity.setMovieId(Integer.parseInt(movieId));
-        entity.setAuditoriumTheaterId(Integer.parseInt(theaterId));
-        entity.setAuditoriumId(Integer.parseInt(auditoriumId));
-        entity.setPrice(Float.parseFloat(price));
-        entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
-        entity.setDateOfShow(Date.valueOf(dateOfShow));
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-        entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
+        // Query movie
+        MovieEntity movieEntity = new MovieEntity();
+        MovieDao movieDao = new MovieDao();
+        movieEntity.setId(Integer.parseInt(movieId));
+        movieEntity = movieDao.queryById(movieEntity);
 
-        int status = dao.save(entity);
-        if (status == 1) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Success.');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
-        } else {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Failure.');window.history.go(-1);</script>");
-            out.flush();
-            out.close();
+        // Query theater
+        TheaterEntity theaterEntity = new TheaterEntity();
+        TheaterDao theaterDao = new TheaterDao();
+        theaterEntity.setId(Integer.parseInt(theaterId));
+        theaterEntity = theaterDao.queryById(theaterEntity);
+
+        // Query auditorium
+        AuditoriumEntity auditoriumEntity = new AuditoriumEntity();
+        AuditoriumDao auditoriumDao = new AuditoriumDao();
+        auditoriumEntity.setId(Integer.parseInt(auditoriumId));
+        auditoriumEntity = auditoriumDao.queryById(auditoriumEntity);
+
+        // Add
+        if (movieEntity != null && theaterEntity != null && auditoriumEntity != null) {
+            entity.setMovieId(Integer.parseInt(movieId));
+            entity.setMovieTitle(movieEntity.getTitle());
+            entity.setAuditoriumTheaterId(theaterEntity.getId());
+            entity.setTheaterName(theaterEntity.getName());
+            entity.setAuditoriumId(auditoriumEntity.getId());
+            entity.setAuditoriumName(auditoriumEntity.getName());
+            entity.setPrice(Float.parseFloat(price));
+            entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
+            entity.setDateOfShow(Date.valueOf(dateOfShow));
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+            entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
+
+            int status = dao.save(entity);
+            if (status == 1) {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('" + getClass() + " add: success.');window.location.href='/administrator.jsp'</script>");
+                out.flush();
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('" + getClass() + " add: failure.');window.history.go(-1);</script>");
+                out.flush();
+                out.close();
+            }
         }
     }
 
@@ -123,42 +147,59 @@ public class MovieScheduleManagement extends HttpServlet {
         MovieScheduleDao dao = new MovieScheduleDao();
         MovieScheduleEntity entity = new MovieScheduleEntity();
 
+        // Get parameters
         String id = request.getParameter("id");
         String movieId = request.getParameter("movieId");
         String theaterId = request.getParameter("theaterId");
         String auditoriumId = request.getParameter("auditoriumId");
-        if (id.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0 || movieId.compareTo("") == 0) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " add: Parameter ERROR.');window.history.go(-1);</script>");
-            out.flush();
-            out.close();
-            return;
-        }
         String price = request.getParameter("price");
         String dateOfShow = request.getParameter("dateOfShow");
         String timeOfShow = request.getParameter("timeOfShow");
 
-        entity.setId(Integer.parseInt(id));
-        entity.setMovieId(Integer.parseInt(movieId));
-        entity.setAuditoriumTheaterId(Integer.parseInt(theaterId));
-        entity.setAuditoriumId(Integer.parseInt(auditoriumId));
-        entity.setPrice(Float.parseFloat(price));
-        entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
-        entity.setDateOfShow(Date.valueOf(dateOfShow));
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-        entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
+        // Query movie
+        MovieEntity movieEntity = new MovieEntity();
+        MovieDao movieDao = new MovieDao();
+        movieEntity.setId(Integer.parseInt(movieId));
+        movieEntity = movieDao.queryById(movieEntity);
 
-        int status = dao.update(entity);
-        if (status == 1) {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " update: Success.');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
-        } else {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " update: Failure.');window.history.go(-1);</script>");
-            out.flush();
-            out.close();
+        // Query theater
+        TheaterEntity theaterEntity = new TheaterEntity();
+        TheaterDao theaterDao = new TheaterDao();
+        theaterEntity.setId(Integer.parseInt(theaterId));
+        theaterEntity = theaterDao.queryById(theaterEntity);
+
+        // Query auditorium
+        AuditoriumEntity auditoriumEntity = new AuditoriumEntity();
+        AuditoriumDao auditoriumDao = new AuditoriumDao();
+        auditoriumEntity.setId(Integer.parseInt(auditoriumId));
+        auditoriumEntity = auditoriumDao.queryById(auditoriumEntity);
+
+        if (movieEntity != null && theaterEntity != null && auditoriumEntity != null) {
+            entity.setId(Integer.parseInt(id));
+            entity.setMovieId(Integer.parseInt(movieId));
+            entity.setMovieTitle(movieEntity.getTitle());
+            entity.setAuditoriumTheaterId(theaterEntity.getId());
+            entity.setTheaterName(theaterEntity.getName());
+            entity.setAuditoriumId(auditoriumEntity.getId());
+            entity.setAuditoriumName(auditoriumEntity.getName());
+            entity.setPrice(Float.parseFloat(price));
+            entity.setShowtime(Timestamp.valueOf(dateOfShow + " " + timeOfShow));
+            entity.setDateOfShow(Date.valueOf(dateOfShow));
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+            entity.setTimeOfShow(new Time(format.parse(timeOfShow).getTime()));
+
+            int status = dao.update(entity);
+            if (status == 1) {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('" + getClass() + " update: success.');window.location.href='/administrator.jsp'</script>");
+                out.flush();
+                out.close();
+            } else {
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('" + getClass() + " update: failure.');window.history.go(-1);</script>");
+                out.flush();
+                out.close();
+            }
         }
     }
 
