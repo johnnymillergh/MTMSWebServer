@@ -32,6 +32,7 @@ public class TheaterDao implements IDao<TheaterEntity> {
                 theaterEntity.setId(resultSet.getInt("id"));
                 theaterEntity.setName(resultSet.getString("name"));
                 theaterEntity.setLocation(resultSet.getString("location"));
+                theaterEntity.setLogo(resultSet.getBytes("logo"));
                 resultSet.close();
                 System.out.println("queryById: " + getClass() + ", " + theaterEntity.getName());
                 return theaterEntity;
@@ -69,6 +70,7 @@ public class TheaterDao implements IDao<TheaterEntity> {
                 theaterEntity.setId(resultSet.getInt("id"));
                 theaterEntity.setName(resultSet.getString("name"));
                 theaterEntity.setLocation(resultSet.getString("location"));
+                theaterEntity.setLogo(resultSet.getBytes("logo"));
                 resultSet.close();
                 System.out.println("queryByName: " + getClass() + ", " + theaterEntity.getLocation());
                 return theaterEntity;
@@ -113,6 +115,7 @@ public class TheaterDao implements IDao<TheaterEntity> {
                 entity.setId(resultSet.getInt("id"));
                 entity.setName(resultSet.getString("name"));
                 entity.setLocation(resultSet.getString("location"));
+//                entity.setLogo(resultSet.getBytes("logo"));
                 entities.add(entity);
             }
             resultSet.close();
