@@ -156,10 +156,11 @@
         <div style="font-size: 18px;"><a href="#secondaryLogon">3. Secondary Logon</a><br></div>
         <div style="font-size: 18px;"><a href="#getUserInfo">4. Get User Info</a><br></div>
         <div style="font-size: 18px;"><a href="#getMovie">5. Get Movie (JSON Object)</a><br></div>
-        <div style="font-size: 18px;"><a href="#getTopMovie">6. Get Top Movie (JSON Object)</a><br></div>
-        <div style="font-size: 18px;"><a href="#order">7. Order</a><br></div>
-        <div style="font-size: 18px;"><a href="#getSATInfo">8. Get S.A.T Information</a><br></div>
-        <div style="font-size: 18px;"><a href="#userReviewManagement">9. User Review Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#getMovieSchedule">6. Get Movie Schedule (JSON Object)</a><br></div>
+        <div style="font-size: 18px;"><a href="#getTopMovie">7. Get Top Movie (JSON Object)</a><br></div>
+        <div style="font-size: 18px;"><a href="#order">8. Order</a><br></div>
+        <div style="font-size: 18px;"><a href="#getSATInfo">9. S.A.T Management</a><br></div>
+        <div style="font-size: 18px;"><a href="#userReviewManagement">10. User Review Management</a><br></div>
     </div>
     <div id="main">
         <div id="content">
@@ -306,10 +307,33 @@
                 </div>
                 <br>
 
+                <div align="center" id="getMovieSchedule">
+                    <fieldset style="width:fit-content; height:fit-content;">
+                        <legend>
+                            <h2>6. Get Movie Schedule (JSON Object)</h2>
+                        </legend>
+                        <form action="${pageContext.request.contextPath}/servlet.customer.GetMovieSchedule"
+                              method="post">
+                            <table align="center">
+                                <tr>
+                                    <td align="right">Movie Title</td>
+                                    <td align="center"><input type="text" name="movieTitle"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <input type="submit" value="Submit">
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </fieldset>
+                </div>
+                <br>
+
                 <div align="center" id="getTopMovie">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>6. Get Top Movie (JSON Object)</h2>
+                            <h2>7. Get Top Movie (JSON Object)</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.customer.GetTopMovie"
                               method="post">
@@ -341,7 +365,7 @@
                 <div align="center" id="order">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>7. Order</h2>
+                            <h2>8. Order</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.customer.Order" method="post">
                             <table align="center">
@@ -385,63 +409,24 @@
                 <div align="center" id="getSATInfo">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>8. Get S.A.T Infomation</h2>
+                            <h2>9. S.A.T Management</h2>
                         </legend>
-                        <form action="${pageContext.request.contextPath}/servlet.administrator.SATManagement"
-                              method="post"
-                              onsubmit="return onCheckSATManagementForm()">
+                        <form action="${pageContext.request.contextPath}/servlet.customer.SATManagement" method="post">
                             <table align="center">
                                 <tr>
-                                    <td align="right">Theater ID</td>
-                                    <td align="center"><input type="number" name="theaterId"
-                                                              id="theaterIdSATManagement">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Theater Name</td>
-                                    <td align="center"><input type="email" name="theaterName"
-                                                              id="theaterNameSATManagement">
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td align="right">Auditorium ID</td>
-                                    <td align="center"><input type="number" name="auditoriumId"
-                                                              id="auditoriumIdSATManagement"></td>
+                                    <td align="center"><input type="number" name="auditoriumId"></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Seat ID</td>
-                                    <td align="center"><input type="number" name="seatId" id="seatIdSATManagement"></td>
+                                    <td align="center"><input type="number" name="seatId"></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Seat Availability</td>
-                                    <td align="center">
-                                        <select name="seatAvailability" id="seatAvailabilitySATManagement">
-                                            <option value="NotSelected" selected>Not selected</option>
-                                            <option value="Selected">Selected</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Get All Theaters<input type="radio" name="satOperation"
-                                                                             value="getAllTheater" checked="checked"/>
-                                    </td>
-                                    <td rowspan="5" align="center">
+                                    <td colspan="2" align="center">
+                                        <input type="radio" name="satOperation" value="getSeatOfAuditorium"
+                                               checked="checked"/>Get seat of auditorium
+                                        <input type="radio" name="satOperation" value="selectSeat"/>Select seat
                                         <input type="submit" value="Submit">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Get All Auditorium<input type="radio" name="satOperation"
-                                                                               value="getAllAuditorium"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Get All Seat of Auditorium<input type="radio" name="satOperation"
-                                                                                       value="getAllSeatOfAuditorium"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right">Get Seat of Auditorium Json<input type="radio" name="satOperation"
-                                                                                        value="getSeatOfAuditoriumJson"/>
                                     </td>
                                 </tr>
                             </table>
@@ -453,7 +438,7 @@
                 <div align="center" id="userReviewManagement">
                     <fieldset style="width:fit-content; height:fit-content;">
                         <legend>
-                            <h2>9. User Review Management</h2>
+                            <h2>10. User Review Management</h2>
                         </legend>
                         <form action="${pageContext.request.contextPath}/servlet.customer.UserReviewManagement"
                               method="post">

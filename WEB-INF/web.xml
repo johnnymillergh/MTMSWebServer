@@ -174,10 +174,10 @@
 
     <servlet>
         <servlet-name>GetSATInfo</servlet-name>
-        <servlet-class>servlet.customer.GetSATInfo</servlet-class>
+        <servlet-class>servlet.customer.SATManagement</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetSATInfo</servlet-name>
-        <url-pattern>/servlet.customer.GetSATInfo</url-pattern>
+        <url-pattern>/servlet.customer.SATManagement</url-pattern>
     </servlet-mapping>
 </web-app>

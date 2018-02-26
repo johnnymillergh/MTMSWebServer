@@ -142,7 +142,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
         }
     }
 
-    public List<MovieScheduleEntity> queryByMovieTitle(MovieScheduleEntity entity) {
+    public List<MovieScheduleEntity> getAllByMovieTitle(MovieScheduleEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT * FROM movie_schedule WHERE movie_title=?";
         List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
@@ -167,7 +167,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
             }
             resultSet.close();
             connection.commit();
-            System.out.println("queryByMovieTitle: " + getClass());
+            System.out.println("getAllByMovieTitle: " + getClass());
             return movieSchedules;
         } catch (Exception e) {
             try {
