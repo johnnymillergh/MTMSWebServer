@@ -120,6 +120,7 @@ public class MovieScheduleManagement extends HttpServlet {
             entity.setMovieTitle(movieEntity.getTitle());
             entity.setAuditoriumTheaterId(theaterEntity.getId());
             entity.setTheaterName(theaterEntity.getName());
+            entity.setLocation(theaterEntity.getLocation());
             entity.setAuditoriumId(auditoriumEntity.getId());
             entity.setAuditoriumName(auditoriumEntity.getName());
             entity.setPrice(Float.parseFloat(price));
@@ -180,6 +181,7 @@ public class MovieScheduleManagement extends HttpServlet {
             entity.setMovieTitle(movieEntity.getTitle());
             entity.setAuditoriumTheaterId(theaterEntity.getId());
             entity.setTheaterName(theaterEntity.getName());
+            entity.setLocation(theaterEntity.getLocation());
             entity.setAuditoriumId(auditoriumEntity.getId());
             entity.setAuditoriumName(auditoriumEntity.getName());
             entity.setPrice(Float.parseFloat(price));

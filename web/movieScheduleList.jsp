@@ -161,6 +161,7 @@
                             <td>movie_title</td>
                             <td>auditorium_theater_id</td>
                             <td>theater_name</td>
+                            <td>location</td>
                             <td>auditorium_id</td>
                             <td>auditorium_name</td>
                             <td>price</td>
@@ -182,6 +183,8 @@
                             <td><%=entity.getAuditoriumTheaterId() %>
                             </td>
                             <td><%=entity.getTheaterName() %>
+                            </td>
+                            <td><%=entity.getLocation() %>
                             </td>
                             <td><%=entity.getAuditoriumId() %>
                             </td>

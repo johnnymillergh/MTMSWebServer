@@ -161,7 +161,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
                 entity.setMovieTitle(resultSet.getString("movie_title"));// 3
                 entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
                 entity.setTheaterName(resultSet.getString("theater_name"));// 5
-                entity.setTheaterName(resultSet.getString("location"));// 6
+                entity.setLocation(resultSet.getString("location"));// 6
                 entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 7
                 entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 8
                 entity.setPrice(resultSet.getFloat("price"));// 9
@@ -214,7 +214,7 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
                 entity.setMovieTitle(resultSet.getString("movie_title"));// 3
                 entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
                 entity.setTheaterName(resultSet.getString("theater_name"));// 5
-                entity.setTheaterName(resultSet.getString("location"));// 6
+                entity.setLocation(resultSet.getString("location"));// 6
                 entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 7
                 entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 8
                 entity.setPrice(resultSet.getFloat("price"));// 9
