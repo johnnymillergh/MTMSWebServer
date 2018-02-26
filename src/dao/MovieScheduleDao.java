@@ -7,23 +7,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("Duplicates")
+@SuppressWarnings({"Duplicates", "ConstantConditions"})
 public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
     @Override
     public int save(MovieScheduleEntity entity) {
         Connection connection = MySQLUtil.getConnectionNoConnectionPool();
-        String sql = "INSERT INTO movie_schedule (movie_id, auditorium_theater_id, auditorium_id, " +
-                "price, showtime, date_of_show, time_of_show) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO movie_schedule (movie_id, movie_title, auditorium_theater_id, theater_name," +
+                "auditorium_id, auditorium_name, price, showtime, date_of_show, time_of_show) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getMovieId());
-            preparedStatement.setInt(2, entity.getAuditoriumTheaterId());
-            preparedStatement.setInt(3, entity.getAuditoriumId());
-            preparedStatement.setFloat(4, entity.getPrice());
-            preparedStatement.setTimestamp(5, entity.getShowtime());
-            preparedStatement.setDate(6, entity.getDateOfShow());
-            preparedStatement.setTime(7, entity.getTimeOfShow());
+            preparedStatement.setString(2, entity.getMovieTitle());
+            preparedStatement.setInt(3, entity.getAuditoriumTheaterId());
+            preparedStatement.setString(4, entity.getTheaterName());
+            preparedStatement.setInt(5, entity.getAuditoriumId());
+            preparedStatement.setString(6, entity.getAuditoriumName());
+            preparedStatement.setFloat(7, entity.getPrice());
+            preparedStatement.setTimestamp(8, entity.getShowtime());
+            preparedStatement.setDate(9, entity.getDateOfShow());
+            preparedStatement.setTime(10, entity.getTimeOfShow());
             int status = preparedStatement.executeUpdate();
             System.out.println("save: " + getClass() + ", " + status);
             connection.commit();
@@ -54,18 +57,21 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
 
     private int updateById(MovieScheduleEntity entity) {
         Connection connection = MySQLUtil.getConnection();
-        String sql = "UPDATE movie_schedule SET movie_id=?, auditorium_theater_id=?, auditorium_id=?, price=?, " +
-                "showtime=?, date_of_show=?, time_of_show=? WHERE id=?";
+        String sql = "UPDATE movie_schedule SET movie_id=?, movie_title=?, auditorium_theater_id=?, theater_name=?," +
+                "auditorium_id=?, auditorium_name=?, price=?, showtime=?, date_of_show=?, time_of_show=? WHERE id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getMovieId());
-            preparedStatement.setInt(2, entity.getAuditoriumTheaterId());
-            preparedStatement.setInt(3, entity.getAuditoriumId());
-            preparedStatement.setFloat(4, entity.getPrice());
-            preparedStatement.setTimestamp(5, entity.getShowtime());
-            preparedStatement.setDate(6, entity.getDateOfShow());
-            preparedStatement.setTime(7, entity.getTimeOfShow());
-            preparedStatement.setInt(8, entity.getId());
+            preparedStatement.setString(2, entity.getMovieTitle());
+            preparedStatement.setInt(3, entity.getAuditoriumTheaterId());
+            preparedStatement.setString(4, entity.getTheaterName());
+            preparedStatement.setInt(5, entity.getAuditoriumId());
+            preparedStatement.setString(6, entity.getAuditoriumName());
+            preparedStatement.setFloat(7, entity.getPrice());
+            preparedStatement.setTimestamp(8, entity.getShowtime());
+            preparedStatement.setDate(9, entity.getDateOfShow());
+            preparedStatement.setTime(10, entity.getTimeOfShow());
+            preparedStatement.setInt(11, entity.getId());
             int status = preparedStatement.executeUpdate();
             System.out.println("updateById: " + getClass() + ", " + status);
             connection.commit();
@@ -101,12 +107,15 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
                 MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
                 movieScheduleEntity.setId(resultSet.getInt("id"));// 1
                 movieScheduleEntity.setMovieId(resultSet.getInt("movie_id"));// 2
-                movieScheduleEntity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 3
-                movieScheduleEntity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 4
-                movieScheduleEntity.setPrice(resultSet.getFloat("price"));// 5
-                movieScheduleEntity.setShowtime(resultSet.getTimestamp("showtime"));// 6
-                movieScheduleEntity.setDateOfShow(resultSet.getDate("date_of_show"));// 7
-                movieScheduleEntity.setTimeOfShow(resultSet.getTime("time_of_show"));// 8
+                movieScheduleEntity.setMovieTitle(resultSet.getString("movie_title"));// 3
+                movieScheduleEntity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
+                movieScheduleEntity.setTheaterName(resultSet.getString("theater_name"));// 5
+                movieScheduleEntity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 6
+                movieScheduleEntity.setAuditoriumName(resultSet.getString("auditorium_name"));// 7
+                movieScheduleEntity.setPrice(resultSet.getFloat("price"));// 8
+                movieScheduleEntity.setShowtime(resultSet.getTimestamp("showtime"));// 9
+                movieScheduleEntity.setDateOfShow(resultSet.getDate("date_of_show"));// 10
+                movieScheduleEntity.setTimeOfShow(resultSet.getTime("time_of_show"));// 11
                 resultSet.close();
                 connection.commit();
                 System.out.println("queryById: " + getClass() + ", " + "Price: " + movieScheduleEntity.getPrice());
@@ -147,14 +156,17 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 entity = new MovieScheduleEntity();
-                entity.setId(resultSet.getInt("id"));
-                entity.setMovieId(resultSet.getInt("movie_id"));
-                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));
-                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));
-                entity.setPrice(resultSet.getFloat("price"));
-                entity.setShowtime(resultSet.getTimestamp("showtime"));
-                entity.setDateOfShow(resultSet.getDate("date_of_show"));
-                entity.setTimeOfShow(resultSet.getTime("time_of_show"));
+                entity.setId(resultSet.getInt("id"));// 1
+                entity.setMovieId(resultSet.getInt("movie_id"));// 2
+                entity.setMovieTitle(resultSet.getString("movie_title"));// 3
+                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
+                entity.setTheaterName(resultSet.getString("theater_name"));// 5
+                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 6
+                entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 7
+                entity.setPrice(resultSet.getFloat("price"));// 8
+                entity.setShowtime(resultSet.getTimestamp("showtime"));// 9
+                entity.setDateOfShow(resultSet.getDate("date_of_show"));// 10
+                entity.setTimeOfShow(resultSet.getTime("time_of_show"));// 11
                 movieScheduleEntities.add(entity);
             }
             resultSet.close();
