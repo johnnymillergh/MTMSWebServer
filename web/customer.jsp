@@ -422,6 +422,10 @@
                                     <td align="center"><input type="number" name="seatId"></td>
                                 </tr>
                                 <tr>
+                                    <td align="right">Email</td>
+                                    <td align="center"><input type="email" name="email"></td>
+                                </tr>
+                                <tr>
                                     <td colspan="2" align="center">
                                         <input type="radio" name="satOperation" value="getSeatOfAuditorium"
                                                checked="checked"/>Get seat of auditorium

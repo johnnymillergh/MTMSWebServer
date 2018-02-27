@@ -52,8 +52,7 @@ public class GetTopMovie extends HttpServlet {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         List<TopMovieEntity> topMovieList = dao.getAll();
 
-        PrintWriter out = null;
-        out = response.getWriter();
+        PrintWriter out = response.getWriter();
         String json = gson.toJson(topMovieList);
         out.println(json);
         out.flush();

@@ -75,4 +75,9 @@ public class SeatEntity {
     public void setOrderDatetime(Timestamp orderDatetime) {
         this.orderDatetime = orderDatetime;
     }
+
+    @Override
+    public String toString() {
+        return "SeatEntity - isSelected: " + isSelected + ", userEmail: " + userEmail;
+    }
 }

@@ -166,8 +166,6 @@
                             <td>auditorium_name</td>
                             <td>price</td>
                             <td>showtime</td>
-                            <td>date_of_show</td>
-                            <td>time_of_show</td>
                         </tr>
                         <%
                             MovieScheduleDao dao = new MovieScheduleDao();
@@ -193,10 +191,6 @@
                             <td><%=entity.getPrice() %>
                             </td>
                             <td><%=entity.getShowtime() %>
-                            </td>
-                            <td><%=entity.getDateOfShow() %>
-                            </td>
-                            <td><%=entity.getTimeOfShow() %>
                             </td>
                         </tr>
                         <%
