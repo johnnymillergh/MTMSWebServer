@@ -205,6 +205,43 @@ public class TopMovieDao implements IDao<TopMovieEntity> {
         }
     }
 
+    public TopMovieEntity getPosterBytesByMovieTitle(TopMovieEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT id, poster FROM top_movie WHERE movie_title=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getMovieTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            TopMovieEntity topMovieEntity = new TopMovieEntity();
+            if (resultSet.first()) {
+                topMovieEntity.setId(resultSet.getInt("id"));
+                topMovieEntity.setPoster(resultSet.getBytes("poster"));
+                resultSet.close();
+                connection.commit();
+                System.out.println("getPosterBytesByMovieTitle: " + getClass() + ", id: " + topMovieEntity.getId());
+                return topMovieEntity;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public TopMovieEntity getPosterStr(TopMovieEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, movie_id, movie_title, poster FROM top_movie WHERE id=?";

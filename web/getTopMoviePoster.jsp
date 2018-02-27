@@ -14,14 +14,29 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <%
-    String id = request.getParameter("id");
-    TopMovieDao dao = new TopMovieDao();
-    TopMovieEntity entity = new TopMovieEntity();
-    entity.setId(Integer.parseInt(id));
-    entity = dao.getPosterBytes(entity);
-    response.setContentType("image/jpeg");
-    OutputStream outs = response.getOutputStream();
-    outs.write(entity.getPoster());
-    outs.flush();
-    outs.close();
+    try {
+        String id = request.getParameter("id");
+        String movieTitle = request.getParameter("movieTitle");
+
+        TopMovieDao dao = new TopMovieDao();
+        TopMovieEntity entity = new TopMovieEntity();
+
+        response.setContentType("image/jpeg");
+        OutputStream outs = response.getOutputStream();
+        if (id != null) {
+            entity.setId(Integer.parseInt(id));
+            entity = dao.getPosterBytes(entity);
+            outs.write(entity.getPoster());
+            outs.flush();
+            outs.close();
+        } else if (movieTitle != null) {
+            entity.setMovieTitle(movieTitle);
+            entity = dao.getPosterBytesByMovieTitle(entity);
+            outs.write(entity.getPoster());
+            outs.flush();
+            outs.close();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 %>
