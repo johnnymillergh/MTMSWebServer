@@ -185,6 +185,51 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
         }
     }
 
+    public List<MovieScheduleEntity> getAllByMovieId(MovieScheduleEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM movie_schedule WHERE movie_id=?";
+        List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getMovieId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                entity = new MovieScheduleEntity();
+                entity.setId(resultSet.getInt("id"));// 1
+                entity.setMovieId(resultSet.getInt("movie_id"));// 2
+                entity.setMovieTitle(resultSet.getString("movie_title"));// 3
+                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
+                entity.setTheaterName(resultSet.getString("theater_name"));// 5
+                entity.setLocation(resultSet.getString("location"));// 6
+                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 7
+                entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 8
+                entity.setPrice(resultSet.getFloat("price"));// 9
+                entity.setShowtime(resultSet.getTimestamp("showtime"));// 10
+                movieSchedules.add(entity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAllByMovieId: " + getClass());
+            return movieSchedules;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     @Override
     public int delete(MovieScheduleEntity entity) {
         return 0;
