@@ -21,20 +21,35 @@ public class GetMovieSchedule extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/json");
 
-        String movieTitle = request.getParameter("movieTitle");
+        try {
+            String movieTitle = request.getParameter("movieTitle");
+            String movieScheduleIdStr = request.getParameter("movieScheduleId");
 
-        MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
-        MovieScheduleDao movieScheduleDao = new MovieScheduleDao();
-        movieScheduleEntity.setMovieTitle(movieTitle);
-        List<MovieScheduleEntity> movieSchedules = movieScheduleDao.getAllByMovieTitle(movieScheduleEntity);
+            MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
+            MovieScheduleDao movieScheduleDao = new MovieScheduleDao();
 
-        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            PrintWriter out = response.getWriter();
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            if (movieTitle != null) {
+                movieScheduleEntity.setMovieTitle(movieTitle);
+                List<MovieScheduleEntity> movieSchedules = movieScheduleDao.getAllByMovieTitle(movieScheduleEntity);
 
-        PrintWriter out = response.getWriter();
-        String json = gson.toJson(movieSchedules);
-        out.write(json);
-        out.flush();
-        out.close();
+                String json = gson.toJson(movieSchedules);
+                out.write(json);
+                out.flush();
+                out.close();
+            } else if (movieScheduleIdStr != null) {
+                int movieScheduleId = Integer.parseInt(movieScheduleIdStr);
+                movieScheduleEntity.setId(movieScheduleId);
+                movieScheduleEntity = movieScheduleDao.queryById(movieScheduleEntity);
+                String json = gson.toJson(movieScheduleEntity);
+                out.write(json);
+                out.flush();
+                out.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
