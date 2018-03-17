@@ -1,5 +1,6 @@
 package dao;
 
+import entity.MovieRatingEntity;
 import entity.PageEntity;
 import util.ImageUtil;
 import util.MySQLUtil;
@@ -414,6 +415,44 @@ public class MovieDao implements IDao<MovieEntity> {
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<MovieRatingEntity> getTopRated() {
+        List<MovieRatingEntity> movies = new ArrayList<>();
+        MovieRatingEntity movieEntity;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT (SELECT title FROM movie WHERE id=movie_id) AS title, avg(score) AS average_score " +
+                "FROM user_review GROUP BY movie_id ORDER BY average_score DESC;";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                movieEntity = new MovieRatingEntity();
+                movieEntity.setTitle(resultSet.getString("title"));// 1
+                movieEntity.setAverage_score(resultSet.getFloat("average_score"));// 1
+                movies.add(movieEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getTopRated: " + getClass());
+            return movies;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
