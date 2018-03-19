@@ -430,15 +430,18 @@ public class MovieDao implements IDao<MovieEntity> {
         List<MovieRatingEntity> movies = new ArrayList<>();
         MovieRatingEntity movieEntity;
         Connection connection = MySQLUtil.getConnection();
-        String sql = "SELECT (SELECT title FROM movie WHERE id=movie_id) AS title, avg(score) AS average_score " +
+        String sql = "SELECT (SELECT title FROM movie WHERE id=user_review.movie_id) AS title, " +
+                "(SELECT genre FROM movie WHERE id=user_review.movie_id) as genre, " +
+                "avg(score) AS average_score " +
                 "FROM user_review GROUP BY movie_id ORDER BY average_score DESC;";
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 movieEntity = new MovieRatingEntity();
-                movieEntity.setTitle(resultSet.getString("title"));// 1
-                movieEntity.setAverage_score(resultSet.getFloat("average_score"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));
+                movieEntity.setGenre(resultSet.getString("genre"));
+                movieEntity.setAverage_score(resultSet.getFloat("average_score"));
                 movies.add(movieEntity);
             }
             resultSet.close();
