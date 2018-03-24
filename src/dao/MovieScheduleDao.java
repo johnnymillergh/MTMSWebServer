@@ -284,8 +284,8 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
     public List<MovieScheduleEntity> getAllMovieScheduleByMovieTitle(MovieScheduleEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, movie_id, movie_title, auditorium_theater_id, theater_name, location, auditorium_id," +
-                "auditorium_name, min(price), showtime " +
-                "FROM movie_ticket_management_system.movie_schedule " +
+                "auditorium_name, min(price) AS price, showtime " +
+                "FROM movie_schedule " +
                 "WHERE movie_title=? GROUP BY auditorium_theater_id ORDER BY auditorium_theater_id ASC";
         List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
         try {
@@ -331,9 +331,9 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
 
     public List<MovieScheduleEntity> getAllMovieScheduleByTheaterIdAndMovieTitle(MovieScheduleEntity entity) {
         Connection connection = MySQLUtil.getConnection();
-        String sql = "SELECT * FROM movie_ticket_management_system.movie_schedule " +
+        String sql = "SELECT * FROM movie_schedule " +
                 "WHERE auditorium_theater_id=? AND movie_title=? " +
-                "GROUP BY auditorium_id ORDER BY price ASC";
+                "ORDER BY price ASC";
         List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
