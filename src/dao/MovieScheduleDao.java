@@ -280,4 +280,100 @@ public class MovieScheduleDao implements IDao<MovieScheduleEntity> {
             }
         }
     }
+
+    public List<MovieScheduleEntity> getAllMovieScheduleByMovieTitle(MovieScheduleEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT id, movie_id, movie_title, auditorium_theater_id, theater_name, location, auditorium_id," +
+                "auditorium_name, min(price), showtime " +
+                "FROM movie_ticket_management_system.movie_schedule " +
+                "WHERE movie_title=? GROUP BY auditorium_theater_id ORDER BY auditorium_theater_id ASC";
+        List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, entity.getMovieTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                entity = new MovieScheduleEntity();
+                entity.setId(resultSet.getInt("id"));// 1
+                entity.setMovieId(resultSet.getInt("movie_id"));// 2
+                entity.setMovieTitle(resultSet.getString("movie_title"));// 3
+                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
+                entity.setTheaterName(resultSet.getString("theater_name"));// 5
+                entity.setLocation(resultSet.getString("location"));// 6
+                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 7
+                entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 8
+                entity.setPrice(resultSet.getFloat("price"));// 9
+                entity.setShowtime(resultSet.getTimestamp("showtime"));// 10
+                movieSchedules.add(entity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAllMovieScheduleByMovieTitle: " + getClass());
+            return movieSchedules;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<MovieScheduleEntity> getAllMovieScheduleByTheaterIdAndMovieTitle(MovieScheduleEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT * FROM movie_ticket_management_system.movie_schedule " +
+                "WHERE auditorium_theater_id=? AND movie_title=? " +
+                "GROUP BY auditorium_id ORDER BY price ASC";
+        List<MovieScheduleEntity> movieSchedules = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getAuditoriumTheaterId());
+            preparedStatement.setString(2, entity.getMovieTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                entity = new MovieScheduleEntity();
+                entity.setId(resultSet.getInt("id"));// 1
+                entity.setMovieId(resultSet.getInt("movie_id"));// 2
+                entity.setMovieTitle(resultSet.getString("movie_title"));// 3
+                entity.setAuditoriumTheaterId(resultSet.getInt("auditorium_theater_id"));// 4
+                entity.setTheaterName(resultSet.getString("theater_name"));// 5
+                entity.setLocation(resultSet.getString("location"));// 6
+                entity.setAuditoriumId(resultSet.getInt("auditorium_id"));// 7
+                entity.setAuditoriumName(resultSet.getString("auditorium_name"));// 8
+                entity.setPrice(resultSet.getFloat("price"));// 9
+                entity.setShowtime(resultSet.getTimestamp("showtime"));// 10
+                movieSchedules.add(entity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAllMovieScheduleByTheaterIdAndMovieTitle: " + getClass());
+            return movieSchedules;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
