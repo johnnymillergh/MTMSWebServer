@@ -88,10 +88,7 @@ public class Order extends HttpServlet {
         String email = request.getParameter("email");
         int movieScheduleId = Integer.parseInt(request.getParameter("movieScheduleId"));
         int ticketAmount = Integer.parseInt(request.getParameter("ticketAmount"));
-        int theaterId = Integer.parseInt(request.getParameter("theaterId"));
-        int auditoriumId = Integer.parseInt(request.getParameter("auditoriumId"));
-        int rowNumber = Integer.parseInt(request.getParameter("rowNumber"));
-        int colNumber = Integer.parseInt(request.getParameter("colNumber"));
+        int seatId = Integer.parseInt(request.getParameter("seatId"));
 
         userEntity.setEmail(email);
         userEntity = userDao.queryByEmail(userEntity);
@@ -102,12 +99,10 @@ public class Order extends HttpServlet {
         movieEntity.setId(movieScheduleEntity.getMovieId());
         movieEntity = movieDao.queryById(movieEntity);
 
-        seatEntity.setAuditoriumId(auditoriumId);
-        seatEntity.setRowNumber(rowNumber);
-        seatEntity.setColNumber(colNumber);
-        seatEntity = seatDao.queryByAuditoriumIdAndRowAndCol(seatEntity);
+        seatEntity.setId(seatId);
+        seatEntity = seatDao.queryById(seatEntity);
 
-        auditoriumEntity.setId(auditoriumId);
+        auditoriumEntity.setId(movieScheduleEntity.getAuditoriumId());
         auditoriumEntity = auditoriumDao.queryById(auditoriumEntity);
 
         theaterEntity.setId(auditoriumEntity.getTheaterId());
@@ -116,7 +111,10 @@ public class Order extends HttpServlet {
         CustomerOrderDao customerOrderDao = new CustomerOrderDao();
         CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
         customerOrderEntity.setUserId(userEntity.getId());
-        customerOrderEntity.setOrderDatetime(new Timestamp(System.currentTimeMillis()));
+
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        customerOrderEntity.setOrderDatetime(currentTimestamp);
+
         customerOrderEntity.setMovieScheduleId(movieScheduleEntity.getId());
         customerOrderEntity.setMovieTitle(movieEntity.getTitle());
         customerOrderEntity.setShowtime(movieScheduleEntity.getShowtime());
@@ -137,8 +135,11 @@ public class Order extends HttpServlet {
         customerOrderEntity.setTotalPrice(ticketAmount * movieScheduleEntity.getPrice());
         int status = customerOrderDao.save(customerOrderEntity);
         if (status > 0) {
+            customerOrderEntity = customerOrderDao.queryByUserIdAndOrderDatetime(customerOrderEntity);
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            String json = gson.toJson(customerOrderEntity);
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " takeOrder: success." + "');window.location.href='/administrator.jsp'</script>");
+            out.println(json);
             out.flush();
             out.close();
         } else {
