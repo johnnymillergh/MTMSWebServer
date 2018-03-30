@@ -21,16 +21,9 @@ This is the main part of my graduation project implementing how a back-end syste
 
 ## Specs / Open-source libraries:
 
-- Minimum **SDK 22**, _but AppCompat is used all the way ;-)_
-- [**MyOkHttp**](https://github.com/tsy12321/MyOkHttp) An HTTP & HTTP/2 client for Android and Java applications.
-- [**Glide**](https://github.com/bumptech/glide) An image loading and caching library for Android focused on smooth scrolling.
+- [**C3P0**](http://www.mchange.com/projects/c3p0/) A mature, highly concurrent JDBC Connection pooling library, with support for caching and reuse of PreparedStatements.
+- [**NoGray**](http://www.nogray.com/js_library.php) NoGray.com is a small web design and development firm that specialize in custom web projects.
 - [**Gson**](https://github.com/google/gson) A Java serialization/deserialization library to convert Java Objects into JSON and back.
-- [**LitePal**](https://github.com/LitePalFramework/LitePal) An Android library that makes developers use SQLite database extremely easy.
-- [**MaterialSearchBar**](https://github.com/mancj/MaterialSearchBar) Material Design Search Bar for Android.
-- [**PageIndicatorView**](https://github.com/romandanylyk/PageIndicatorView) An page indicator for Android ViewPager.
-- [**MaterialChipView**](https://github.com/robertlevonyan/materialChipView) Material Chip view. Can be used as tags for categories, contacts or creating text clouds.
-- [**PhotoView**](https://github.com/chrisbanes/PhotoView) Implementation of ImageView for Android that supports zooming, by various touch gestures.
-- [**ExpandableTextView**](https://github.com/Manabu-GT/ExpandableTextView) Android's TextView that can expand/collapse like the Google Play's app description.
 
 ## License
 
