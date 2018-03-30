@@ -6,6 +6,7 @@ import dao.*;
 import entity.*;
 import util.SeatIdUtil;
 import util.SeatLocationUtil;
+import util.TimestampUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -90,6 +91,8 @@ public class Order extends HttpServlet {
         int ticketAmount = Integer.parseInt(request.getParameter("ticketAmount"));
         int seatId = Integer.parseInt(request.getParameter("seatId"));
 
+        Timestamp currentTimestamp = TimestampUtil.getTimestampStringAbortMillisecond();
+
         userEntity.setEmail(email);
         userEntity = userDao.queryByEmail(userEntity);
 
@@ -101,6 +104,12 @@ public class Order extends HttpServlet {
 
         seatEntity.setId(seatId);
         seatEntity = seatDao.queryById(seatEntity);
+        // TODO: Update table seat: is_selected, user_id, user_email, order_datetime
+        seatEntity.setIsSelected(true);
+        seatEntity.setUserId(userEntity.getId());
+        seatEntity.setUserEmail(userEntity.getEmail());
+        seatEntity.setOrderDatetime(currentTimestamp);
+        int status1 = seatDao.updateById(seatEntity);
 
         auditoriumEntity.setId(movieScheduleEntity.getAuditoriumId());
         auditoriumEntity = auditoriumDao.queryById(auditoriumEntity);
@@ -111,8 +120,6 @@ public class Order extends HttpServlet {
         CustomerOrderDao customerOrderDao = new CustomerOrderDao();
         CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
         customerOrderEntity.setUserId(userEntity.getId());
-
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         customerOrderEntity.setOrderDatetime(currentTimestamp);
 
         customerOrderEntity.setMovieScheduleId(movieScheduleEntity.getId());
@@ -133,8 +140,8 @@ public class Order extends HttpServlet {
         customerOrderEntity.setIsUsed(false);
         customerOrderEntity.setTicketAmount(ticketAmount);
         customerOrderEntity.setTotalPrice(ticketAmount * movieScheduleEntity.getPrice());
-        int status = customerOrderDao.save(customerOrderEntity);
-        if (status > 0) {
+        int status2 = customerOrderDao.save(customerOrderEntity);
+        if (status2 > 0) {
             customerOrderEntity = customerOrderDao.queryByUserIdAndOrderDatetime(customerOrderEntity);
             Gson gson = new GsonBuilder().disableHtmlEscaping().create();
             String json = gson.toJson(customerOrderEntity);
@@ -143,10 +150,7 @@ public class Order extends HttpServlet {
             out.flush();
             out.close();
         } else {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " takeOrder: failure." + "');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
+            response.sendError(404);
         }
     }
 
