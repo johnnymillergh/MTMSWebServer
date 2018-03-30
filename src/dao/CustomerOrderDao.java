@@ -214,14 +214,23 @@ public class CustomerOrderDao implements IDao<CustomerOrderEntity> {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.first()) {
                 CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
-                customerOrderEntity.setId(resultSet.getInt("id"));// 1
-                customerOrderEntity.setUserId(resultSet.getInt("user_id"));// 2
-                customerOrderEntity.setOrderDatetime(resultSet.getTimestamp("order_datetime"));// 3
-                customerOrderEntity.setMovieScheduleId(resultSet.getInt("movie_schedule_id"));// 4
-                customerOrderEntity.setIsPaid(resultSet.getBoolean("is_paid"));// 5
-                customerOrderEntity.setIsUsed(resultSet.getBoolean("is_used"));// 6
-                customerOrderEntity.setTicketAmount(resultSet.getInt("ticket_amount"));// 7
-                customerOrderEntity.setTotalPrice(resultSet.getFloat("total_price"));// 8
+                customerOrderEntity.setId(resultSet.getInt("id"));
+                customerOrderEntity.setUserId(resultSet.getInt("user_id"));
+                customerOrderEntity.setOrderDatetime(resultSet.getTimestamp("order_datetime"));
+                customerOrderEntity.setMovieScheduleId(resultSet.getInt("movie_schedule_id"));
+                customerOrderEntity.setMovieTitle(resultSet.getString("movie_title"));
+                customerOrderEntity.setShowtime(resultSet.getTimestamp("showtime"));
+                customerOrderEntity.setSeatId(resultSet.getString("seat_id"));
+                customerOrderEntity.setSeatLocation(resultSet.getString("seat_location"));
+                customerOrderEntity.setAuditoriumName(resultSet.getString("auditorium_name"));
+                customerOrderEntity.setTheaterName(resultSet.getString("theater_name"));
+                customerOrderEntity.setTheaterLocation(resultSet.getString("theater_location"));
+                customerOrderEntity.setIsPaid(resultSet.getBoolean("is_paid"));
+                customerOrderEntity.setPaymentDatetime(resultSet.getTimestamp("payment_datetime"));
+                customerOrderEntity.setIsUsed(resultSet.getBoolean("is_used"));
+                customerOrderEntity.setUsedDatetime(resultSet.getTimestamp("used_datetime"));
+                customerOrderEntity.setTicketAmount(resultSet.getInt("ticket_amount"));
+                customerOrderEntity.setTotalPrice(resultSet.getFloat("total_price"));
                 resultSet.close();
                 connection.commit();
                 System.out.println("queryByUserIdAndOrderDatetime: " + getClass() + ", Total price: " + customerOrderEntity.getTotalPrice());
