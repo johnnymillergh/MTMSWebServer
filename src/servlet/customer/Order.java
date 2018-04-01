@@ -150,7 +150,7 @@ public class Order extends HttpServlet {
             out.flush();
             out.close();
         } else {
-            response.sendError(404);
+            response.sendError(404, "Fail to take order");
         }
     }
 
@@ -164,6 +164,9 @@ public class Order extends HttpServlet {
         // Get parameters
         String email = request.getParameter("email");
         String orderDatetime = request.getParameter("orderDatetime");
+        String paymentPassword = request.getParameter("paymentPassword");
+
+        System.out.println(email + ", " + orderDatetime + ", " + paymentPassword);
 
         userEntity.setEmail(email);
         userEntity = userDao.queryByEmail(userEntity);
@@ -173,17 +176,22 @@ public class Order extends HttpServlet {
         customerOrderEntity.setIsPaid(true);
         customerOrderEntity.setPaymentDatetime(new Timestamp(System.currentTimeMillis()));
 
+        if (!paymentPassword.equals(userEntity.getPaymentPassword())) {
+            response.sendError(404, "Payment password error");
+            return;
+        }
+
         int status = customerOrderDao.updatePayment(customerOrderEntity);
         if (status > 0) {
+            customerOrderEntity = customerOrderDao.queryByUserIdAndOrderDatetime(customerOrderEntity);
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+            String json = gson.toJson(customerOrderEntity);
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: success." + "');window.location.href='/administrator.jsp'</script>");
+            out.println(json);
             out.flush();
             out.close();
         } else {
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('" + getClass() + " pay: failure." + "');window.location.href='/administrator.jsp'</script>");
-            out.flush();
-            out.close();
+            response.sendError(404, "Fail to pay");
         }
     }
 
@@ -195,11 +203,11 @@ public class Order extends HttpServlet {
         CustomerOrderEntity customerOrderEntity = new CustomerOrderEntity();
 
         // Get parameters
-        String email = request.getParameter("email");
+        String id = request.getParameter("userId");
         String orderDatetime = request.getParameter("orderDatetime");
 
-        userEntity.setEmail(email);
-        userEntity = userDao.queryByEmail(userEntity);
+        userEntity.setId(Integer.parseInt(id));
+        userEntity = userDao.queryById(userEntity);
 
         customerOrderEntity.setUserId(userEntity.getId());
         customerOrderEntity.setOrderDatetime(Timestamp.valueOf(orderDatetime));

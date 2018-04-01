@@ -311,6 +311,7 @@ public class UserDao implements IDao<UserEntity> {
                 userEntity.setId(resultSet.getInt("id"));
                 userEntity.setEmail(resultSet.getString("email"));
                 userEntity.setPassword(resultSet.getString("password"));
+                userEntity.setPaymentPassword(resultSet.getString("payment_password"));
                 userEntity.setUsername(resultSet.getString("username"));
                 resultSet.close();
                 connection.commit();

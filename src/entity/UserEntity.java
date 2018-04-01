@@ -4,6 +4,7 @@ public class UserEntity {
     private int id;
     private String email;
     private String password;
+    private String paymentPassword;
     private String username;
     private byte[] avatar;
     private String avatarStr;
@@ -32,6 +33,14 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPaymentPassword() {
+        return paymentPassword;
+    }
+
+    public void setPaymentPassword(String paymentPassword) {
+        this.paymentPassword = paymentPassword;
     }
 
     public String getUsername() {
