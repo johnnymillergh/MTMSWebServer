@@ -11,12 +11,12 @@
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="com.google.gson.GsonBuilder" %>
 <%@ page import="dao.MovieDao" %>
-<%@ page import="entity.MovieRatingEntity" %>
+<%@ page import="entity.MovieRankingEntity" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 
-    List<MovieRatingEntity> movies;
+    List<MovieRankingEntity> movies;
     MovieDao dao = new MovieDao();
     movies = dao.getTopRated();
 

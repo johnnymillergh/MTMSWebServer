@@ -1,6 +1,6 @@
 package dao;
 
-import entity.MovieRatingEntity;
+import entity.MovieRankingEntity;
 import entity.PageEntity;
 import util.ImageUtil;
 import util.MySQLUtil;
@@ -426,9 +426,9 @@ public class MovieDao implements IDao<MovieEntity> {
         }
     }
 
-    public List<MovieRatingEntity> getTopRated() {
-        List<MovieRatingEntity> movies = new ArrayList<>();
-        MovieRatingEntity movieEntity;
+    public List<MovieRankingEntity> getTopRated() {
+        List<MovieRankingEntity> movies = new ArrayList<>();
+        MovieRankingEntity movieEntity;
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT (SELECT title FROM movie WHERE id=user_review.movie_id) AS title, " +
                 "(SELECT genre FROM movie WHERE id=user_review.movie_id) as genre, " +
@@ -438,10 +438,10 @@ public class MovieDao implements IDao<MovieEntity> {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                movieEntity = new MovieRatingEntity();
+                movieEntity = new MovieRankingEntity();
                 movieEntity.setTitle(resultSet.getString("title"));
                 movieEntity.setGenre(resultSet.getString("genre"));
-                movieEntity.setAverage_score(resultSet.getFloat("average_score"));
+                movieEntity.setAverageScore(resultSet.getFloat("average_score"));
                 movies.add(movieEntity);
             }
             resultSet.close();
