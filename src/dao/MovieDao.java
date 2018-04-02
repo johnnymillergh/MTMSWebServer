@@ -471,7 +471,7 @@ public class MovieDao implements IDao<MovieEntity> {
         List<MovieRankingEntity> movies = new ArrayList<>();
         MovieRankingEntity movieEntity;
         Connection connection = MySQLUtil.getConnection();
-        String sql = "SELECT movie_title, SUM(total_price) AS gross " +
+        String sql = "SELECT movie_title AS title, SUM(total_price) AS gross " +
                 "FROM customer_order " +
                 "GROUP BY movie_title " +
                 "ORDER BY gross DESC";
