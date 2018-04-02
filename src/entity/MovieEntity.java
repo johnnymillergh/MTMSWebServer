@@ -3,6 +3,7 @@ package entity;
 public class MovieEntity {
     private int id;
     private String title;
+    private String titleCHS;
     private String duration;
     private String genre;
     private String director;
@@ -31,6 +32,14 @@ public class MovieEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTitleCHS() {
+        return titleCHS;
+    }
+
+    public void setTitleCHS(String titleCHS) {
+        this.titleCHS = titleCHS;
     }
 
     public String getDuration() {
