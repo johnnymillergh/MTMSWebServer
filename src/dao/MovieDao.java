@@ -466,4 +466,44 @@ public class MovieDao implements IDao<MovieEntity> {
             }
         }
     }
+
+    public List<MovieRankingEntity> getTopSelling() {
+        List<MovieRankingEntity> movies = new ArrayList<>();
+        MovieRankingEntity movieEntity;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT movie_title, SUM(total_price) AS gross " +
+                "FROM customer_order " +
+                "GROUP BY movie_title " +
+                "ORDER BY gross DESC";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                movieEntity = new MovieRankingEntity();
+                movieEntity.setTitle(resultSet.getString("title"));
+                movieEntity.setGross(resultSet.getFloat("gross"));
+                movies.add(movieEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getTopSelling: " + getClass());
+            return movies;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
