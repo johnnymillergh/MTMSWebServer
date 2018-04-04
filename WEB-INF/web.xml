@@ -19,165 +19,174 @@
     <!-- ===============Servlet configuration=============== -->
     <!-- ===============Administrator=============== -->
     <servlet>
-        <servlet-name>UserManagement</servlet-name>
+        <servlet-name>userManagement</servlet-name>
         <servlet-class>servlet.administrator.UserManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>UserManagement</servlet-name>
+        <servlet-name>userManagement</servlet-name>
         <url-pattern>/servlet.administrator.UserManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>PushMessage</servlet-name>
+        <servlet-name>pushMessage</servlet-name>
         <servlet-class>servlet.administrator.PushMessage</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>PushMessage</servlet-name>
+        <servlet-name>pushMessage</servlet-name>
         <url-pattern>/servlet.administrator.PushMessage</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>MovieManagement</servlet-name>
+        <servlet-name>movieManagement</servlet-name>
         <servlet-class>servlet.administrator.MovieManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieManagement</servlet-name>
+        <servlet-name>movieManagement</servlet-name>
         <url-pattern>/servlet.administrator.MovieManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>MovieScheduleManagement</servlet-name>
+        <servlet-name>movieScheduleManagement</servlet-name>
         <servlet-class>servlet.administrator.MovieScheduleManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieScheduleManagement</servlet-name>
+        <servlet-name>movieScheduleManagement</servlet-name>
         <url-pattern>/servlet.administrator.MovieScheduleManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CustomerOrderManagementSU</servlet-name>
+        <servlet-name>customerOrderManagementSU</servlet-name>
         <servlet-class>servlet.administrator.CustomerOrderManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CustomerOrderManagementSU</servlet-name>
+        <servlet-name>customerOrderManagementSU</servlet-name>
         <url-pattern>/servlet.administrator.CustomerOrderManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>SATManagement</servlet-name>
+        <servlet-name>satManagement</servlet-name>
         <servlet-class>servlet.administrator.SATManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SATManagement</servlet-name>
+        <servlet-name>satManagement</servlet-name>
         <url-pattern>/servlet.administrator.SATManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>UserReviewManagement</servlet-name>
+        <servlet-name>userReviewManagement</servlet-name>
         <servlet-class>servlet.administrator.UserReviewManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>UserReviewManagement</servlet-name>
+        <servlet-name>userReviewManagement</servlet-name>
         <url-pattern>/servlet.administrator.UserReviewManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>TopMovieManagement</servlet-name>
+        <servlet-name>topMovieManagement</servlet-name>
         <servlet-class>servlet.administrator.TopMovieManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>TopMovieManagement</servlet-name>
+        <servlet-name>topMovieManagement</servlet-name>
         <url-pattern>/servlet.administrator.TopMovieManagement</url-pattern>
     </servlet-mapping>
 
     <!-- ===============Customer=============== -->
     <servlet>
-        <servlet-name>SignUp</servlet-name>
+        <servlet-name>signUp</servlet-name>
         <servlet-class>servlet.customer.SignUp</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SignUp</servlet-name>
+        <servlet-name>signUp</servlet-name>
         <url-pattern>/servlet.customer.SignUp</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>LogIn</servlet-name>
+        <servlet-name>logIn</servlet-name>
         <servlet-class>servlet.customer.LogIn</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LogIn</servlet-name>
+        <servlet-name>logIn</servlet-name>
         <url-pattern>/servlet.customer.LogIn</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>SecondaryLogon</servlet-name>
+        <servlet-name>secondaryLogon</servlet-name>
         <servlet-class>servlet.customer.SecondaryLogon</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SecondaryLogon</servlet-name>
+        <servlet-name>secondaryLogon</servlet-name>
         <url-pattern>/servlet.customer.SecondaryLogon</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetUserInfo</servlet-name>
+        <servlet-name>getUserInfo</servlet-name>
         <servlet-class>servlet.customer.GetUserInfo</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetUserInfo</servlet-name>
+        <servlet-name>getUserInfo</servlet-name>
         <url-pattern>/servlet.customer.GetUserInfo</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetMovie</servlet-name>
+        <servlet-name>getMovie</servlet-name>
         <servlet-class>servlet.customer.GetMovie</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetMovie</servlet-name>
+        <servlet-name>getMovie</servlet-name>
         <url-pattern>/servlet.customer.GetMovie</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetUserReview</servlet-name>
+        <servlet-name>getUserReview</servlet-name>
         <servlet-class>servlet.customer.UserReviewManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetUserReview</servlet-name>
+        <servlet-name>getUserReview</servlet-name>
         <url-pattern>/servlet.customer.UserReviewManagement</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Order</servlet-name>
+        <servlet-name>order</servlet-name>
         <servlet-class>servlet.customer.Order</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Order</servlet-name>
+        <servlet-name>order</servlet-name>
         <url-pattern>/servlet.customer.Order</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetTopMovie</servlet-name>
+        <servlet-name>getTopMovie</servlet-name>
         <servlet-class>servlet.customer.GetTopMovie</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetTopMovie</servlet-name>
+        <servlet-name>getTopMovie</servlet-name>
         <url-pattern>/servlet.customer.GetTopMovie</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetMovieSchedule</servlet-name>
+        <servlet-name>getMovieSchedule</servlet-name>
         <servlet-class>servlet.customer.GetMovieSchedule</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetMovieSchedule</servlet-name>
+        <servlet-name>getMovieSchedule</servlet-name>
         <url-pattern>/servlet.customer.GetMovieSchedule</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetSATInfo</servlet-name>
+        <servlet-name>getSATInfo</servlet-name>
         <servlet-class>servlet.customer.SATManagement</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetSATInfo</servlet-name>
+        <servlet-name>getSATInfo</servlet-name>
         <url-pattern>/servlet.customer.SATManagement</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>watchlistManagement</servlet-name>
+        <servlet-class>servlet.customer.WatchlistManagement</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>watchlistManagement</servlet-name>
+        <url-pattern>/servlet.customer.WatchlistManagement</url-pattern>
     </servlet-mapping>
 </web-app>

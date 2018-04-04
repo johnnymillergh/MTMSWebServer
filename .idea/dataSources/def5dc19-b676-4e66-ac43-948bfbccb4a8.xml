@@ -966,7 +966,7 @@
     <table id="247" parent="6" name="user_review">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="248" parent="6" name="watching_list">
+    <table id="248" parent="6" name="watchlist">
       <Engine>InnoDB</Engine>
     </table>
     <column id="249" parent="238" name="id">
@@ -1599,6 +1599,7 @@ movie_id</ColNames>
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="367" parent="248" name="user_id">
@@ -1610,21 +1611,33 @@ movie_id</ColNames>
     <column id="368" parent="248" name="movie_title">
       <Position>3</Position>
       <DataType>varchar(60)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="369" parent="248" name="fk_watching_list_user1_idx">
       <ColNames>user_id</ColNames>
     </index>
-    <key id="370" parent="248" name="PRIMARY">
+    <index id="370" parent="248" name="fk_watching_list_movie1_idx">
+      <ColNames>movie_title</ColNames>
+    </index>
+    <key id="371" parent="248" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
+      <ColNames>id
+user_id
+movie_title</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="371" parent="248" name="fk_watching_list_user1">
+    <foreign-key id="372" parent="248" name="fk_watching_list_user1">
       <ColNames>user_id</ColNames>
       <RefSchemaName>movie_ticket_management_system</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="373" parent="248" name="fk_watching_list_movie1">
+      <ColNames>movie_title</ColNames>
+      <RefSchemaName>movie_ticket_management_system</RefSchemaName>
+      <RefTableName>movie</RefTableName>
+      <RefColNames>title</RefColNames>
     </foreign-key>
   </database-model>
 </dataSource>
