@@ -69,9 +69,13 @@ public class WatchlistManagement extends HttpServlet {
 
         entity = dao.queryByUserIdAndMovieTitle(entity);
         if (entity != null) {
-            response.sendError(404, "Fail to add to watchlist");
+            response.sendError(405, "Fail to add to watchlist");
             return;
         }
+
+        entity = new WatchlistEntity();
+        entity.setUserId(userEntity.getId());
+        entity.setMovieTitle(movieTitle);
 
         int status = dao.save(entity);
 
