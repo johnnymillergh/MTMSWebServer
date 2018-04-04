@@ -103,7 +103,7 @@ public class WatchlistManagement extends HttpServlet {
         entity.setUserId(userEntity.getId());
         entity.setMovieTitle(movieTitle);
 
-        int status = dao.delete(entity);
+        int status = dao.deleteByUserIdAndMovieTitle(entity);
 
         if (status > 0) {
             PrintWriter out = response.getWriter();

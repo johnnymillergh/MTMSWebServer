@@ -125,6 +125,36 @@ public class WatchlistDao implements IDao<WatchlistEntity> {
         return -1;
     }
 
+    public int deleteByUserIdAndMovieTitle(WatchlistEntity entity) {
+        Connection connection = MySQLUtil.getConnectionNoConnectionPool();
+        String sql = "DELETE FROM watchlist WHERE user_id=? AND movie_title=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getUserId());
+            preparedStatement.setString(2, entity.getMovieTitle());
+            int status = preparedStatement.executeUpdate();
+            System.out.println("deleteByUserIdAndMovieTitle: " + getClass() + ", " + status);
+            connection.commit();
+            return status;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return -1;
+    }
+
     @Override
     public List<WatchlistEntity> getAll() {
         return null;
