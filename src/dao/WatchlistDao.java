@@ -55,7 +55,7 @@ public class WatchlistDao implements IDao<WatchlistEntity> {
 
     public WatchlistEntity queryByUserIdAndMovieTitle(WatchlistEntity entity) {
         Connection connection = MySQLUtil.getConnection();
-        String sql = "SELECT * FROM watchlist WHERE user_id=? AND movie_title=?";
+        String sql = "SELECT id FROM watchlist WHERE user_id=? AND movie_title=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getUserId());
@@ -63,9 +63,7 @@ public class WatchlistDao implements IDao<WatchlistEntity> {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.first()) {
                 WatchlistEntity watchlistEntity = new WatchlistEntity();
-                watchlistEntity.setId(resultSet.getInt("id"));// 1
-                watchlistEntity.setUserId(resultSet.getInt("user_id"));// 2
-                watchlistEntity.setMovieTitle(resultSet.getString("movie_title"));// 2
+                watchlistEntity.setId(resultSet.getInt("id"));
                 resultSet.close();
                 connection.commit();
                 System.out.println("queryByUserIdAndMovieTitle: " + getClass() + ", " + watchlistEntity.getUserId());
