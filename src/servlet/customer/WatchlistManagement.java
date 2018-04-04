@@ -1,7 +1,9 @@
 package servlet.customer;
 
 import com.google.gson.GsonBuilder;
+import dao.UserDao;
 import dao.WatchlistDao;
+import entity.UserEntity;
 import entity.WatchlistEntity;
 
 import javax.servlet.ServletException;
@@ -52,12 +54,17 @@ public class WatchlistManagement extends HttpServlet {
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        String email = request.getParameter("email");
         String movieTitle = request.getParameter("movieTitle");
+
+        UserDao userDao = new UserDao();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(email);
+        userEntity = userDao.queryByEmail(userEntity);
 
         WatchlistDao dao = new WatchlistDao();
         WatchlistEntity entity = new WatchlistEntity();
-        entity.setUserId(userId);
+        entity.setUserId(userEntity.getId());
         entity.setMovieTitle(movieTitle);
 
         int status = dao.save(entity);
@@ -73,12 +80,17 @@ public class WatchlistManagement extends HttpServlet {
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        String email = request.getParameter("email");
         String movieTitle = request.getParameter("movieTitle");
+
+        UserDao userDao = new UserDao();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(email);
+        userEntity = userDao.queryByEmail(userEntity);
 
         WatchlistDao dao = new WatchlistDao();
         WatchlistEntity entity = new WatchlistEntity();
-        entity.setUserId(userId);
+        entity.setUserId(userEntity.getId());
         entity.setMovieTitle(movieTitle);
 
         int status = dao.delete(entity);
@@ -94,11 +106,16 @@ public class WatchlistManagement extends HttpServlet {
     }
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        String email = request.getParameter("email");
+
+        UserDao userDao = new UserDao();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(email);
+        userEntity = userDao.queryByEmail(userEntity);
 
         WatchlistDao dao = new WatchlistDao();
         WatchlistEntity entity = new WatchlistEntity();
-        entity.setUserId(userId);
+        entity.setUserId(userEntity.getId());
 
         List<WatchlistEntity> watchlist = dao.getAllByUserId(entity);
 
