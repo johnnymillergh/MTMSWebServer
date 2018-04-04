@@ -116,6 +116,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 MovieEntity movieEntity = new MovieEntity();
                 movieEntity.setId(resultSet.getInt("id"));// 1
                 movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setTitleCHS(resultSet.getString("title_chs"));// 2
                 movieEntity.setDuration(resultSet.getString("duration"));// 3
                 movieEntity.setGenre(resultSet.getString("genre"));// 4
                 movieEntity.setDirector(resultSet.getString("director"));// 5
@@ -164,6 +165,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 MovieEntity movieEntity = new MovieEntity();
                 movieEntity.setId(resultSet.getInt("id"));// 1
                 movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setTitleCHS(resultSet.getString("title_chs"));// 2
                 movieEntity.setDuration(resultSet.getString("duration"));// 3
                 movieEntity.setGenre(resultSet.getString("genre"));// 4
                 movieEntity.setDirector(resultSet.getString("director"));// 5
@@ -220,6 +222,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 movieEntity = new MovieEntity();
                 movieEntity.setId(resultSet.getInt("id"));// 1
                 movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setTitleCHS(resultSet.getString("title_chs"));// 2
                 movieEntity.setDuration(resultSet.getString("duration"));// 3
                 movieEntity.setGenre(resultSet.getString("genre"));// 4
                 movieEntity.setDirector(resultSet.getString("director"));// 5
@@ -297,10 +300,11 @@ public class MovieDao implements IDao<MovieEntity> {
 
     public MovieEntity getPosterBytes(MovieEntity entity) {
         Connection connection = MySQLUtil.getConnection();
-        String sql = "SELECT id, title, poster FROM movie WHERE title=?";
+        String sql = "SELECT id, title, poster FROM movie WHERE title=? or title_chs=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
+            preparedStatement.setString(2, entity.getTitle());
             ResultSet resultSet = preparedStatement.executeQuery();
             MovieEntity movieEntity = new MovieEntity();
             if (resultSet.first()) {
@@ -373,6 +377,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 MovieEntity movieEntity = new MovieEntity();
                 movieEntity.setId(resultSet.getInt("id"));// 1
                 movieEntity.setTitle(resultSet.getString("title"));// 2
+                movieEntity.setTitleCHS(resultSet.getString("title_chs"));// 2
                 movieEntity.setDuration(resultSet.getString("duration"));// 3
                 movieEntity.setGenre(resultSet.getString("genre"));// 4
                 movieEntity.setDirector(resultSet.getString("director"));// 5
