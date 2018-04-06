@@ -164,7 +164,7 @@ public class WatchlistDao implements IDao<WatchlistEntity> {
         List<WatchlistEntity> watchlist = new ArrayList<>();
         WatchlistEntity userReview;
         Connection connection = MySQLUtil.getConnection();
-        String sql = "SELECT * FROM user_review WHERE user_id=?";
+        String sql = "SELECT * FROM watchlist WHERE user_id=?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, entity.getUserId());
