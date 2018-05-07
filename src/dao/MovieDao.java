@@ -1,5 +1,6 @@
 package dao;
 
+import com.mysql.jdbc.MySQLConnection;
 import entity.MovieRankingEntity;
 import entity.PageEntity;
 import util.ImageUtil;
@@ -493,6 +494,46 @@ public class MovieDao implements IDao<MovieEntity> {
             connection.commit();
             System.out.println("getTopSelling: " + getClass());
             return movies;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public MovieRankingEntity getGross(MovieEntity movieEntity) {
+        Connection connection = MySQLUtil.getConnection();
+        MovieRankingEntity movieRankingEntity;
+        String sql="SELECT movie_title, SUM(total_price) AS gross " +
+                "FROM customer_order " +
+                "WHERE movie_title=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, movieEntity.getTitle());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.first()) {
+                movieRankingEntity = new MovieRankingEntity();
+                movieRankingEntity.setTitle(resultSet.getString("movie_title"));
+                movieRankingEntity.setGross(resultSet.getFloat("gross"));
+                resultSet.close();
+                connection.commit();
+                System.out.println("getGross: " + getClass().getSimpleName());
+                return movieRankingEntity;
+            }else{
+                return null;
+            }
         } catch (Exception e) {
             try {
                 connection.rollback();
