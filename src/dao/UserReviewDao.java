@@ -1,6 +1,7 @@
 package dao;
 
 import entity.PageEntity;
+import entity.UserEntity;
 import entity.UserReviewEntity;
 import util.MySQLUtil;
 
@@ -458,6 +459,7 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            return null;
         } finally {
             if (connection != null) {
                 try {
@@ -467,6 +469,48 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 }
             }
         }
-        return null;
+    }
+
+    public List<UserEntity> getCommonReviewsUser(UserEntity entity) {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT DISTINCT ur.user_id " +
+                "FROM user_review ur LEFT JOIN movie " +
+                "ON movie_id = movie.id " +
+                "WHERE ur.movie_id IN (SELECT movie_id FROM user_review WHERE user_id = ?) and ur.user_id != ? " +
+                "ORDER BY ur.user_id ASC";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setInt(2, entity.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<UserEntity> commonReviewUsers = new ArrayList<>();
+            UserEntity userEntity;
+            while (resultSet.next()) {
+                userEntity = new UserEntity();
+                userEntity.setId(resultSet.getInt("user_id"));
+                commonReviewUsers.add(userEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getCommonReviewsUser: " + getClass());
+            return commonReviewUsers;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
