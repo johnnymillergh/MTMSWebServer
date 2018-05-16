@@ -6,6 +6,7 @@ import util.MySQLUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
@@ -412,5 +413,60 @@ public class UserReviewDao implements IDao<UserReviewEntity> {
                 }
             }
         }
+    }
+
+    /**
+     * SELECT cartesian_product.user_id, cartesian_product.movie_id, IFNULL(score, 0) AS score
+     * FROM(SELECT u.id AS user_id, m.id AS movie_id FROM user u JOIN movie m) AS cartesian_product
+     * LEFT JOIN(SELECT user_id, movie_id, score FROM user_review) AS user_review
+     * ON cartesian_product.user_id = user_review.user_id AND cartesian_product.movie_id = user_review.movie_id
+     * ORDER BY cartesian_product.user_id ASC , cartesian_product.movie_id ASC;
+     */
+    public HashMap<Integer, List<UserReviewEntity>> queryUserScoreMatrix() {
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT cartesian_product.user_id, cartesian_product.movie_id, IFNULL(score, 0) AS score " +
+                "FROM(SELECT u.id AS user_id, m.id AS movie_id FROM user u JOIN movie m) AS cartesian_product " +
+                "LEFT JOIN(SELECT user_id, movie_id, score FROM user_review) AS user_review " +
+                "ON cartesian_product.user_id = user_review.user_id AND cartesian_product.movie_id = user_review.movie_id " +
+                "ORDER BY cartesian_product.user_id ASC , cartesian_product.movie_id ASC;";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            HashMap<Integer, List<UserReviewEntity>> userScoreMatrix = new HashMap<>();
+
+            while (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
+                List<UserReviewEntity> userReviewEntityList = userScoreMatrix.get(userId);
+                if (userReviewEntityList == null) {
+                    userReviewEntityList = new ArrayList<>();
+                    userScoreMatrix.put(userId, userReviewEntityList);
+                }
+                UserReviewEntity userReviewEntity = new UserReviewEntity();
+                userReviewEntity.setMovieId(resultSet.getInt("movie_id"));
+                userReviewEntity.setScore(resultSet.getInt("score"));
+                userReviewEntityList.add(userReviewEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("queryUserScoreMatrix: " + getClass());
+            return userScoreMatrix;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }
