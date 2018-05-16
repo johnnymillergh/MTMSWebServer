@@ -28,12 +28,17 @@ public class Recommender {
     /**
      * User-rating matrix; Stands for R in data source
      */
-    private HashMap<Integer, List<UserReviewEntity>> ratingMatrix;
+    private HashMap<Integer, List<UserReviewEntity>> userRatingMatrix;
 
     /**
      * Target user and other user's common movies
      */
     private List<MovieEntity> commonMovies;
+
+    /**
+     * Users that have left comment to common movies
+     */
+    private List<UserEntity> commonUsers;
 
     /**
      * Unsorted nearest neighbors; Sorted data stored in List<Map.Entry<Integer, Double>> sortedNearestNeighbors
@@ -60,17 +65,58 @@ public class Recommender {
         this.movies = movies;
     }
 
-    public void setRatingMatrix(HashMap<Integer, List<UserReviewEntity>> ratingMatrix) {
-        this.ratingMatrix = ratingMatrix;
+    public void setUserRatingMatrix(HashMap<Integer, List<UserReviewEntity>> userRatingMatrix) {
+        this.userRatingMatrix = userRatingMatrix;
     }
 
     public void setCommonMovies(List<MovieEntity> commonMovies) {
         this.commonMovies = commonMovies;
     }
 
+    public void setCommonUsers(List<UserEntity> commonUsers) {
+        this.commonUsers = commonUsers;
+    }
+
     public List<Map.Entry<Integer, Double>> getSortedPredictedScores() {
         return sortedPredictedScores;
     }
 
+    public void calculateSimilarity() {
 
+    }
+
+    public double getAverageScoreOfCommonMovies(int userId) {
+        List<UserReviewEntity> userReviews = userRatingMatrix.get(userId);
+        double averageScore = 0d;
+        for (MovieEntity me : commonMovies) {
+            int movieId = me.getId();
+            int userReviewIndex = movieId - 1;
+            UserReviewEntity userReviewEntity = userReviews.get(userReviewIndex);
+            averageScore += userReviewEntity.getScore();
+        }
+        return averageScore / commonMovies.size();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
