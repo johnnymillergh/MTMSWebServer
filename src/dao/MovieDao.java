@@ -261,6 +261,43 @@ public class MovieDao implements IDao<MovieEntity> {
         }
     }
 
+    public List<MovieEntity> getAllMovie() {
+        List<MovieEntity> movies = new ArrayList<>();
+        MovieEntity movieEntity;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT id, title FROM movie";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                movieEntity = new MovieEntity();
+                movieEntity.setId(resultSet.getInt("id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movies.add(movieEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAllMovie: " + getClass());
+            return movies;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public MovieEntity getPoster(MovieEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, title, poster FROM movie WHERE title=?";
