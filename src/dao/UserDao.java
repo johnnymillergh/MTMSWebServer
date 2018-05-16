@@ -185,6 +185,43 @@ public class UserDao implements IDao<UserEntity> {
         }
     }
 
+    public List<UserEntity> getAllUser() {
+        List<UserEntity> users = new ArrayList<>();
+        UserEntity userEntity;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT id, email FROM user";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                userEntity = new UserEntity();
+                userEntity.setId(resultSet.getInt("id"));
+                userEntity.setEmail(resultSet.getString("email"));
+                users.add(userEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getAllUser: " + getClass());
+            return users;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public UserEntity getAvatarStr(UserEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, email, avatar FROM user WHERE email=?";
