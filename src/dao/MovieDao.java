@@ -3,6 +3,7 @@ package dao;
 import com.mysql.jdbc.MySQLConnection;
 import entity.MovieRankingEntity;
 import entity.PageEntity;
+import entity.UserEntity;
 import util.ImageUtil;
 import util.MySQLUtil;
 import entity.MovieEntity;
@@ -298,6 +299,48 @@ public class MovieDao implements IDao<MovieEntity> {
         }
     }
 
+    public List<MovieEntity> getCommonMovie(UserEntity entity) {
+        List<MovieEntity> movies = new ArrayList<>();
+        MovieEntity movieEntity;
+        Connection connection = MySQLUtil.getConnection();
+        String sql = "SELECT DISTINCT movie_id, movie.title " +
+                "FROM user_review ur LEFT JOIN movie " +
+                "ON movie_id = movie.id " +
+                "WHERE ur.movie_id IN (SELECT movie_id FROM user_review WHERE user_id = ?) AND ur.user_id != ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setInt(2, entity.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                movieEntity = new MovieEntity();
+                movieEntity.setId(resultSet.getInt("movie_id"));// 1
+                movieEntity.setTitle(resultSet.getString("title"));// 2
+                movies.add(movieEntity);
+            }
+            resultSet.close();
+            connection.commit();
+            System.out.println("getCommonMovie: " + getClass());
+            return movies;
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public MovieEntity getPoster(MovieEntity entity) {
         Connection connection = MySQLUtil.getConnection();
         String sql = "SELECT id, title, poster FROM movie WHERE title=?";
@@ -553,7 +596,7 @@ public class MovieDao implements IDao<MovieEntity> {
     public MovieRankingEntity getGross(MovieEntity movieEntity) {
         Connection connection = MySQLUtil.getConnection();
         MovieRankingEntity movieRankingEntity;
-        String sql="SELECT movie_title, SUM(total_price) AS gross " +
+        String sql = "SELECT movie_title, SUM(total_price) AS gross " +
                 "FROM customer_order " +
                 "WHERE movie_title=?";
         try {
@@ -568,7 +611,7 @@ public class MovieDao implements IDao<MovieEntity> {
                 connection.commit();
                 System.out.println("getGross: " + getClass().getSimpleName());
                 return movieRankingEntity;
-            }else{
+            } else {
                 return null;
             }
         } catch (Exception e) {
