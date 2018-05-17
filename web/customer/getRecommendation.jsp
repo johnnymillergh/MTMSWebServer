@@ -52,6 +52,8 @@
 
     recommender.calculatePredictedScore();
 
+    recommender.removeTargetUserRatedMovie();
+
     List<Map.Entry<Integer, Double>> sortedNearestNeighbors = recommender.getSortedNearestNeighbors();
     List<Map.Entry<Integer, Double>> predictedScores = recommender.getSortedPredictedScores();
 

@@ -166,17 +166,17 @@ public class Recommender {
         }
 
         // Sort nearestNeighbors in descending order
-        sortedPredictedScores = new ArrayList<>(predictedScores.entrySet());
-        sortedPredictedScores.sort((o1, o2) -> {
-            // In descending order
-            if (o1.getValue() > o2.getValue()) {
-                return -1;
-            } else if (o1.getValue() < o2.getValue()) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
+//        sortedPredictedScores = new ArrayList<>(predictedScores.entrySet());
+//        sortedPredictedScores.sort((o1, o2) -> {
+//            // In descending order
+//            if (o1.getValue() > o2.getValue()) {
+//                return -1;
+//            } else if (o1.getValue() < o2.getValue()) {
+//                return 1;
+//            } else {
+//                return 0;
+//            }
+//        });
     }
 
     public double getAverageScoreOfRatedMovies(int userId) {
@@ -207,7 +207,28 @@ public class Recommender {
     }
 
     public void removeTargetUserRatedMovie() {
+        List<UserReviewEntity> userReviews = userScoreMatrix.get(targetUser.getId());
 
+        for (UserReviewEntity ure : userReviews) {
+            // Find the movie that target user has rated
+            if (ure.getScore() != 0) {
+                int movieId = ure.getMovieId();
+                predictedScores.remove(movieId);
+            }
+        }
+
+        // Sort nearestNeighbors in descending order
+        sortedPredictedScores = new ArrayList<>(predictedScores.entrySet());
+        sortedPredictedScores.sort((o1, o2) -> {
+            // In descending order
+            if (o1.getValue() > o2.getValue()) {
+                return -1;
+            } else if (o1.getValue() < o2.getValue()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     }
 }
 
