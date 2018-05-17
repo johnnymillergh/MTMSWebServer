@@ -17,7 +17,6 @@
 <%@ page import="entity.MovieEntity" %>
 <%@ page import="dao.MovieDao" %>
 <%@ page import="recommendation.Recommender" %>
-<%@ page import="java.util.Map" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -48,27 +47,42 @@
     recommender.setCommonMovies(commonMovies);
     recommender.setCommonUsers(commonUsers);
 
-    recommender.calculateSimilarity();
+//    recommender.calculateSimilarity();
+//
+//    recommender.calculatePredictedScore();
+//
+//    recommender.removeTargetUserRatedMovie();
+//
+//    List<Map.Entry<Integer, Double>> sortedNearestNeighbors = recommender.getSortedNearestNeighbors();
+//    List<Map.Entry<Integer, Double>> predictedScores = recommender.getSortedPredictedScores();
 
-    recommender.calculatePredictedScore();
+//    System.out.println("userScoreMatrix.size() = " + userScoreMatrix.size());
+//    System.out.println("Runtime: " + (endTime - startTime) + " ms");
+//    System.out.println("sortedNearestNeighbors = " + sortedNearestNeighbors.toString());
+//    System.out.println("predictedScores = " + predictedScores.toString());
+//    System.out.println("predictedScores.size() = " + predictedScores.size());
+//
+//    PrintWriter printWriter = response.getWriter();
+//    printWriter.write("userScoreMatrix.size() = " + userScoreMatrix.size() +
+//            ", Runtime: " + (endTime - startTime) + " ms "
+//            + "sortedNearestNeighbors = " + sortedNearestNeighbors.toString()
+//            + "predictedScores = " + predictedScores.toString());
+//    printWriter.flush();
+//    printWriter.close();
 
-    recommender.removeTargetUserRatedMovie();
 
-    List<Map.Entry<Integer, Double>> sortedNearestNeighbors = recommender.getSortedNearestNeighbors();
-    List<Map.Entry<Integer, Double>> predictedScores = recommender.getSortedPredictedScores();
+    List<MovieEntity> recommendations = recommender.getRecommendation();
 
     long endTime = System.currentTimeMillis();
 
-    System.out.println("userScoreMatrix.size() = " + userScoreMatrix.size());
-    System.out.println("Runtime: " + (endTime - startTime) + " ms");
-    System.out.println("sortedNearestNeighbors = " + sortedNearestNeighbors.toString());
-    System.out.println("predictedScores = " + predictedScores.toString());
+    System.err.println("Runtime (getRecommendation.jsp): " + (endTime - startTime) + " ms");
+    System.out.println(recommendations.toString());
+    System.out.println(recommendations.size());
 
+    response.setContentType("text/json");
+    String json = new GsonBuilder().disableHtmlEscaping().create().toJson(recommendations);
     PrintWriter printWriter = response.getWriter();
-    printWriter.write("userScoreMatrix.size() = " + userScoreMatrix.size() +
-            ", Runtime: " + (endTime - startTime) + " ms "
-            + "sortedNearestNeighbors = " + sortedNearestNeighbors.toString()
-            + "predictedScores = " + predictedScores.toString());
+    printWriter.write(json);
     printWriter.flush();
     printWriter.close();
 %>

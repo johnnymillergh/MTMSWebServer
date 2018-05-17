@@ -88,6 +88,13 @@ public class Recommender {
         return sortedPredictedScores;
     }
 
+    public List<MovieEntity> getRecommendation() {
+        calculateSimilarity();
+        calculatePredictedScore();
+        removeTargetUserRatedMovie();
+        return convertToMovieEntityList();
+    }
+
     public void calculateSimilarity() {
         double numerator = 0, denominator1 = 0, denominator2 = 0;
         List<UserReviewEntity> targetUserReviews = userScoreMatrix.get(targetUser.getId());
@@ -229,6 +236,21 @@ public class Recommender {
                 return 0;
             }
         });
+    }
+
+    public List<MovieEntity> convertToMovieEntityList() {
+        int count = 0;
+        List<MovieEntity> recommendations = new ArrayList<>();
+        for (Map.Entry<Integer, Double> entry : sortedPredictedScores) {
+            if (entry.getValue() > 0 && count < 10) {
+                int movieId = entry.getKey();
+                int movieIndex = movieId - 1;
+                MovieEntity movieEntity = movies.get(movieIndex);
+                recommendations.add(movieEntity);
+            }
+            count++;
+        }
+        return recommendations;
     }
 }
 
