@@ -12,6 +12,7 @@ import java.util.*;
  *
  * @author Johnny Miller
  */
+@SuppressWarnings("Duplicates")
 public class Recommender {
     /**
      * All user list; Stands for U in data source
@@ -90,7 +91,7 @@ public class Recommender {
     public void calculateSimilarity() {
         double numerator = 0, denominator1 = 0, denominator2 = 0;
         List<UserReviewEntity> targetUserReviews = userScoreMatrix.get(targetUser.getId());
-        double targetUserAverageScore = getAverageScoreOfCommonMovies(targetUser.getId());
+        double targetUserAverageScoreOfCommonMovies = getAverageScoreOfCommonMovies(targetUser.getId());
 
         for (UserEntity otherUser : commonUsers) {
             // calc the numerator of sim(targetUser, otherUSer)
@@ -104,9 +105,9 @@ public class Recommender {
                 double otherUserScore = otherUserReviews.get(userReviewIndex).getScore();
                 double otherUserAverageScore = getAverageScoreOfCommonMovies(otherUser.getId());
 
-                numerator += (targetUserScore - targetUserAverageScore) * (otherUserScore - otherUserAverageScore);
+                numerator += (targetUserScore - targetUserAverageScoreOfCommonMovies) * (otherUserScore - otherUserAverageScore);
 
-                denominator1 += Math.pow((targetUserScore - targetUserAverageScore), 2);
+                denominator1 += Math.pow((targetUserScore - targetUserAverageScoreOfCommonMovies), 2);
                 denominator2 += Math.pow((otherUserScore - otherUserAverageScore), 2);
             }
 
@@ -140,6 +141,73 @@ public class Recommender {
             averageScore += userReviewEntity.getScore();
         }
         return averageScore / commonMovies.size();
+    }
+
+    public void calculatePredictedScore() {
+        double targetUserAverageScoreOfRatedMovies = getAverageScoreOfRatedMovies(targetUser.getId());
+
+        for (MovieEntity me : movies) {
+            int movieId = me.getId();
+            double predictedScoreOfThisMovie = targetUserAverageScoreOfRatedMovies;
+            double numerator = 0d, denominator = 0d;
+
+            for (Map.Entry<Integer, Double> snn : sortedNearestNeighbors) {
+                int otherUserId = snn.getKey();
+                double similarityTargetUserAndOtherUser = snn.getValue();
+                double otherUserAverageScoreOfRatedMovies = getAverageScoreOfRatedMovies(otherUserId);
+                int scoreOfMovie = getScoreOfMovie(otherUserId, movieId);
+
+                numerator += similarityTargetUserAndOtherUser * (scoreOfMovie - otherUserAverageScoreOfRatedMovies);
+                denominator += Math.abs(similarityTargetUserAndOtherUser);
+            }
+
+            predictedScoreOfThisMovie += numerator / denominator;
+            predictedScores.put(movieId, predictedScoreOfThisMovie);
+        }
+
+        // Sort nearestNeighbors in descending order
+        sortedPredictedScores = new ArrayList<>(predictedScores.entrySet());
+        sortedPredictedScores.sort((o1, o2) -> {
+            // In descending order
+            if (o1.getValue() > o2.getValue()) {
+                return -1;
+            } else if (o1.getValue() < o2.getValue()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    }
+
+    public double getAverageScoreOfRatedMovies(int userId) {
+        List<UserReviewEntity> userReviews = userScoreMatrix.get(userId);
+
+        double totalScore = 0d;
+        int ratedMovieCount = 0;
+        for (UserReviewEntity ure : userReviews) {
+            if (ure.getScore() != 0) {
+                totalScore += ure.getScore();
+                ratedMovieCount++;
+            }
+        }
+
+        if (totalScore == 0) {
+            return 0;
+        } else if (ratedMovieCount == 0) {
+            return 0;
+        } else {
+            return totalScore / ratedMovieCount;
+        }
+    }
+
+    public int getScoreOfMovie(int userId, int movieId) {
+        List<UserReviewEntity> userReviews = userScoreMatrix.get(userId);
+        int userReviewIndex = movieId - 1;
+        return userReviews.get(userReviewIndex).getScore();
+    }
+
+    public void removeTargetUserRatedMovie() {
+
     }
 }
 
