@@ -29,7 +29,7 @@
     String movieTitle = request.getParameter("movieTitle");
     String auditoriumTheaterId = request.getParameter("auditoriumTheaterId");
 
-    if (movieTitle != null && auditoriumTheaterId == null) {
+    if (!movieTitle.equals("") && auditoriumTheaterId.equals("")) {
         entity.setMovieTitle(movieTitle);
         movieSchedules = dao.getAllMovieScheduleByMovieTitle(entity);
 
@@ -38,7 +38,7 @@
         printWriter.flush();
         printWriter.close();
         return;
-    } else if (movieTitle != null && auditoriumTheaterId != null) {
+    } else if (!movieTitle.equals("") && !auditoriumTheaterId.equals("")) {
         entity.setAuditoriumTheaterId(Integer.parseInt(auditoriumTheaterId));
         entity.setMovieTitle(movieTitle);
         movieSchedules = dao.getAllMovieScheduleByTheaterIdAndMovieTitle(entity);

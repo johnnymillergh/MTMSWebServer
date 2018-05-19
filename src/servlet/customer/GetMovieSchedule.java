@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "GetMovieSchedule")
@@ -24,15 +25,30 @@ public class GetMovieSchedule extends HttpServlet {
         try {
             String movieTitle = request.getParameter("movieTitle");
             String movieScheduleIdStr = request.getParameter("movieScheduleId");
+            String theaterIdStr = request.getParameter("auditoriumTheaterId");
+
+            System.out.println("GetMovieSchedule: " + movieTitle + ", " + movieScheduleIdStr + ", " + theaterIdStr);
 
             MovieScheduleEntity movieScheduleEntity = new MovieScheduleEntity();
             MovieScheduleDao movieScheduleDao = new MovieScheduleDao();
 
             PrintWriter out = response.getWriter();
             Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-            if (movieTitle != null) {
+            if (movieTitle != null && theaterIdStr == null && movieScheduleIdStr == null) {
+                // Choose theater: Server get all theater that
                 movieScheduleEntity.setMovieTitle(movieTitle);
                 List<MovieScheduleEntity> movieSchedules = movieScheduleDao.getAllByMovieTitle(movieScheduleEntity);
+
+
+                String json = gson.toJson(movieSchedules);
+                out.write(json);
+                out.flush();
+                out.close();
+            } else if (movieTitle != null && theaterIdStr != null && movieScheduleIdStr == null) {
+                // Choose auditorium: Server get all auditorium that
+                movieScheduleEntity.setMovieTitle(movieTitle);
+                movieScheduleEntity.setAuditoriumTheaterId(Integer.parseInt(theaterIdStr));
+                List<MovieScheduleEntity> movieSchedules = movieScheduleDao.getAllByMovieTitleAndTheaterId(movieScheduleEntity);
 
                 String json = gson.toJson(movieSchedules);
                 out.write(json);
