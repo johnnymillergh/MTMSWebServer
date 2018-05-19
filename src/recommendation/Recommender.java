@@ -239,16 +239,26 @@ public class Recommender {
     }
 
     public List<MovieEntity> convertToMovieEntityList() {
-        int count = 0;
         List<MovieEntity> recommendations = new ArrayList<>();
+
+        movies.sort((o1, o2) -> {
+            if (o1.getId() < o2.getId()) {
+                return -1;
+            } else if (o1.getId() > o2.getId()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
         for (Map.Entry<Integer, Double> entry : sortedPredictedScores) {
-            if (entry.getValue() > 0 && count < 10) {
+            if (entry.getValue() > 0 && recommendations.size() < 11) {
+                System.out.println("Add movie id: " + entry.getKey() + ", preScore: " + entry.getValue());
                 int movieId = entry.getKey();
                 int movieIndex = movieId - 1;
                 MovieEntity movieEntity = movies.get(movieIndex);
                 recommendations.add(movieEntity);
             }
-            count++;
         }
         return recommendations;
     }
