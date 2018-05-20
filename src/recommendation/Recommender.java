@@ -252,7 +252,7 @@ public class Recommender {
         });
 
         for (Map.Entry<Integer, Double> entry : sortedPredictedScores) {
-            if (entry.getValue() > 0 && recommendations.size() < 11) {
+            if (entry.getValue() > 0 && recommendations.size() < 10) {
                 System.out.println("Add movie id: " + entry.getKey() + ", preScore: " + entry.getValue());
                 int movieId = entry.getKey();
                 int movieIndex = movieId - 1;

@@ -177,7 +177,7 @@ public class Order extends HttpServlet {
         customerOrderEntity.setPaymentDatetime(new Timestamp(System.currentTimeMillis()));
 
         if (!paymentPassword.equals(userEntity.getPaymentPassword())) {
-            response.sendError(404, "Payment password error");
+            response.sendError(700, "Payment password error");
             return;
         }
 
@@ -191,7 +191,7 @@ public class Order extends HttpServlet {
             out.flush();
             out.close();
         } else {
-            response.sendError(404, "Fail to pay");
+            response.sendError(701, "Fail to pay");
         }
     }
 
